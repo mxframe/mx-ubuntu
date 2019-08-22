@@ -44,7 +44,7 @@ printPackagesByName () {
 # Check if a package is installed
 # ================================================
 packageInstalled () {
-    if $(dpkg -s $1 >/dev/null 2>&1)
+    if ! $(dpkg -s $1 >/dev/null 2>&1)
     then
         return 1
     fi
