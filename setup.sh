@@ -62,7 +62,7 @@ then
     read -s -p 'Enter Password for sudo: ' sudoPw
 else
     # Ask for password without dialog
-    prompt="Enter Password:"
+    prompt="Enter Password for sudo: "
     while IFS= read -p "$prompt" -r -s -n 1 char
     do
         if [[ $char == $'\0' ]]
@@ -70,7 +70,7 @@ else
             break
         fi
         prompt='*'
-        password+="$char"
+        sudoPw+="$char"
     done
 fi
 
