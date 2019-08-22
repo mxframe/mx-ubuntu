@@ -48,6 +48,7 @@ fi
 # Include needed files
 # ================================================
 . includes/colors.sh
+. functions/system.sh
 
 # ================================================
 # Update and upgrade the server
@@ -58,6 +59,6 @@ apt-get upgrade -y
 # ================================================
 # Install dialog
 # ================================================
-packageInstalled dialog || apt-get install dialog -y
+package_installed dialog || apt-get install dialog -y
 
 # apt-get install kdelibs-bin -y
