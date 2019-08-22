@@ -68,10 +68,23 @@ labelInfo='Your password won´t be stored, but is needed for the installation pr
 if package_installed whiptail
 then
     # Ask for password with whiptail
-    sudoPw=$(whiptail --title "${globalLabelBox}" \
+#    sudoPw=$(whiptail --title "${globalLabelBox}" \
+#                      --backtitle "${labelInfo}" \
+#                      --passwordbox "${labelPrompt}" \
+#                      8 40 3>&1 1>&2 2>&3 3>&-)
+#                      sudoPw=$(dialog --title "Create Directory" \
+#                    --inputbox "Enter the directory name:" 8 40 3>&1 1>&2 2>&3 3>&-)
+    sudoPw=$(dialog --title "${globalLabelBox}" \
                       --backtitle "${labelInfo}" \
                       --passwordbox "${labelPrompt}" \
                       8 40 3>&1 1>&2 2>&3 3>&-)
+
+    # Check decision
+    case $? in
+      1 | 255)
+       echo -e "{$BRed}Canceled by user${RCol}"
+       exit
+    esac
 else
     # Ask for password without whiptail
     echo -e "${BGre}${labelInfo}${RCol}"
