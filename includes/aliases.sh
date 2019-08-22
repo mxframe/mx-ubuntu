@@ -1,31 +1,31 @@
 # ================================================
-# Function to get system information
+# Function to display system information
 # ================================================
 sysInfo () {
-  printf "CPU: "
-  cat /proc/cpuinfo | grep "model name" | head -1 | awk '{ for (i = 4; i <= NF; i++) printf "%s ", $i }'
-  echo
+    printf "CPU: "
+    cat /proc/cpuinfo | grep "model name" | head -1 | awk '{ for (i = 4; i <= NF; i++) printf "%s ", $i }'
+    echo
 
-  cat /etc/issue | awk '{ printf "OS: %s %s %s %s | " , $1 , $2 , $3 , $4 }'
-  uname -a | awk '{ printf "Kernel: %s " , $3 }'
-  uname -m | awk '{ printf "%s | " , $1 }'
-  kded4 --version | grep "KDE Development Platform" | awk '{ printf "KDE: %s", $4 }'
-  echo
-  uptime | awk '{ printf "Uptime: %s %s %s", $3, $4, $5 }' | sed 's/,//g'
-  echo
-  cputemp | head -1 | awk '{ printf "%s %s %s\n", $1, $2, $3 }'
-  cputemp | tail -1 | awk '{ printf "%s %s %s\n", $1, $2, $3 }'
+    cat /etc/issue | awk '{ printf "OS: %s %s %s %s | " , $1 , $2 , $3 , $4 }'
+    uname -a | awk '{ printf "Kernel: %s " , $3 }'
+    uname -m | awk '{ printf "%s | " , $1 }'
+    kded4 --version | grep "KDE Development Platform" | awk '{ printf "KDE: %s", $4 }'
+    echo
+    uptime | awk '{ printf "Uptime: %s %s %s", $3, $4, $5 }' | sed 's/,//g'
+    echo
+    cputemp | head -1 | awk '{ printf "%s %s %s\n", $1, $2, $3 }'
+    cputemp | tail -1 | awk '{ printf "%s %s %s\n", $1, $2, $3 }'
 }
 
 # ================================================
-# Function to get cpu information
+# Function to display cpu information
 # ================================================
 alias cpuInfo='cat /proc/cpuinfo'
 
 # ================================================
 # Function to make a git pull and source the .bashrc
 # ================================================
-alias pullAndSource='git pull && source ~/.bashrc'
+alias pullAndSource='git pull & source ~/.bashrc'
 
 # ================================================
 # Apache aliases
@@ -44,3 +44,12 @@ alias msqlStart='sudo service msqld start'
 alias msqlReload='sudo service msqld reload'
 alias msqlRestart='sudo service msqld restart'
 alias msqlStop='sudo service msqld stop'
+
+# ================================================
+# Function to display the disk usage
+# ================================================
+ssd () {
+    echo "Device         Total  Used  Free  Pct MntPoint"
+    df -h | grep "/dev/sd"
+    df -h | grep "/mnt/"
+}
