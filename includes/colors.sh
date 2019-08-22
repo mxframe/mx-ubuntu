@@ -1,9 +1,9 @@
 # ================================================
 # Define the text formats / colors
 # ================================================
-# text reset
+# Text reset
 RCol='\e[0m';
-# regular           bold                underline           high intensity      boldHigh intens     background          high intensity backgrounds
+# Regular           Bold                Underline           High intensity      BoldHigh intense    Background          High intensity backgrounds
 Bla='\e[0;30m';     BBla='\e[1;30m';    UBla='\e[4;30m';    IBla='\e[0;90m';    BIBla='\e[1;90m';   On_Bla='\e[40m';    On_IBla='\e[0;100m';
 Red='\e[0;31m';     BRed='\e[1;31m';    URed='\e[4;31m';    IRed='\e[0;91m';    BIRed='\e[1;91m';   On_Red='\e[41m';    On_IRed='\e[0;101m';
 Gre='\e[0;32m';     BGre='\e[1;32m';    UGre='\e[4;32m';    IGre='\e[0;92m';    BIGre='\e[1;92m';   On_Gre='\e[42m';    On_IGre='\e[0;102m';

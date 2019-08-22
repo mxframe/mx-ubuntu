@@ -62,24 +62,19 @@ show_banner
 # ================================================
 # Request sudo password
 # ================================================
-# Check for dialog
+# Check for whiptail
+sudoPrompt='Enter your password for sudo:'
+sudoTitle='Your password won´t be stored, but is needed for the installation process.'
 if package_installed whiptail
 then
-    # Ask for password with dialog
-    sudoPw=$(whiptail  --title "Create Directory" \
-                    --inputbox "Enter the directory name:" 8 40 3>&1 1>&2 2>&3 3>&-)
-
-    # Check decision
-#    case $? in
-#      1 | 255)
-#       echo -e "{$BRed}Canceled by user${RCol}"
-#       exit
-#    esac
+    # Ask for password with whiptail
+    sudoPw=$(whiptail  --backtitle ${globalBackTitle}
+                       --inputbox ${sudoPrompt}
+                       --title ${sudoTitle} 8 40 3>&1 1>&2 2>&3 3>&-)
 else
-    # Ask for password without dialog
-    echo -e "${BGre}Your password won´t be stored, but is needed for the installation process.${RCol}"
-    prompt='Enter your password for sudo: '
-    while IFS= read -p "$prompt" -r -s -n 1 char
+    # Ask for password without whiptail
+    echo -e "${BGre}${sudoTitle}${RCol}"
+    while IFS= read -p "${sudoPrompt} " -r -s -n 1 char
     do
         if [[ $char == $'\0' ]]
         then
@@ -91,7 +86,6 @@ else
 fi
 
 echo $sudoPw
-echo "done"
 exit;
 
 # ================================================
@@ -101,8 +95,8 @@ apt-get update -y
 apt-get upgrade -y
 
 # ================================================
-# Install dialog
+# Install whiptail
 # ================================================
-package_installed dialog || apt-get install dialog -y
+package_installed whiptail || apt-get install whiptail -y
 
 # apt-get install kdelibs-bin -y
