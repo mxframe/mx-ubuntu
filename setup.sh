@@ -54,16 +54,32 @@ if [ ${USER} == 'root' ]; then
 fi
 
 # ================================================
+# Clear the screen & show the banner
+# ================================================
+clear
+show_banner
+
+# ================================================
 # Request sudo password
 # ================================================
 # Check for dialog
 if ! package_installed dialog
 then
-    read -s -p 'Enter Password for sudo: ' sudoPw
+    # Ask for password with dialog
+    dialog --title "Inputbox - To take input from you" \
+           --backtitle "Linux Shell Script Tutorial Example" \
+           --inputbox "Enter your name " 8 60 2 > sudoPw
+
+    # Check decision
+    case $? in
+      1 | 255)
+       echo -e "{$BRed}Canceled by user${RCol}"
+       exit
+    esac
 else
     # Ask for password without dialog
     echo -e "${BGre}Your password won´t be stored, but is needed for the installation process.${RCol}"
-    prompt='Enter Password for sudo: '
+    prompt='Enter your password for sudo: '
     while IFS= read -p "$prompt" -r -s -n 1 char
     do
         if [[ $char == $'\0' ]]
@@ -78,12 +94,6 @@ fi
 echo $sudoPw
 echo "done"
 exit;
-
-# ================================================
-# Clear the screen & show the banner
-# ================================================
-clear
-show_banner
 
 # ================================================
 # Update and upgrade the server
