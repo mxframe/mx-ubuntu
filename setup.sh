@@ -53,47 +53,19 @@ if [ ${USER} == 'root' ]; then
     exit
 fi
 
+echo $pwd
+exit;
+
 # ================================================
-# Request sudo password
+# Include the setup dialogs
 # ================================================
-# Check for whiptail
-labelPrompt='Enter your password for sudo:'
-labelInfo='Your password won´t be stored, but is needed for the installation process.'
-if package_installed whiptail
-then
-    # Ask for password with whiptail
-#    sudoPw=$(whiptail --title "${globalLabelBox}" \
-#                      --backtitle "${labelInfo}" \
-#                      --passwordbox "${labelPrompt}" \
-#                      8 40 3>&1 1>&2 2>&3 3>&-)
-#                      sudoPw=$(dialog --title "Create Directory" \
-#                    --inputbox "Enter the directory name:" 8 40 3>&1 1>&2 2>&3 3>&-)
-    sudoPw=$(dialog --title "${globalLabelBox}" \
-                      --backtitle "${labelInfo}" \
-                      --passwordbox "${labelPrompt}" \
-                      8 40 3>&1 1>&2 2>&3 3>&-)
-else
-    # Ask for password without whiptail
-    echo -e "${BGre}${labelInfo}${RCol}"
-    while IFS= read -p "${labelPrompt} " -r -s -n 1 char
-    do
-        if [[ $char == $'\0' ]]
-        then
-            break
-        fi
-        prompt='*'
-        sudoPw+="$char"
-    done
-fi
+. $HOME/bin/server-setup/includes/dialogs/sudo.sh
 
 # ================================================
 # Clear the screen & show the banner
 # ================================================
 clear
 show_banner
-
-echo $sudoPw
-exit;
 
 # ================================================
 # Update and upgrade the server
@@ -102,8 +74,8 @@ apt-get update -y
 apt-get upgrade -y
 
 # ================================================
-# Install whiptail
+# Install dialog
 # ================================================
-package_installed whiptail || apt-get install whiptail -y
+package_installed dialog || apt-get install dialog -y
 
 # apt-get install kdelibs-bin -y
