@@ -28,17 +28,21 @@
 #
 ##############################################################################################################
 
+# ================================================
+# Define the banner function
+# ================================================
 f_banner(){
     echo
     echo "
-    Automated Setup & Hardening Script for Linux Servers
-    Developed by Mathias Berg
+    Test-Banner
     "
     echo
     echo
 }
 
+# ================================================
 # Check if running with root user
+# ================================================
 if [ "$USER" != "root" ]; then
       echo "Permission Denied"
       echo "Can only be run by root"
@@ -47,3 +51,14 @@ else
       clear
       f_banner
 fi
+
+# ================================================
+# Update and upgrade the server
+# ================================================
+apt-get update -y
+apt-get upgrade -y
+
+# ================================================
+# Update and upgrade the server
+# ================================================
+apt-get install dialog -y
