@@ -47,14 +47,17 @@ file_exists config.sh || cp -rp config.example.sh config.sh
 # ================================================
 # Check if running with root user
 # ================================================
-#if [ ${USER} != 'root' ]; then
-#    echo 'Permission Denied'
-#    echo 'Can only be run by root'
-#    exit
-#fi
+if [ ${USER} == 'root' ]; then
+    echo -e " ${BRed}Permission Denied !!!${RCol}"
+    echo 'Can not be run by root, because npm and oder packages may be installed with errors than.'
+    exit
+fi
 
-read -s -p 'Enter Password for sudo: ' sudoPW
-echo $sudoPW | sudo ls
+# ================================================
+# Request sudo password
+# ================================================
+read -s -p 'Enter Password for sudo: ' sudoPw
+echo $sudoPw
 echo "done"
 exit;
 
