@@ -45,7 +45,6 @@ printPackagesByName () {
 # ================================================
 packageInstalled () {
     if [ $(dpkg-query -W -f='${Status}' $1 | grep "ok installed") ]
-    #if [ $(! dpkg -s $1 >/dev/null 2>&1) ]
     then
         return 1
     fi
