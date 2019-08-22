@@ -69,7 +69,7 @@ if package_installed whiptail
 then
     # Ask for password with whiptail
     sudoPw=$(whiptail --backtitle "${labelInfo}" \
-                      --inputbox "${labelPrompt}" \
+                      --passwordbox "${labelPrompt}" \
                       --title "${globalLabelBox}" 8 40 3>&1 1>&2 2>&3 3>&-)
 else
     # Ask for password without whiptail
