@@ -92,6 +92,6 @@ alias cdBack='back'
 alias lll='ls -lhXG'
 # Removing Non-Empty Directories, Read-Only Files
 alias remove='rm -rf'
-# Compression
+# Untpack
 alias untarz='tar -xzf'
 alias untarj='tar -xjf'

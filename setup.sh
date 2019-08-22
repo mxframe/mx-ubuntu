@@ -47,8 +47,8 @@ fi
 # ================================================
 # Include needed files
 # ================================================
+. functions.sh
 . includes/colors.sh
-. functions/system.sh
 
 # ================================================
 # Update and upgrade the server
