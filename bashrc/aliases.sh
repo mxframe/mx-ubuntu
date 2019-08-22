@@ -90,10 +90,23 @@ alias disallowExecute='disallowX'
 # Change directory
 alias back='cd "$OLDPWD"'
 alias cdBack='back'
+# Directory listing alias ll for not existing alias
+alias ll='ls -l'
 # Long listing, human-readable, sort by extension, do not show group info
 alias lll='ls -lhXG'
 # Removing Non-Empty Directories, Read-Only Files
 alias remove='rm -rf'
-# Untpack
+# Unpack
 alias untarz='tar -xzf'
 alias untarj='tar -xjf'
+
+# ================================================
+# All directory aliases
+# ================================================
+pathAll="${HOME}/all"
+pathAll() {
+    return ${pathAll}
+}
+cdAll() {
+    cd "${pathAll}"
+}

@@ -53,7 +53,7 @@ if [ ${USER} == 'root' ]; then
     exit
 fi
 
-echo $pwd
+echo pwd
 exit;
 
 # ================================================
