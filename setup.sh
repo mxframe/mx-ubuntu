@@ -54,12 +54,6 @@ if [ ${USER} == 'root' ]; then
 fi
 
 # ================================================
-# Clear the screen & show the banner
-# ================================================
-clear
-show_banner
-
-# ================================================
 # Request sudo password
 # ================================================
 # Check for whiptail
@@ -78,13 +72,6 @@ then
                       --backtitle "${labelInfo}" \
                       --passwordbox "${labelPrompt}" \
                       8 40 3>&1 1>&2 2>&3 3>&-)
-
-    # Check decision
-    case $? in
-      1 | 255)
-       echo -e "{$BRed}Canceled by user${RCol}"
-       exit
-    esac
 else
     # Ask for password without whiptail
     echo -e "${BGre}${labelInfo}${RCol}"
@@ -98,6 +85,12 @@ else
         sudoPw+="$char"
     done
 fi
+
+# ================================================
+# Clear the screen & show the banner
+# ================================================
+clear
+show_banner
 
 echo $sudoPw
 exit;
