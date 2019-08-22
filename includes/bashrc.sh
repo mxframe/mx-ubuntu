@@ -1,3 +1,6 @@
+# Load the aliases
+source $HOME/bin/server-setup/includes/aliases.sh
+
 # Define custom prompt
 export PS1='\[\033[01;35m\]\u\[\033[00m\] @ \[\033[01;32m\]\h\[\033[00m\] in \[\033[01;34m\]\w\[\033[00m\]: '
 
