@@ -58,6 +58,8 @@ apt-get upgrade -y
 # ================================================
 # Update and upgrade the server
 # ================================================
+if ! dpkg-query -W -f='${Status}' nano | grep "ok installed";
+then
 apt-get install dialog -y
 
 # apt-get install kdelibs-bin -y

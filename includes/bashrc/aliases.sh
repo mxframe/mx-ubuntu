@@ -36,8 +36,20 @@ printDiskUsage () {
 # Function to display/list the installed packages
 # ================================================
 printPackagesByName () {
-  apt-cache pkgnames | grep -i "$1" | sort
-  return;
+    apt-cache pkgnames | grep -i "$1" | sort
+    return;
+}
+
+# ================================================
+# Check if a package is installed
+# ================================================
+packageInstalled () {
+    # if [ $(dpkg-query -W -f='${Status}' nano | grep "ok installed") ]
+    if [ $(! dpkg -s $1 >/dev/null 2>&1) ]
+    then
+        return 1
+    fi
+    return 0
 }
 
 # ================================================
