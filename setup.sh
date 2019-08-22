@@ -63,19 +63,18 @@ show_banner
 # Request sudo password
 # ================================================
 # Check for whiptail
-sudoPrompt='Enter your password for sudo:'
-sudoTitle='Your password won´t be stored, but is needed for the installation process.'
+labelPrompt='Enter your password for sudo:'
+labelInfo='Your password won´t be stored, but is needed for the installation process.'
 if package_installed whiptail
 then
     # Ask for password with whiptail
-    sudoPw=$(dialog --backtitle "${globalBackTitle}" \
-                      --inputbox "${sudoPrompt}" \
-                      --clear \
-                      --title "${sudoTitle}" 8 40 3>&1 1>&2 2>&3 3>&-)
+    sudoPw=$(whiptail --backtitle "${labelInfo}" \
+                      --inputbox "${labelPrompt}" \
+                      --title "${globalLabelBox}" 8 40 3>&1 1>&2 2>&3 3>&-)
 else
     # Ask for password without whiptail
-    echo -e "${BGre}${sudoTitle}${RCol}"
-    while IFS= read -p "${sudoPrompt} " -r -s -n 1 char
+    echo -e "${BGre}${labelInfo}${RCol}"
+    while IFS= read -p "${labelPrompt} " -r -s -n 1 char
     do
         if [[ $char == $'\0' ]]
         then
