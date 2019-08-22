@@ -29,18 +29,6 @@
 ##############################################################################################################
 
 # ================================================
-# Define the banner function
-# ================================================
-f_banner(){
-    echo
-    echo "
-    Test-Banner
-    "
-    echo
-    echo
-}
-
-# ================================================
 # Check if running with root user
 # ================================================
 if [ "$USER" != "root" ]; then
@@ -48,9 +36,18 @@ if [ "$USER" != "root" ]; then
       echo "Can only be run by root"
       exit
 else
+      # Clear the screen
       clear
+
+      # Show the banner
+      . includes/banner.sh
       f_banner
 fi
+
+# ================================================
+# Include needed files
+# ================================================
+. includes/colors.sh
 
 # ================================================
 # Update and upgrade the server
