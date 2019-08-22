@@ -1,5 +1,5 @@
 # Define custom prompt
-export PS1='\[\033[01;35m\]\u\[\033[00m\]@\[\033[01;32m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$ '
+export PS1='\[\033[01;35m\]\u\[\033[00m\] @ \[\033[01;32m\]\h\[\033[00m\] in \[\033[01;34m\]\w\[\033[00m\]$ '
 
 # Define the gitprompt
 # https://github.com/magicmonty/bash-git-prompt
