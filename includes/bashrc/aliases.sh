@@ -14,9 +14,14 @@ sysInfo () {
     kded4 --version | grep "KDE Development Platform" | awk '{ printf "KDE: %s", $4 }'
     printf "\n"
     uptime | awk '{ printf "Uptime: %s %s %s", $3, $4, $5 }' | sed 's/,//g'
-    printf "\n"
-    cputemp | head -1 | awk '{ printf "%s %s %s\n", $1, $2, $3 }'
-    cputemp | tail -1 | awk '{ printf "%s %s %s\n", $1, $2, $3 }'
+}
+
+# ================================================
+# Function to display shorter system uptime
+# ================================================
+sysUptime () {
+    uptime | awk '{ print "Uptime:", $3, $4, $5 }' | sed 's/,//g'
+    return;
 }
 
 # ================================================
@@ -55,3 +60,39 @@ ssd () {
     df -h | grep "/dev/sd"
     df -h | grep "/mnt/"
 }
+
+# ================================================
+# Function to display/list the installed packages
+# ================================================
+listPackages () {
+  apt-cache pkgnames | grep -i "$1" | sort
+  return;
+}
+
+# ================================================
+# File and folder aliases
+# ================================================
+# Allow
+alias allowR='chmod +r'
+alias allowW='chmod +w'
+alias allowX='chmod +x'
+alias allowRead='allowR'
+alias allowWrite='allowW'
+alias allowExecute='allowX'
+# Disallow
+alias disallowR='chmod -r'
+alias disallowW='chmod -w'
+alias disallowX='chmod -x'
+alias disallowRead='disallowR'
+alias disallowWrite='disallowW'
+alias disallowExecute='disallowX'
+# Change directory
+alias back='cd "$OLDPWD"'
+alias cdBack='back'
+# Long listing, human-readable, sort by extension, do not show group info
+alias lll='ls -lhXG'
+# Removing Non-Empty Directories, Read-Only Files
+alias remove='rm -rf'
+# Compression
+alias untarz='tar -xzf'
+alias untarj='tar -xjf'
