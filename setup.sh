@@ -66,16 +66,15 @@ show_banner
 if package_installed dialog
 then
     # Ask for password with dialog
-    dialog --title "Inputbox - To take input from you" \
-           --backtitle "Linux Shell Script Tutorial Example" \
-           --inputbox "Enter your name " 8 60 2 > sudoPw
+    sudoPw=$(dialog --title "Create Directory" \
+                    --inputbox "Enter the directory name:" 8 40 3>&1 1>&2 2>&3 3>&-)
 
     # Check decision
-    case $? in
-      1 | 255)
-       echo -e "{$BRed}Canceled by user${RCol}"
-       exit
-    esac
+#    case $? in
+#      1 | 255)
+#       echo -e "{$BRed}Canceled by user${RCol}"
+#       exit
+#    esac
 else
     # Ask for password without dialog
     echo -e "${BGre}Your password won´t be stored, but is needed for the installation process.${RCol}"
