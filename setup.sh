@@ -48,7 +48,7 @@ file_exists config.sh || cp -rp config.example.sh config.sh
 # Check if running with root user
 # ================================================
 if [ ${USER} == 'root' ]; then
-    echo -e " ${BRed}Permission Denied !!!${RCol}"
+    echo -e '${BRed}Permission Denied !!!${RCol}'
     echo 'The script an not be run by root, because npm and oder packages may be not installed correct.'
     exit
 fi
@@ -62,7 +62,8 @@ then
     read -s -p 'Enter Password for sudo: ' sudoPw
 else
     # Ask for password without dialog
-    prompt="Enter Password for sudo: "
+    echo -e '${BWhi}Your password won´t be stored, but is needed for the installation process.${RCol}'
+    prompt='Enter Password for sudo: '
     while IFS= read -p "$prompt" -r -s -n 1 char
     do
         if [[ $char == $'\0' ]]
