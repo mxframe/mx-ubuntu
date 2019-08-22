@@ -2,13 +2,13 @@
 
 ##############################################################################################################
 #
-# Collection of useful functions.
-# These functions can be used by any other shell script. Just include this file.
+# Collection of project includes.
+# This file will be included automatically on execution.
 #
 ##############################################################################################################
 
-# Load the function files
-for filename in $HOME/bin/server-setup/functions/*.sh
+# Load the include files
+for filename in $HOME/bin/server-setup/includes/*.sh
 do
     . ${filename}
 done
