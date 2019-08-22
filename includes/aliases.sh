@@ -4,7 +4,7 @@
 sysInfo () {
     printf "CPU: "
     cat /proc/cpuinfo | grep "model name" | head -1 | awk '{ for (i = 4; i <= NF; i++) printf "%s ", $i }'
-    echo ""
+    printf " "
     printf "\n"
     cat /etc/issue | awk '{ printf "OS: %s %s %s %s" , $1 , $2 , $3 , $4 }'
     printf "\n"
