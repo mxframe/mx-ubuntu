@@ -36,16 +36,15 @@
 # ================================================
 # Include the config
 # ================================================
-#file_exists config.sh || cp -rp config.example.sh config.sh
-#. config.sh
-##version=$(awk -F "=" '/database_version/ {print $2}' config.ini)
-##echo version
-read_ini config.example.ini
-echo INI__SEC1__VORNAME
+file_exists config.sh || cp -rp config.example.sh config.sh
+. config.sh
+echo $var1
 exit;
 
+# ================================================
+# Include the includes
+# ================================================
 . includes.sh
-
 
 # ================================================
 # Check if running with root user
