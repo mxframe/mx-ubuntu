@@ -62,7 +62,7 @@ then
     read -s -p 'Enter Password for sudo: ' sudoPw
 else
     # Ask for password without dialog
-    echo -e "${BWhi}Your password won´t be stored, but is needed for the installation process.${RCol}"
+    echo -e "${BGre}Your password won´t be stored, but is needed for the installation process.${RCol}"
     prompt='Enter Password for sudo: '
     while IFS= read -p "$prompt" -r -s -n 1 char
     do
