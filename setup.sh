@@ -63,7 +63,7 @@ show_banner
 # Request sudo password
 # ================================================
 # Check for dialog
-if ! package_installed dialog
+if package_installed dialog
 then
     # Ask for password with dialog
     dialog --title "Inputbox - To take input from you" \
