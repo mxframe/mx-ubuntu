@@ -6,7 +6,7 @@ sysInfo () {
     cat /proc/cpuinfo | grep "model name" | head -1 | awk '{ for (i = 4; i <= NF; i++) printf "%s ", $i }'
     printf "\n"
     printf "OS: "
-    cat /etc/issue | awk '{ $1 && printf "%s %s %s" , $1 , $2 , $3 }'
+    cat /etc/issue | awk '{ printf "%s %s %s" , $1 , $2 , $3 }'
     printf "\n"
     uname -a | awk '{ printf "Kernel: %s " , $3 }'
     uname -m | awk '{ printf "%s" , $1 }'
