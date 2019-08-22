@@ -3,7 +3,7 @@
 # ================================================
 # Function to display system information
 # ================================================
-printSysInfo () {
+printSysInfo() {
     printf "CPU: "
     cat /proc/cpuinfo | grep "model name" | head -1 | awk '{ for (i = 4; i <= NF; i++) printf "%s ", $i }'
     printf "\n"
@@ -21,7 +21,7 @@ printSysInfo () {
 # ================================================
 # Function to display shorter system uptime
 # ================================================
-printSysUptime () {
+printSysUptime() {
     uptime | awk '{ print "Uptime:", $3, $4, $5 }' | sed 's/,//g'
     return;
 }
@@ -29,7 +29,7 @@ printSysUptime () {
 # ================================================
 # Function to display the disk usage
 # ================================================
-printDiskUsage () {
+printDiskUsage() {
     echo "Device         Total  Used  Free  Pct MntPoint"
     df -h | grep "/dev/xvda1"
 }
@@ -37,7 +37,7 @@ printDiskUsage () {
 # ================================================
 # Function to display/list the installed packages
 # ================================================
-printPackagesByName () {
+printPackagesByName() {
     apt-cache pkgnames | grep -i "$1" | sort
     return;
 }

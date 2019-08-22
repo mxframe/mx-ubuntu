@@ -29,26 +29,25 @@
 ##############################################################################################################
 
 # ================================================
-# Check if running with root user
-# ================================================
-if [ "$USER" != "root" ]; then
-      echo "Permission Denied"
-      echo "Can only be run by root"
-      exit
-else
-      # Clear the screen
-      clear
-
-      # Show the banner
-      . includes/banner.sh
-      f_banner
-fi
-
-# ================================================
 # Include needed files
 # ================================================
 . functions.sh
 . includes.sh
+
+# ================================================
+# Check if running with root user
+# ================================================
+if [ ${USER} != 'root' ]; then
+    echo 'Permission Denied'
+    echo 'Can only be run by root'
+    exit
+fi
+
+# ================================================
+# Clear the screen & show the banner
+# ================================================
+clear
+show_banner
 
 # ================================================
 # Update and upgrade the server

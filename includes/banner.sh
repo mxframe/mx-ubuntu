@@ -1,7 +1,9 @@
+#!/bin/bash
+
 # ================================================
 # Define the banner function
 # ================================================
-f_banner(){
+show_banner() {
     echo
     echo "
     Test-Banner
