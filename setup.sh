@@ -49,14 +49,31 @@ file_exists config.sh || cp -rp config.example.sh config.sh
 # ================================================
 if [ ${USER} == 'root' ]; then
     echo -e " ${BRed}Permission Denied !!!${RCol}"
-    echo 'Can not be run by root, because npm and oder packages may be installed with errors than.'
+    echo 'The script an not be run by root, because npm and oder packages may be not installed correct.'
     exit
 fi
 
 # ================================================
 # Request sudo password
 # ================================================
-read -s -p 'Enter Password for sudo: ' sudoPw
+# Check for dialog
+if ! package_installed dialog
+then
+    read -s -p 'Enter Password for sudo: ' sudoPw
+else
+    # Ask for password without dialog
+    prompt="Enter Password:"
+    while IFS= read -p "$prompt" -r -s -n 1 char
+    do
+        if [[ $char == $'\0' ]]
+        then
+            break
+        fi
+        prompt='*'
+        password+="$char"
+    done
+fi
+
 echo $sudoPw
 echo "done"
 exit;
