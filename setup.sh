@@ -68,11 +68,9 @@ sudoTitle='Your password won´t be stored, but is needed for the installation pr
 if package_installed whiptail
 then
     # Ask for password with whiptail
-#    sudoPw=$(whiptail --inputbox "${sudoPrompt}"
-#                      --backtitle "${globalBackTitle}"
-#                      --title "${sudoTitle}" 8 40 3>&1 1>&2 2>&3 3>&-)
-    sudoPw=$(whiptail  --title "Create Directory" \
-                    --inputbox "Enter the directory name:" 8 40 3>&1 1>&2 2>&3 3>&-)
+    sudoPw=$(whiptail --backtitle "${globalBackTitle}" \
+                      --inputbox "${sudoPrompt}" \
+                      --title "${sudoTitle}" 8 40 3>&1 1>&2 2>&3 3>&-)
 else
     # Ask for password without whiptail
     echo -e "${BGre}${sudoTitle}${RCol}"
