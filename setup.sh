@@ -29,10 +29,23 @@
 ##############################################################################################################
 
 # ================================================
-# Include needed files
+# Include the functions
 # ================================================
 . functions.sh
+
+# ================================================
+# Include the config
+# ================================================
+#file_exists config.sh || cp -rp config.example.sh config.sh
+#. config.sh
+##version=$(awk -F "=" '/database_version/ {print $2}' config.ini)
+##echo version
+read_ini config.example.ini
+echo INI__SEC1__VORNAME
+exit;
+
 . includes.sh
+
 
 # ================================================
 # Check if running with root user
