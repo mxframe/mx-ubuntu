@@ -1,7 +1,7 @@
 # ================================================
 # Function to display system information
 # ================================================
-sysInfo () {
+printSysInfo () {
     printf "CPU: "
     cat /proc/cpuinfo | grep "model name" | head -1 | awk '{ for (i = 4; i <= NF; i++) printf "%s ", $i }'
     printf "\n"
@@ -19,15 +19,31 @@ sysInfo () {
 # ================================================
 # Function to display shorter system uptime
 # ================================================
-sysUptime () {
+printSysUptime () {
     uptime | awk '{ print "Uptime:", $3, $4, $5 }' | sed 's/,//g'
     return;
 }
 
 # ================================================
+# Function to display the disk usage
+# ================================================
+printDiskUsage () {
+    echo "Device         Total  Used  Free  Pct MntPoint"
+    df -h | grep "/dev/xvda1"
+}
+
+# ================================================
+# Function to display/list the installed packages
+# ================================================
+printPackagesByName () {
+  apt-cache pkgnames | grep -i "$1" | sort
+  return;
+}
+
+# ================================================
 # Function to display cpu information
 # ================================================
-alias cpuInfo='cat /proc/cpuinfo'
+alias printCpuInfo='cat /proc/cpuinfo'
 
 # ================================================
 # Function to make a git pull and source the .bashrc
@@ -51,23 +67,6 @@ alias msqlStart='sudo service msqld start'
 alias msqlReload='sudo service msqld reload'
 alias msqlRestart='sudo service msqld restart'
 alias msqlStop='sudo service msqld stop'
-
-# ================================================
-# Function to display the disk usage
-# ================================================
-ssd () {
-    echo "Device         Total  Used  Free  Pct MntPoint"
-    df -h | grep "/dev/sd"
-    df -h | grep "/mnt/"
-}
-
-# ================================================
-# Function to display/list the installed packages
-# ================================================
-listPackages () {
-  apt-cache pkgnames | grep -i "$1" | sort
-  return;
-}
 
 # ================================================
 # File and folder aliases
