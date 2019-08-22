@@ -38,8 +38,6 @@
 # ================================================
 file_exists config.sh || cp -rp config.example.sh config.sh
 . config.sh
-echo $var1
-exit;
 
 # ================================================
 # Include the includes
@@ -49,11 +47,16 @@ exit;
 # ================================================
 # Check if running with root user
 # ================================================
-if [ ${USER} != 'root' ]; then
-    echo 'Permission Denied'
-    echo 'Can only be run by root'
-    exit
-fi
+#if [ ${USER} != 'root' ]; then
+#    echo 'Permission Denied'
+#    echo 'Can only be run by root'
+#    exit
+#fi
+
+read -s -p 'Enter Password for sudo: ' sudoPW
+echo $sudoPW | sudo ls
+echo "done"
+exit;
 
 # ================================================
 # Clear the screen & show the banner
