@@ -21,6 +21,7 @@ sysinfo () {
 # ================================================
 # Apache aliases
 # ================================================
+alias a2status='sudo service apache2 status'
 alias a2start='sudo service apache2 start'
 alias a2reload='sudo service apache2 reload'
 alias a2restart='sudo service apache2 restart'
@@ -29,6 +30,7 @@ alias a2stop='sudo service apache2 stop'
 # ================================================
 # mySql aliases
 # ================================================
+alias msqlStatus='sudo service msqld status'
 alias msqlStart='sudo service msqld start'
 alias msqlReload='sudo service msqld reload'
 alias msqlRestart='sudo service msqld restart'
