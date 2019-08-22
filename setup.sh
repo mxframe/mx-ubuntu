@@ -59,3 +59,5 @@ apt-get upgrade -y
 # Update and upgrade the server
 # ================================================
 apt-get install dialog -y
+
+# apt-get install kdelibs-bin -y
