@@ -63,10 +63,10 @@ show_banner
 # Request sudo password
 # ================================================
 # Check for dialog
-if package_installed dialog
+if package_installed whiptail
 then
     # Ask for password with dialog
-    sudoPw=$(dialog --title "Create Directory" \
+    sudoPw=$(whiptail  --title "Create Directory" \
                     --inputbox "Enter the directory name:" 8 40 3>&1 1>&2 2>&3 3>&-)
 
     # Check decision
