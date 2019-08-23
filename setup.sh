@@ -12,34 +12,7 @@
 # @url https://github.com/mxframe/mx-ubuntu
 # @banner http://patorjk.com/software/taag/
 #
-# Using the Bash Infinity Project/Framework
-# @url https://github.com/niieani/bash-oo-framework
-#
 ##############################################################################################################
-
-# ================================================
-# Include the Bash Infinity Project/Framework
-# ================================================
-. "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/bash-infinity/lib/oo-bootstrap.sh"
-
-# ================================================
-# Import the utilities
-# ================================================
-import util/tryCatch
-import util/exception # needed only for Exception::PrintException
-
-try {
-    # something...
-    cp ~/test123 ~/test2
-    # something more...
-} catch {
-    echo "The hard disk is not connected properly!"
-    echo "Caught Exception:$(UI.Color.Red) $__BACKTRACE_COMMAND__ $(UI.Color.Default)"
-    echo "File: $__BACKTRACE_SOURCE__, Line: $__BACKTRACE_LINE__"
-
-    ## printing a caught exception couldn't be simpler, as it's stored in "${__EXCEPTION__[@]}"
-    Exception::PrintException "${__EXCEPTION__[@]}"
-}
 
 # ================================================
 # Include the functions
