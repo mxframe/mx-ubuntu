@@ -20,7 +20,7 @@
 # ================================================
 # Include the Bash Infinity Project/Framework
 # ================================================
-. "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/bash-oo-framework/lib/oo-bootstrap.sh"
+. "$( cd "${BASH_SOURCE[0]%/*}" && pwd )/bash-infinity/lib/oo-bootstrap.sh"
 
 # ================================================
 # Import the utilities
