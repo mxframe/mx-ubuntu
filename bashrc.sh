@@ -8,7 +8,5 @@
 ##############################################################################################################
 
 # Load the bashrc files
-for filename in $HOME/bin/server-setup/bashrc/*.sh
-do
-    . ${filename}
-done
+. ./functions/system.sh
+include_files_recursive ./bashrc

@@ -8,7 +8,5 @@
 ##############################################################################################################
 
 # Load the include files
-for filename in $HOME/bin/server-setup/includes/*.sh
-do
-    . ${filename}
-done
+. ./functions/system.sh
+include_files_recursive ./includes

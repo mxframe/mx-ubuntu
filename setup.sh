@@ -2,29 +2,15 @@
 
 ##############################################################################################################
 #
-# MxFrame - Server-Setup
+# MxUbuntu - Server-Setup
 # ======================
 #
-# Linux Setup & Hardening Script
+# Ubuntu Setup & Hardening Script
 #
 # Mathias Berg
-# https://mx-progress.com
-#
-# Tool URL = https://github.com/mxframe/server-setup
-#
-# Banner by: http://patorjk.com/software/taag/
-#
-# Based on JShielder
-# Credits Jason Soto
-#
-# - Based from JackTheStripper Project
-# - Credits to Eugenia Bahit
-#
-# - A lot of Suggestion Taken from The Lynis Project
-# - www.cisofy.com/lynis
-# - Credits to Michael Boelen @mboelen
-#
-# - Credits to Center for Internet Security CIS
+# @homepage https://mx-progress.com
+# @url https://github.com/mxframe/mx-ubuntu
+# @banner http://patorjk.com/software/taag/
 #
 ##############################################################################################################
 
@@ -44,6 +30,9 @@ file_exists config.sh || cp -rp config.example.sh config.sh
 # ================================================
 . includes.sh
 
+echo 'hier';
+exit;
+
 # ================================================
 # Check if running with root user
 # ================================================
@@ -53,13 +42,16 @@ if [ ${USER} == 'root' ]; then
     exit
 fi
 
-echo pwd
-exit;
-
 # ================================================
 # Include the setup dialogs
 # ================================================
-. $HOME/bin/server-setup/includes/dialogs/sudo.sh
+. ./includes/dialogs/sudo.sh
+
+# ================================================
+# Check folder and move to /home/all
+# ================================================
+exit;
+. ./includes/scripts/move-to-all.sh
 
 # ================================================
 # Clear the screen & show the banner

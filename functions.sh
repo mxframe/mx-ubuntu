@@ -8,7 +8,5 @@
 ##############################################################################################################
 
 # Load the function files
-for filename in $HOME/bin/server-setup/functions/*.sh
-do
-    . ${filename}
-done
+. ./functions/system.sh
+include_files_recursive ./functions

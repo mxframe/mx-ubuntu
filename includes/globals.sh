@@ -7,7 +7,7 @@
 # Define the directories
 cwd=pwd
 pathAll=${HOME}/all
-pathMxUbuntu=${HOME}/all/mx-ubuntu
+pathMxUbuntu=${HOME}/all/bin/mx-ubuntu
 
 # Back title for whiptail
 globalLabelBox='MxUbuntu - ServerSetup'
