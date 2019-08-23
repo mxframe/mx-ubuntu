@@ -15,12 +15,12 @@ package_installed() {
 }
 
 # ================================================
-# Include/load files recursive
+# Source/include/load files
 #
 # @usage
-# package_installed PACKAGE_NAME || echo 'not installed'
+# source_bash_files ${path}
 # ================================================
-include_files_recursive() {
+source_bash_files() {
     local directory=$1
 
     # Check if it is empty
@@ -35,10 +35,35 @@ include_files_recursive() {
     do
         . ${filename}
     done
+}
+
+# ================================================
+# Source/include/load files recursive
+#
+# @usage
+# source_bash_files_recursive ${path}
+# ================================================
+source_bash_files_recursive() {
+    local directory=$1
+
+    # Check if it is empty
+    local -r response="${directory}"
+    if [[ -z "${response}" || "${response}" == "null" ]]
+    then
+        return
+    fi
+
+    # Iterate trough the files
+    local filename
+    for filename in ${directory}/*.sh
+    do
+        . ${filename}
+    done
 
     # Iterate trough the directories
-    for dir in `find ${directory} -type d`
+    local dir
+    for dir in `find ${directory} -mindepth 1 -type d`
     do
-        include_files_recursive ${directory}
+        source_bash_files_recursive ${dir}
     done
 }

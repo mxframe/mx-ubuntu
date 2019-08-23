@@ -9,4 +9,4 @@
 
 # Load the function files
 . ./functions/system.sh
-include_files_recursive ./functions
+source_bash_files_recursive ./functions
