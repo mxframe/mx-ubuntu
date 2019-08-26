@@ -10,7 +10,6 @@
 # Mathias Berg
 # @homepage https://mx-progress.com
 # @url https://github.com/mxframe/mx-ubuntu
-# @banner http://patorjk.com/software/taag/
 #
 ##############################################################################################################
 
@@ -30,9 +29,6 @@ file_exists config.sh || cp -rp config.example.sh config.sh
 # ================================================
 . includes.sh
 
-echo 'hier';
-exit;
-
 # ================================================
 # Check if running with root user
 # ================================================
@@ -45,14 +41,15 @@ fi
 # ================================================
 # Include the setup dialogs
 # ================================================
-. ./includes/dialogs/sudo.sh
+#showSudoPrompt
+sudoPw='test'
 
 # ================================================
 # Check folder and move to /home/all
 # ================================================
-exit;
-. ./includes/scripts/move-to-all.sh
-
+checkPathAll
+moveMxUbuntu
+exit
 # ================================================
 # Clear the screen & show the banner
 # ================================================

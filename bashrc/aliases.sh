@@ -3,7 +3,7 @@
 # ================================================
 # Function to display system information
 # ================================================
-printSysInfo() {
+function printSysInfo() {
     printf "CPU: "
     cat /proc/cpuinfo | grep "model name" | head -1 | awk '{ for (i = 4; i <= NF; i++) printf "%s ", $i }'
     printf "\n"
@@ -21,7 +21,7 @@ printSysInfo() {
 # ================================================
 # Function to display shorter system uptime
 # ================================================
-printSysUptime() {
+function printSysUptime() {
     uptime | awk '{ print "Uptime:", $3, $4, $5 }' | sed 's/,//g'
     return;
 }
@@ -29,7 +29,7 @@ printSysUptime() {
 # ================================================
 # Function to display the disk usage
 # ================================================
-printDiskUsage() {
+function printDiskUsage() {
     echo "Device         Total  Used  Free  Pct MntPoint"
     df -h | grep "/dev/xvda1"
 }
@@ -37,7 +37,7 @@ printDiskUsage() {
 # ================================================
 # Function to display/list the installed packages
 # ================================================
-printPackagesByName() {
+function printPackagesByName() {
     apt-cache pkgnames | grep -i "$1" | sort
     return;
 }
@@ -103,10 +103,10 @@ alias untarj='tar -xjf'
 # ================================================
 # All directory aliases
 # ================================================
-pathAll="${HOME}/all"
-pathAll() {
+declare pathAll="${HOME}/all"
+function pathAll() {
     return ${pathAll}
 }
-cdAll() {
+function cdAll() {
     cd "${pathAll}"
 }
