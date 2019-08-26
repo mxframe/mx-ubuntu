@@ -1,4 +1,4 @@
 #!/bin/bash
 
-# Section
-var1='test'
+# Global settings
+isDevelopment=false

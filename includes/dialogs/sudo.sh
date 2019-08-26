@@ -38,6 +38,6 @@ showSudoPrompt() {
     if string_is_empty_or_null ${sudoPw}
     then
         echo -e "${BRed}Canceled by user !!!${RCol}"
-        exit
+        exitScript
     fi
 }

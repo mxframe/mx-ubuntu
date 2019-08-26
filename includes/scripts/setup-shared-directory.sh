@@ -35,7 +35,7 @@ checkPathAll() {
                 ;;
 
             esac
-            exit;
+            exitScript;
         }
     fi
 }
@@ -58,7 +58,7 @@ moveMxUbuntu() {
         try
         (
             # Check for development
-            if [[ ${cwd} != '/bash-projects/mxframe/mx-ubunu' ]]
+            if [[ ${isDevelopment} = false || ${cwd} != '/bash-projects/mxframe/mx-ubuntu' ]]
             then
                 # Move the directory (is not development)
                 echo -e "... trying to move directory ${pathMxUbuntu} [${BCya}development${RCol}]"
@@ -76,9 +76,11 @@ moveMxUbuntu() {
                     ${cwd} ${pathAllBin}) || throw ${cantCopyDirectory}
             fi
 
-            # Call the moved script
+            # Call the moved script & exit
             echo -e "... trying to restart the script"
-            bash "${pathMxUbuntu}/setup.sh --sudopw:${sudoPw}" || throw ${cantRestartScript}
+            cd ${pathMxUbuntu}
+            ./setup.sh --sudopw:${sudoPw} || throw ${cantRestartScript}
+            exitScript
         )
         catch || {
             # There was an error, so show message and exit
@@ -100,7 +102,7 @@ moveMxUbuntu() {
                 ;;
 
             esac
-            exit;
+            exitScript
         }
     fi
 }

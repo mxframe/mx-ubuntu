@@ -49,6 +49,7 @@ sudoPw='test'
 # ================================================
 checkPathAll
 moveMxUbuntu
+
 exit
 # ================================================
 # Clear the screen & show the banner
