@@ -39,9 +39,6 @@ then
     if [[ $(echoOption 'sudopw') != false ]]
     then
         sudoPw=$(echoOption 'sudopw')
-    elif [[ ${isDevelopment} = true ]]
-    then
-        sudoPw='test123'
     fi
 
     # Check the sudo password
