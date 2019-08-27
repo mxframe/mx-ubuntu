@@ -87,6 +87,7 @@ moveMxUbuntu() {
             # Call the moved script & exit
             dumpInfoLine "Restarting the script"
             cd ${pathMxUbuntu}
+            exitScript
             if stringIsEmptyOrNull ${sudoPw}
             then
                 ./setup.sh || throw ${cantRestartScript}

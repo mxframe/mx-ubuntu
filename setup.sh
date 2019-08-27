@@ -32,49 +32,10 @@ readOptions $*
 # ================================================
 # Include the sudo dialog (if needed)
 # ================================================
-# Check if we have sudo access
-if ! hasSudo
-then
-    # First, check for an existing password
-    if [[ $(echoOption 'sudopw') != false ]]
-    then
-        sudoPw=$(echoOption 'sudopw')
-    fi
+needsSudoPermission
 
-    # Check the sudo password
-    sudoChecked=false
-    if ! stringIsEmptyOrNull ${sudoPw}
-    then
-        # Try to activate sudo access
-        activateSudo ${sudoPw}
-
-        # Check if we have sudo access
-        if hasSudo
-        then
-            sudoChecked=true
-        else
-            sudoPw=null
-        fi
-    fi
-
-    # Check if we already have sudo access
-    if ! ${sudoChecked}
-    then
-        # Check if we have sudo access
-        if stringIsEmptyOrNull ${sudoPw}
-        then
-            # Show the sudo prompt
-            showSudoPrompt
-        fi
-
-        # Check if we have sudo access
-        if ! hasSudo
-        then
-            dumpError "Script needs to be run as root user, with sudo permission or the correct sudo password"
-            exitScript
-        fi
-    fi
-fi
+echo 'durch'
+exitScript
 
 # ================================================
 # Check folder and move to /home/all
@@ -85,7 +46,7 @@ moveMxUbuntu
 # ================================================
 # Show the dialogs
 # ================================================
-
+pressKeyToContinue
 
 
 exit

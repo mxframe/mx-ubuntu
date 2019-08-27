@@ -61,14 +61,10 @@ dump() {
 # dumpError ${message}
 # ================================================
 dumpError() {
-    # Check if debug is enabled
-    if getOption 'debug'
-    then
-        # Dump the value
-        echo ''
-        echo -e "${BRed}Error${RCol}"
-        echo -e " ${BRed}>${RCol} $1"
-    fi
+    # Dump the value
+    echo ''
+    echo -e "${BRed}Error${RCol}"
+    echo -e " ${BRed}>${RCol} $1"
 }
 
 # ================================================

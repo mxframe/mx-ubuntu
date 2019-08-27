@@ -17,3 +17,13 @@ writeStdErrAnnotated() {
 
   witeStdErr "${color}[${type}] ${Blu}[${script}:${lineNo}]${RCol} $* "
 }
+
+pressKeyToContinue() {
+    # Check if continue should be skipped
+    if ! getOption 'continue'
+    then
+        echo ''
+        printf "${BYel}Press anny key to continue...${RCol}"
+        read -n1 -r -p "" key
+    fi
+}
