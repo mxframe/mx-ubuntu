@@ -100,9 +100,13 @@ activateSudo() {
 hasSudo() {
     try
     (
-        if $(sudo -n true 2>/dev/null || throw 100)
+        if [[ ${USER} == 'root' ]]
         then
-            dd "Testing for sudo. Result is true"
+            dd "Testing for sudo. Result is true [#1]"
+            return 0
+        elif $(sudo -n true 2>/dev/null || throw 100)
+        then
+            dd "Testing for sudo. Result is true [#2]"
             return 0
         else
             throw 100
