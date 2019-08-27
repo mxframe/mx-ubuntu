@@ -119,7 +119,7 @@ readOptions() {
             -h|--help)
                 # Show the help
                 echo ''
-                echo -e "${BPur}Available Oprions are${RCol}:"
+                echo -e "${BBlu}Available Oprions are${RCol}:"
                 echo ''
                 for key in "${!availableOptions[@]}"
                 do
@@ -175,14 +175,13 @@ readOptions() {
         # Print the debug message
         clear
         echo -e "${BYel}Info${RCol}: ${BGre}DEBUG IS ON${RCol}"
-        echo ''
 
+        echo ''
         echo -e "${BYel}Options are${RCol}:"
         for x in "${!options[@]}"
         do
             printf " ${BGre}>${RCol} [${BWhi}%s${RCol}]=%s\n" "$x" "${options[$x]}"
         done
-        echo ''
     fi
 }
 

@@ -41,12 +41,12 @@ then
         sudoPw=$(echoOption 'sudopw')
     elif [[ ${isDevelopment} = true ]]
     then
-        sudoPw='test'
+        sudoPw='test123'
     fi
 
     # Check the sudo password
     sudoChecked=false
-    if stringIsEmptyOrNull ${sudoPw}
+    if ! stringIsEmptyOrNull ${sudoPw}
     then
         # Try to activate sudo access
         activateSudo ${sudoPw}
@@ -73,7 +73,7 @@ then
         # Check if we have sudo access
         if ! hasSudo
         then
-            dumpError "Script needs to be run as root, with sudo or the correct sudo password"
+            dumpError "Script needs to be run as root user, with sudo permission or the correct sudo password"
             exitScript
         fi
     fi

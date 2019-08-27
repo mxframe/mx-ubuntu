@@ -30,11 +30,9 @@ checkPathAll() {
             else
                 dumpInfoLine "Directory ${pathAllBin} already exists"
             fi
-            echo ''
         )
         catch || {
             # There was an error, so show message and exit
-            echo ''
             case ${exCode} in
                 ${cantCreateDirectory})
                     dumpError "Can't create directory ${pathAll}"
@@ -88,7 +86,6 @@ moveMxUbuntu() {
 
             # Call the moved script & exit
             dumpInfoLine "Restarting the script"
-            echo ''
             cd ${pathMxUbuntu}
             if stringIsEmptyOrNull ${sudoPw}
             then
@@ -100,7 +97,6 @@ moveMxUbuntu() {
         )
         catch || {
             # There was an error, so show message and exit
-            echo ''
             case ${exCode} in
                 ${cantMoveDirectory})
                     dumpError "Can't move directory ${cwd} to ${pathMxUbuntu}"

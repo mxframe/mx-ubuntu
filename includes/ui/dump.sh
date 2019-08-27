@@ -25,9 +25,9 @@ dd() {
     if getOption 'debug'
     then
         # Dump the value
+        echo ''
         echo -e "${titleColor}${title}${RCol}"
         echo -e " ${BGre}>${RCol} $1"
-        echo ''
     fi
 }
 
@@ -49,9 +49,9 @@ dump() {
     local titleColor=${3:-${BGre}}
 
     # Dump the value
+    echo ''
     echo -e "${titleColor}${title}${RCol}"
     echo -e " ${BGre}>${RCol} $1"
-    echo ''
 }
 
 # ================================================
@@ -65,9 +65,9 @@ dumpError() {
     if getOption 'debug'
     then
         # Dump the value
+        echo ''
         echo -e "${BRed}Error${RCol}"
         echo -e " ${BRed}>${RCol} $1"
-        echo ''
     fi
 }
 
@@ -78,6 +78,7 @@ dumpError() {
 # dumpInfoHeader ${text}
 # ================================================
 dumpInfoHeader() {
+    echo ''
     echo -e "${BBlu}$1${RCol}"
 }
 

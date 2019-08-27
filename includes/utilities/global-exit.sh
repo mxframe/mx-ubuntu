@@ -10,6 +10,7 @@ export processId=$$
 # The global exit function
 # ================================================
 exitAll() {
+    echo ''
     kill -s TERM ${processId}
     exit
 }
