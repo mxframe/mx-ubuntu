@@ -42,13 +42,20 @@ fi
 # Include the setup dialogs
 # ================================================
 #showSudoPrompt
+# Activate sudo
 sudoPw='test'
+(echo ${sudoPw} | sudo -S ls >/dev/null 2>&1)
 
 # ================================================
 # Check folder and move to /home/all
 # ================================================
-checkPathAll
-moveMxUbuntu
+#checkPathAll
+#moveMxUbuntu
+
+readOptions $*
+#printf '%s\n' "${options[@]}"
+
+
 
 exit
 # ================================================

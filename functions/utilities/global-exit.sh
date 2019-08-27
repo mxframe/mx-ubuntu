@@ -7,8 +7,12 @@ trap "exit 1" TERM
 export processId=$$
 
 # ================================================
-# the global exit function
+# The global exit function
 # ================================================
-function exitScript() {
+exitAll() {
     kill -s TERM ${processId}
+    exit
+}
+exitScript() {
+    exitAll
 }

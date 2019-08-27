@@ -20,19 +20,20 @@ function array_contains {
 #
 # Examples:
 #
-# array_split "," "a,b,c"
+# arraySplit "," "a,b,c"
 #   Returns: ("a" "b" "c")
 #
 # Hint:
-# When calling this function, use the following construction: ary=( $(array_split "," "a,b,c") )
+# When calling this function, use the following construction: ary=( $(arraySplit "," "a,b,c") )
 #
 # Sources:
 # - https://stackoverflow.com/a/15988793/2308858
-function array_split {
+function arraySplit {
   local -r separator="$1"
   local -r str="$2"
   local -a ary=()
 
+  #ary=$(echo $str | tr $separator "\n")
   IFS="$separator" read -a ary <<<"$str"
 
   echo ${ary[*]}
@@ -81,4 +82,12 @@ function array_prepend {
 
   updated_ary=( "${ary[@]/#/$prefix}" )
   echo ${updated_ary[*]}
+}
+
+arrayDump() {
+    data="$1"
+    for x in "${!data[@]}"
+    do
+        printf "[%s]=%s\n" "$x" "${data[$x]}"
+    done
 }

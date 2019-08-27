@@ -20,7 +20,7 @@ checkPathAll() {
             then
                 # Create directory
                 echo -e "... trying to create directory ${pathAllBin}"
-                (echo ${sudoPw} | sudo \mkdir -p ${pathAllBin}) || throw ${cantCreateDirectory}
+                (echo ${sudoPw} | sudo -S \mkdir -p ${pathAllBin}) || throw ${cantCreateDirectory}
             fi
         )
         catch || {
@@ -71,7 +71,7 @@ moveMxUbuntu() {
                 # Copy the directory (is development)
                 echo -e "... trying to copy directory ${pathMxUbuntu} [${BGre}development${RCol}]"
                 #(echo ${sudoPw} | sudo cp -rp ${cwd} ${pathMxUbuntu}) || throw ${cantCopyDirectory}
-                (echo ${sudoPw} | sudo rsync -a \
+                (echo ${sudoPw} | sudo -S rsync -a \
                     --chown=$(whoami):all \
                     ${cwd} ${pathAllBin}) || throw ${cantCopyDirectory}
             fi

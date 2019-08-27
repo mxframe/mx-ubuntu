@@ -40,4 +40,10 @@ showSudoPrompt() {
         echo -e "${BRed}Canceled by user !!!${RCol}"
         exitScript
     fi
+
+    # Activate sudo
+    (echo ${sudoPw} | sudo -S ls >/dev/null 2>&1)
+
+    # Clear the screen
+    clear
 }

@@ -6,7 +6,7 @@
 # @usage
 # package_installed PACKAGE_NAME || echo 'not installed'
 # ================================================
-function package_installed() {
+package_installed() {
     if ! $(dpkg -s $1 >/dev/null 2>&1)
     then
         return 1
@@ -20,7 +20,7 @@ function package_installed() {
 # @usage
 # source_bash_files ${path}
 # ================================================
-function source_bash_files() {
+source_bash_files() {
     local directory=$1
 
     # Check if it is empty
@@ -44,7 +44,7 @@ function source_bash_files() {
 # @usage
 # source_bash_files_recursive ${path}
 # ================================================
-function source_bash_files_recursive() {
+source_bash_files_recursive() {
     local directory=$1
 
     # Check if it is empty

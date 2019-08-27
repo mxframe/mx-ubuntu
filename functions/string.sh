@@ -52,7 +52,13 @@ function string_strip_suffix {
 }
 
 # Return true if the given response is empty or "null" (the latter is from jq parsing).
-function string_is_empty_or_null {
+function stringIsEmptyOrNull {
   local -r response="$1"
   [[ -z "$response" || "$response" == "null" ]]
+}
+
+function stringRemoveWhitespaces {
+    # Allow extended globbing
+    shopt -s extglob
+    echo "${1//+([[:space:]])/}"
 }
