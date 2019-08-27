@@ -174,7 +174,7 @@ readOptions() {
     then
         # Print the debug message
         clear
-        echo -e "${BYel}Info${RCol}: ${BGre}DEBUG IS ON${RCol}"
+        echo -e "${BBlu}Info${RCol}: ${BGre}DEBUG IS ON${RCol}"
 
         echo ''
         echo -e "${BYel}Options are${RCol}:"
