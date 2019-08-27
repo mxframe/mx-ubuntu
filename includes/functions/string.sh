@@ -54,7 +54,7 @@ function string_strip_suffix {
 # Return true if the given response is empty or "null" (the latter is from jq parsing).
 function stringIsEmptyOrNull {
   local -r response="$1"
-  [[ -z "$response" || "$response" == "null" ]]
+  [[ -z "$response" || "$response" = "null" ]]
 }
 
 function stringRemoveWhitespaces {

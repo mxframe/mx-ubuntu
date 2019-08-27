@@ -28,7 +28,6 @@ then
     BYel='\e[1;33m';
     BBlu='\e[1;34m';
     BPur='\e[1;35m';
-    BPur='\e[1;35m';
     BCya='\e[1;36m';
     BWhi='\e[1;37m';
 
@@ -38,7 +37,6 @@ then
     UGre='\e[4;32m';
     UYel='\e[4;33m';
     UBlu='\e[4;34m';
-    UPur='\e[4;35m';
     UPur='\e[4;35m';
     UCya='\e[4;36m';
     UWhi='\e[4;37m';
@@ -103,7 +101,6 @@ else
     BYel='';
     BBlu='';
     BPur='';
-    BPur='';
     BCya='';
     BWhi='';
 
@@ -113,7 +110,6 @@ else
     UGre='';
     UYel='';
     UBlu='';
-    UPur='';
     UPur='';
     UCya='';
     UWhi='';

@@ -91,3 +91,7 @@ arrayDump() {
         printf "[%s]=%s\n" "$x" "${data[$x]}"
     done
 }
+
+arrayCheck() {
+    [[ "$(declare -p variable_name)" =~ "declare -a" ]]
+}

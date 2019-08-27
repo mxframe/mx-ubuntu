@@ -9,4 +9,4 @@
 
 # Load the bashrc files
 . ./functions/utilities/system.sh
-source_bash_files_recursive ./bashrc
+sourceBashFilesRecursive ./bashrc

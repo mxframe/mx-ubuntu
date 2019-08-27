@@ -10,7 +10,7 @@ showSudoPrompt() {
     local labelInfo='Your password won´t be stored, but is needed for the installation process.'
 
     # Check for dialog
-    if package_installed dialog
+    if packageInstalled dialog
     then
         # Ask for password with dialog
         sudoPw=$(dialog --title "${globalLabelBox}" \
@@ -35,14 +35,14 @@ showSudoPrompt() {
     clear
 
     # Check the password
-    if string_is_empty_or_null ${sudoPw}
+    if stringIsEmptyOrNull ${sudoPw}
     then
         echo -e "${BRed}Canceled by user !!!${RCol}"
         exitScript
     fi
 
-    # Activate sudo
-    (echo ${sudoPw} | sudo -S ls >/dev/null 2>&1)
+    # Try to activate sudo access
+    activateSudo ${sudoPw}
 
     # Clear the screen
     clear

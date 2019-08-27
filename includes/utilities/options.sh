@@ -3,6 +3,7 @@
 # ================================================
 # Options for the shell script
 # https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash
+# https://linuxconfig.org/how-to-use-getopts-to-parse-a-script-options
 # ================================================
 
 # Define the options
@@ -11,8 +12,6 @@ declare -g -A availableOptions
 
 # Define the available options and the help
 availableOptions['-h | --help']+="Show the help"
-availableOptions['-d | --debug']+="If set, debugging will be enabled"
-availableOptions['--sudopw:']+="Option to set the sudo password"
 
 # Read all options
 readOptions() {
@@ -23,7 +22,7 @@ readOptions() {
     # Use return value from ${PIPESTATUS[0]}, because ! hosed $?
     ! getopt --test > /dev/null
     if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
-        echo -e "${BRed}Error${RCol}: `getopt --test` failed in this environment."
+        dumpError "`getopt --test` failed in this environment"
         exitScript
     fi
 
@@ -105,6 +104,7 @@ readOptions() {
     if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
         # e.g. return value is 1
         # then getopt has complained about wrong arguments to stdout
+        dumpError "Incorrect options were passed"
         echo 'List all options with -h or --help'
         exitScript
     fi
@@ -115,14 +115,22 @@ readOptions() {
     # Parse the options
     while true
     do
-        case "$1" in
-            ?|-h|--help)
+        case $1 in
+            -h|--help)
                 # Show the help
+                echo ''
+                echo -e "${BPur}Available Oprions are${RCol}:"
+                echo ''
                 for key in "${!availableOptions[@]}"
                 do
-                ### @todombe add values after :
-                    echo -e "[ ${BYel}${key}${RCol} ] ${availableOptions[${key}]}"
+                    if [[ ${key:(-1)} = ':' ]]
+                    then
+                        echo -e "[ ${BYel}${key:0:(-1)}${RCol} ${BCya}VALUE${RCol} ] ${availableOptions[${key}]}"
+                    else
+                        echo -e "[ ${BYel}${key}${RCol} ] ${availableOptions[${key}]}"
+                    fi
                 done
+                echo ''
                 exitScript
             ;;
 
@@ -138,7 +146,7 @@ readOptions() {
                 then
                     # The key does not exist, so it is a value
                     shift
-                    break
+                    continue
                 fi
 
                 # Split the option keys
@@ -162,19 +170,69 @@ readOptions() {
     done
 
     # Print the options, when debug is enabled
-    if [[ -v options['debug'] ]]
+    if getOption 'debug'
     then
+        # Print the debug message
+        clear
+        echo -e "${BYel}Info${RCol}: ${BGre}DEBUG IS ON${RCol}"
+        echo ''
+
+        echo -e "${BYel}Options are${RCol}:"
         for x in "${!options[@]}"
         do
-            printf "[%s]=%s\n" "$x" "${options[$x]}"
+            printf " ${BGre}>${RCol} [${BWhi}%s${RCol}]=%s\n" "$x" "${options[$x]}"
         done
+        echo ''
     fi
 }
 
+# ================================================
+# Get an option
+#
+# @usage
+# if getOption 'debug'; then ...
+# ================================================
 getOption() {
+    # Check the option
     if [[ -v options[$1] ]]
     then
-        return options[$1]
+        # Return the value
+        case ${options[$1]} in
+            true|0)
+                return 0
+            ;;
+
+            false|1)
+                return 1
+            ;;
+
+            *)
+                echo ${options[$1]}
+                return
+            ;;
+        esac
     fi
-    return false
+
+    # Option not found
+    return 1
+}
+
+# ================================================
+# Echo an option
+#
+# @usage
+# if [[ $(echoOption 'debug') = true ]]; then ...
+# ================================================
+echoOption() {
+    # Check the option
+    if [[ -v options[$1] ]]
+    then
+        # Echo the value
+        echo ${options[$1]}
+        return
+    fi
+
+    # Option not found
+    echo false
+    return
 }

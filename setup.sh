@@ -14,9 +14,9 @@
 ##############################################################################################################
 
 # ================================================
-# Include the functions
+# Include the main functionality
 # ================================================
-. functions.sh
+. includes.sh
 
 # ================================================
 # Include the config
@@ -25,9 +25,9 @@ file_exists config.sh || cp -rp config.example.sh config.sh
 . config.sh
 
 # ================================================
-# Include the includes
+# Read the options
 # ================================================
-. includes.sh
+readOptions $*
 
 # ================================================
 # Check if running with root user
@@ -39,21 +39,59 @@ if [ ${USER} == 'root' ]; then
 fi
 
 # ================================================
-# Include the setup dialogs
+# Include the sudo dialog
 # ================================================
-#showSudoPrompt
-# Activate sudo
-sudoPw='test'
-(echo ${sudoPw} | sudo -S ls >/dev/null 2>&1)
+# First, check for an existing password
+if [[ $(echoOption 'sudopw') != false ]]
+then
+    sudoPw=$(echoOption 'sudopw')
+elif [[ ${isDevelopment} = true ]]
+then
+    sudoPw='test'
+fi
+
+# Check the sudo password
+sudoChecked=false
+if ! stringIsEmptyOrNull sudoPw
+then
+    # Try to activate sudo access
+    activateSudo ${sudoPw}
+
+    # Check if we have sudo access
+    if hasSudo
+    then
+        sudoChecked=true
+    else
+        sudoPw=null
+    fi
+fi
+
+# Check if we already have sudo access
+if ! ${sudoChecked}
+then
+    # Check if we have sudo access
+    if stringIsEmptyOrNull ${sudoPw}
+    then
+        # Show the sudo prompt
+        showSudoPrompt
+    fi
+
+    # Check if we have sudo access
+    if ! hasSudo
+    then
+        dumpError "Sudo password is incorrect"
+    fi
+fi
 
 # ================================================
 # Check folder and move to /home/all
 # ================================================
-#checkPathAll
-#moveMxUbuntu
+checkPathAll
+moveMxUbuntu
 
-readOptions $*
-#printf '%s\n' "${options[@]}"
+# ================================================
+# Show the dialogs
+# ================================================
 
 
 

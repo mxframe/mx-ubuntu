@@ -8,5 +8,5 @@
 ##############################################################################################################
 
 # Load the include files
-. ./functions/utilities/system.sh
-source_bash_files_recursive ./includes
+. ./includes/utilities/system.sh
+sourceBashFilesRecursive ./includes
