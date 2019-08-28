@@ -78,10 +78,15 @@ sourceBashFilesRecursive() {
 # Check if a file or directory exists
 #
 # @usage
-# fileOrDirectoryExists ${path}
+# if [[ $(fileOrDirectoryExists /tmp/tmp_file) = true ]]; then ...
 # ================================================
 fileOrDirectoryExists() {
-    [[ -f $1 ]] || [[ -d $1 ]]
+    if [[ -f $1 ]] || [[ -d $1 ]]
+    then
+        echo true
+    else
+        echo false
+    fi
 }
 
 # ================================================
@@ -109,6 +114,19 @@ turnOffSelinux() {
         echo 'SELINUX=disabled' > /etc/sysconfig/selinux
         echo 'SELINUXTYPE=targeted' >> /etc/sysconfig/selinux
         sudo chmod -f 0640 /etc/sysconfig/selinux
+    fi
+}
+
+# ================================================
+# Turn on selinux
+#
+# @usage
+# turnOnSelinux
+# ================================================
+SELINUX=`grep ^SELINUX= /etc/selinux/config 2>/dev/null | awk -F'=' '{ print $2 }'` ||
+turnOnSelinux() {
+    if [[ $SELINUX = enforcing || $SELINUX = permissive ]]; then
+        setenforce 1
     fi
 }
 

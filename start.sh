@@ -37,8 +37,8 @@ needsSudoPermission
 # ================================================
 # Check folder and move to /home/all
 # ================================================
-checkPathAll
-moveMxUbuntu
+###checkPathAll
+###moveMxUbuntu
 
 # ================================================
 # Show the dialogs

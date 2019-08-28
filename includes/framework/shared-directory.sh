@@ -92,9 +92,9 @@ moveMxUbuntu() {
                 cd ${pathMxUbuntu}
                 if stringIsEmptyOrNull ${sudoPw}
                 then
-                    ./setup.sh $(getActiveOptionsString) || throw ${cantRestartScript}
+                    ./start.sh $(getActiveOptionsString) || throw ${cantRestartScript}
                 else
-                    ./setup.sh $(getActiveOptionsString) --sudopw ${sudoPw} || throw ${cantRestartScript}
+                    ./start.sh $(getActiveOptionsString) --sudopw ${sudoPw} || throw ${cantRestartScript}
                 fi
                 exitScript
             fi
