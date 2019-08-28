@@ -12,7 +12,7 @@ declare -g -A availableOptions
 declare activeOptionsString
 
 # Define the available options and the help
-availableOptions['-h | --help']+="Show the help"
+availableOptions['-h | --help']="Show the help"
 
 # Read all options
 readOptions() {

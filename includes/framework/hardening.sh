@@ -37,66 +37,38 @@ quickSecure() {
     # ================================================
     # Print the info header
     # ================================================
-    dumpInfoHeader 'Using quick secure'
+    dumpInfoHeader 'Hardening with quick secure'
+
+    # ================================================
+    # Turn of enforcing & selinux (needed)
+    # ================================================
+    turnOffEnforcing
+    turnOffSelinux
 
     # ================================================
     # Call the necessary functions
     # ================================================
-    turnOffEnforcing
-    turnOffSelinux
-    hardeningCron
-    hardeningOwnerships
+    qsHardeningCron
+    qsHardeningOwnerships
+    qsHardeningClamAV
+    qsHardeningDisaStigOwnerships
+    qsHardeningSsh
 
     echo 'hier'
     exitScript
 }
 
-# ================================================
-# Turn off selinux before setting configurations
-#
-# @usage
-# turnOffEnforcing
-#
-# @info
-# Dumps info lines
-# ================================================
-turnOffEnforcing() {
-    if [[ `getenforce 2>/dev/null` = 'Enforcing' ]]
-    then
-        setenforce 0
-        dumpInfoLine 'Turned of enforcing'
-    fi
-}
-
-# ================================================
-# Turn off selinux before setting configurations
-#
-# @usage
-# turnOffSelinux
-#
-# @info
-# Dumps info lines
-# ================================================
-turnOffSelinux() {
-    if [[ -f /etc/sysconfig/selinux ]]; then
-        sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
-        echo 'SELINUX=disabled' > /etc/sysconfig/selinux
-        echo 'SELINUXTYPE=targeted' >> /etc/sysconfig/selinux
-        chmod -f 0640 /etc/sysconfig/selinux
-        dumpInfoLine 'Turned of Selinux'
-    fi
-}
 
 # ================================================
 # Cron setup/hardening
 #
 # @usage
-# hardeningCron
+# qsHardeningCron
 #
 # @info
 # Dumps info lines
 # ================================================
-hardeningCron() {
+qsHardeningCron() {
     # Modify the cron
     if [[ -f /etc/cron.allow ]]
     then
@@ -174,12 +146,12 @@ hardeningCron() {
 # Hardening the main ownerships
 #
 # @usage
-# hardeningOwnerships
+# qsHardeningOwnerships
 #
 # @info
 # Dumps info lines
 # ================================================
-hardeningOwnerships() {
+qsHardeningOwnerships() {
     # Dump the intro line
     dumpInfoLine 'Hardening the ownerships'
 
@@ -312,6 +284,170 @@ hardeningOwnerships() {
     [[ $(fileOrDirectoryExists /usr/sbin/pppd) ]] && sudo chmod -f 0750 /usr/sbin/pppd >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/chatscripts) ]] && sudo chmod -f 0750 /etc/chatscripts >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /usr/local/share/ca-certificates) ]] && sudo chmod -f 0750 /usr/local/share/ca-certificates >/dev/null 2>&1
+
+    # Dump the done line
+    dumpInfoLine "... ${BGre}done${RCol}"
+}
+
+# ================================================
+# Hardening ClamAV
+#
+# @usage
+# qsHardeningClamAV
+#
+# @info
+# Dumps info lines
+# ================================================
+qsHardeningClamAV() {
+    # Dump the intro line
+    dumpInfoLine 'Checking for ClamAv'
+
+    # Check if the folders exist
+    if [[ -d /usr/local/share/clamav ]] || [[ -d /var/clamav ]]
+    then
+        # Dump the intro line
+        dumpInfoLine '... hardening ClamAv'
+
+        # Hardening ClamAV permissions and ownership
+        # for /usr/local/share/clamav
+        if [[ -d /usr/local/share/clamav ]]
+        then
+          passwd -l clamav 2>/dev/null
+          usermod -s /sbin/nologin clamav 2>/dev/null
+          sudo chmod -f 0755 /usr/local/share/clamav >/dev/null 2>&1
+          sudo chown -f root:clamav /usr/local/share/clamav >/dev/null 2>&1
+          sudo chown -f root:clamav /usr/local/share/clamav/*.cvd >/dev/null 2>&1
+          sudo chmod -f 0664 /usr/local/share/clamav/*.cvd >/dev/null 2>&1
+          sudo mkdir -p /var/log/clamav >/dev/null 2>&1
+          sudo chown -f root:root /var/log/clamav >/dev/null 2>&1
+          sudo chmod -f 0640 /var/log/clamav >/dev/null 2>&1
+        fi
+
+        # Hardening ClamAV permissions and ownership
+        # for /var/clamav
+        if [[ -d /var/clamav ]]
+        then
+          passwd -l clamav 2>/dev/null
+          usermod -s /sbin/nologin clamav 2>/dev/null
+          sudo chmod -f 0755 /var/clamav >/dev/null 2>&1
+          sudo chown -f root:clamav /var/clamav >/dev/null 2>&1
+          sudo chown -f root:clamav /var/clamav/*.cvd >/dev/null 2>&1
+          sudo chmod -f 0664 /var/clamav/*.cvd >/dev/null 2>&1
+          sudo mkdir -p /var/log/clamav >/dev/null 2>&1
+          sudo chown -f root:root /var/log/clamav >/dev/null 2>&1
+          sudo chmod -f 0640 /var/log/clamav >/dev/null 2>&1
+        fi
+
+        # Dump the done line
+        dumpInfoLine "... ${BGre}done${RCol}"
+    else
+        # Dump the not found line
+        dumpInfoLine "... ${BRed}not found${RCol}"
+    fi
+}
+
+# ================================================
+# Hardening DISA STIG file ownerships
+#
+# @usage
+# qsHardeningDisaStigOwnerships
+#
+# @info
+# Dumps info lines
+# ================================================
+qsHardeningDisaStigOwnerships() {
+    # Dump the intro line
+    dumpInfoLine 'Hardening DISA STIG file ownerships'
+
+    # Do the hardening
+    [[ $(fileOrDirectoryExists /bin/csh) ]] && sudo chmod -f 0755 /bin/csh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /bin/jsh) ]] && sudo chmod -f 0755 /bin/jsh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /bin/ksh) ]] && sudo chmod -f 0755 /bin/ksh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /bin/rsh) ]] && sudo chmod -f 0755 /bin/rsh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /bin/sh) ]] && sudo chmod -f 0755 /bin/sh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /dev/kmem) ]] && sudo chmod -f 0640 /dev/kmem >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /dev/kmem) ]] && sudo chown -f root:sys /dev/kmem >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /dev/mem) ]] && sudo chmod -f 0640 /dev/mem >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /dev/mem) ]] && sudo chown -f root:sys /dev/mem >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /dev/null) ]] && sudo chmod -f 0666 /dev/null >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /dev/null) ]] && sudo chown -f root:sys /dev/null >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/csh) ]] && sudo chmod -f 0755 /etc/csh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/jsh) ]] && sudo chmod -f 0755 /etc/jsh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/ksh) ]] && sudo chmod -f 0755 /etc/ksh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/rsh) ]] && sudo chmod -f 0755 /etc/rsh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/sh) ]] && sudo chmod -f 0755 /etc/sh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/aliases) ]] && sudo chmod -f 0644 /etc/aliases >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/aliases) ]] && sudo chown -f root:root /etc/aliases >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/exports) ]] && sudo chmod -f 0640 /etc/exports >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/exports) ]] && sudo chown -f root:root /etc/exports >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/ftpusers) ]] && sudo chmod -f 0640 /etc/ftpusers >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/ftpusers) ]] && sudo chown -f root:root /etc/ftpusers >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/host.lpd) ]] && sudo chmod -f 0664 /etc/host.lpd >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/inetd.conf) ]] && sudo chmod -f 0440 /etc/inetd.conf >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/inetd.conf) ]] && sudo chown -f root:root /etc/inetd.conf >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/mail/aliases) ]] && sudo chmod -f 0644 /etc/mail/aliases >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/mail/aliases) ]] && sudo chown -f root:root /etc/mail/aliases >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/passwd) ]] && sudo chmod -f 0644 /etc/passwd >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/passwd) ]] && sudo chown -f root:root /etc/passwd >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/shadow) ]] && sudo chmod -f 0400 /etc/shadow >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/shadow) ]] && sudo chown -f root:root /etc/shadow >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uucp/L.cmds) ]] && sudo chmod -f 0600 /etc/uucp/L.cmds >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uucp/L.cmds) ]] && sudo chown -f uucp:uucp /etc/uucp/L.cmds >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uucp/L.sys) ]] && sudo chmod -f 0600 /etc/uucp/L.sys >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uucp/L.sys) ]] && sudo chown -f uucp:uucp /etc/uucp/L.sys >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uucp/Permissions) ]] && sudo chmod -f 0600 /etc/uucp/Permissions >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uucp/Permissions) ]] && sudo chown -f uucp:uucp /etc/uucp/Permissions >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uucp/remote.unknown) ]] && sudo chmod -f 0600 /etc/uucp/remote.unknown >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uucp/remote.unknown) ]] && sudo chown -f root:root /etc/uucp/remote.unknown >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uucp/remote.systems) ]] && sudo chmod -f 0600 /etc/uucp/remote.systems >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uccp/Systems) ]] && sudo chmod -f 0600 /etc/uccp/Systems >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/uccp/Systems) ]] && sudo chown -f uucp:uucp /etc/uccp/Systems >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /sbin/csh) ]] && sudo chmod -f 0755 /sbin/csh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /sbin/jsh) ]] && sudo chmod -f 0755 /sbin/jsh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /sbin/ksh) ]] && sudo chmod -f 0755 /sbin/ksh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /sbin/rsh) ]] && sudo chmod -f 0755 /sbin/rsh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /sbin/sh) ]] && sudo chmod -f 0755 /sbin/sh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /usr/bin/csh) ]] && sudo chmod -f 0755 /usr/bin/csh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /usr/bin/jsh) ]] && sudo chmod -f 0755 /usr/bin/jsh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /usr/bin/ksh) ]] && sudo chmod -f 0755 /usr/bin/ksh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /usr/bin/rsh) ]] && sudo chmod -f 0755 /usr/bin/rsh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /usr/bin/sh) ]] && sudo chmod -f 0755 /usr/bin/sh >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /var/mail) ]] && sudo chmod -f 1777 /var/mail >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /var/spool/uucppublic) ]] && sudo chmod -f 1777 /var/spool/uucppublic >/dev/null 2>&1
+
+    # Dump the done line
+    dumpInfoLine "... ${BGre}done${RCol}"
+}
+
+# ================================================
+# Hardening .ssh
+#
+# @usage
+# qsHardeningSsh
+#
+# @info
+# Dumps info lines
+# ================================================
+qsHardeningSsh() {
+    # Dump the intro line
+    dumpInfoLine 'Hardening .ssh folders'
+
+    # Get the users
+    local -A users
+    getAllUsersAndHome users
+
+    #Set all files in ``.ssh`` to ``600``
+    local user
+    for user in "${!users[@]}"
+    do
+        local tmpPath=${users[${user}]}
+        if [[ $(fileOrDirectoryExists ${tmpPath}/.ssh) ]]
+        then
+            dumpInfoLine "... for user '${user}'"
+            sudo chmod 700 ${tmpPath}/.ssh >/dev/null 2>&1
+            sudo chmod 600 ${tmpPath}/.ssh/* >/dev/null 2>&1
+        fi
+    done
 
     # Dump the done line
     dumpInfoLine "... ${BGre}done${RCol}"

@@ -81,5 +81,65 @@ sourceBashFilesRecursive() {
 # fileOrDirectoryExists ${path}
 # ================================================
 fileOrDirectoryExists() {
-    [[ -f $1 ]] || [[ -d $1 ]]
+    if [[ -f $1 ]] || [[ -d $1 ]]
+    then
+        return 0
+    fi
+    return 1
+}
+
+# ================================================
+# Turn off enforcing
+#
+# @usage
+# turnOffEnforcing
+# ================================================
+turnOffEnforcing() {
+    if [[ `getenforce 2>/dev/null` = 'Enforcing' ]]
+    then
+        sudo setenforce 0
+    fi
+}
+
+# ================================================
+# Turn off selinux
+#
+# @usage
+# turnOffSelinux
+# ================================================
+turnOffSelinux() {
+    if [[ -f /etc/sysconfig/selinux ]]; then
+        sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+        echo 'SELINUX=disabled' > /etc/sysconfig/selinux
+        echo 'SELINUXTYPE=targeted' >> /etc/sysconfig/selinux
+        sudo chmod -f 0640 /etc/sysconfig/selinux
+    fi
+}
+
+# ================================================
+# Get all users
+#
+# @usage
+# declare -A myArray
+# getAllUsers myArray
+#
+# https://unix.stackexchange.com/questions/462068/bash-return-an-associative-array-from-a-function-and-then-pass-that-associative
+# https://www.linuxjournal.com/content/return-values-bash-functions
+# https://unix.stackexchange.com/questions/199220/how-to-loop-over-users
+# ================================================
+getAllUsersAndHome() {
+    # Define the users
+    local -n __users="$1"
+
+    # Use awk to do the heavy lifting.
+    # For lines with UID>=1000 (field 3) grab the home directory (field 6)
+    local usrInfo=$(awk -F: '{if ($3 >= 1000) print $6}' < /etc/passwd)
+
+    # Use newline as delimiter for for-loop
+    IFS=$'\n'
+    local userHome
+    for userHome in ${usrInfo}
+    do
+        __users["${userHome##*/}"]="${userHome}"
+    done
 }

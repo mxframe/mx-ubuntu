@@ -20,7 +20,7 @@ checkPathAll() {
             then
                 # Create directory
                 dumpInfoLine "Creating directory ${pathAllBin}"
-                (sudo \mkdir -p ${pathAllBin}) || throw ${cantCreateDirectory}
+                (sudo mkdir -p ${pathAllBin}) || throw ${cantCreateDirectory}
 
                 # Check again if the target directory exists
                 if [ -d ${pathAllBin} ]
@@ -70,7 +70,7 @@ moveMxUbuntu() {
             then
                 # Move the directory (is not development)
                 dumpInfoLine "Moving directory ${pathMxUbuntu} [${BCya}production${RCol}]"
-                #(sudo \mv ${cwd} ${pathMxUbuntu}) || throw ${cantMoveDirectory}
+                #(sudo mv ${cwd} ${pathMxUbuntu}) || throw ${cantMoveDirectory}
                 (echo ${sudoPw} | sudo rsync -a \
                     --remove-source-files \
                     --chown=$(whoami):all \
@@ -78,7 +78,7 @@ moveMxUbuntu() {
             else
                 # Copy the directory (is development)
                 dumpInfoLine "Copying directory ${pathMxUbuntu} [${BBlu}development${RCol}]"
-                #(sudo \cp -rp ${cwd} ${pathMxUbuntu}) || throw ${cantCopyDirectory}
+                #(sudo cp -rp ${cwd} ${pathMxUbuntu}) || throw ${cantCopyDirectory}
                 (sudo rsync -a \
                     --chown=$(whoami):all \
                     ${cwd} ${pathAllBin}) || throw ${cantCopyDirectory}
