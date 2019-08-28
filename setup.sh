@@ -43,7 +43,7 @@ moveMxUbuntu
 # ================================================
 # Show the dialogs
 # ================================================
-pressKeyToContinue
+quickSecure
 
 
 exit

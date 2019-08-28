@@ -7,17 +7,17 @@
 # ================================================
 
 # Define the options
-declare optionsString
 declare -g -A options
 declare -g -A availableOptions
+declare activeOptionsString
 
 # Define the available options and the help
 availableOptions['-h | --help']+="Show the help"
 
 # Read all options
 readOptions() {
-    # Define the options string
-    optionsString=''
+    # Define the active options string
+    activeOptionsString=''
 
     # Saner programming env: these switches turn some bugs into errors
     set -o errexit -o pipefail -o noclobber -o nounset
@@ -26,7 +26,7 @@ readOptions() {
     # Use return value from ${PIPESTATUS[0]}, because ! hosed $?
     ! getopt --test > /dev/null
     if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
-        dumpError "`getopt --test` failed in this environment"
+        dumpError '`getopt --test` failed in this environment'
         exitScript
     fi
 
@@ -108,7 +108,7 @@ readOptions() {
     if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
         # e.g. return value is 1
         # then getopt has complained about wrong arguments to stdout
-        dumpError "Incorrect options were passed"
+        dumpError 'Incorrect options were passed'
         echo 'List all options with -h or --help'
         exitScript
     fi
@@ -122,7 +122,7 @@ readOptions() {
         # Remember the option
         if [[ $1 != '--' && $1 != '--sudopw' ]]
         then
-            optionsString+=" $1"
+            activeOptionsString+=" $1"
         fi
 
         # Switch by case
@@ -130,8 +130,9 @@ readOptions() {
             -h|--help)
                 # Show the help
                 echo ''
-                echo -e "${BBlu}Available Oprions are${RCol}:"
-                echo ''
+                dumpInfoHeader 'Usage'
+                dumpInfoLine './setup.sh -abc -sudopw VALUE'
+                dumpInfoHeader 'Available Options are:'
                 for key in "${!availableOptions[@]}"
                 do
                     if [[ ${key:(-1)} = ':' ]]
@@ -248,11 +249,11 @@ echoOption() {
 }
 
 # ================================================
-# Get the options string
+# Get the active options string
 #
 # @usage
-# getOptionsString
+# $(getActiveOptionsString)
 # ================================================
-getOptionsString() {
-    echo ${optionsString}
+getActiveOptionsString() {
+    echo ${activeOptionsString}
 }

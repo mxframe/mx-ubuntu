@@ -11,7 +11,7 @@ checkPathAll() {
         cantCreateDirectory=100
 
         # Print the message
-        dumpInfoHeader "Checking the global directory"
+        dumpInfoHeader 'Checking the global directory'
 
         try
         (
@@ -39,7 +39,7 @@ checkPathAll() {
                 ;;
 
                 *)
-                    dumpError "Not specified error"
+                    dumpError 'Not specified error'
                 ;;
 
             esac
@@ -61,7 +61,7 @@ moveMxUbuntu() {
         cantRestartScript=103
 
         # Print the message
-        dumpInfoHeader "Moving MxUbuntu to the global directory"
+        dumpInfoHeader 'Moving MxUbuntu to the global directory'
 
         try
         (
@@ -85,16 +85,19 @@ moveMxUbuntu() {
             fi
 
             # Call the moved script & exit
-            dumpInfoLine "Restarting the script"
-            pressKeyToContinue
-            cd ${pathMxUbuntu}
-            if stringIsEmptyOrNull ${sudoPw}
+            if [[ ${isDevelopment} = false ]]
             then
-                ./setup.sh $(getOptionsString) || throw ${cantRestartScript}
-            else
-                ./setup.sh $(getOptionsString) --sudopw ${sudoPw} || throw ${cantRestartScript}
+                dumpInfoLine 'Restarting the script'
+                pressKeyToContinue
+                cd ${pathMxUbuntu}
+                if stringIsEmptyOrNull ${sudoPw}
+                then
+                    ./setup.sh $(getActiveOptionsString) || throw ${cantRestartScript}
+                else
+                    ./setup.sh $(getActiveOptionsString) --sudopw ${sudoPw} || throw ${cantRestartScript}
+                fi
+                exitScript
             fi
-            exitScript
         )
         catch || {
             # There was an error, so show message and exit
@@ -112,7 +115,7 @@ moveMxUbuntu() {
                 ;;
 
                 *)
-                    dumpError "Not specified error"
+                    dumpError 'Not specified error'
                 ;;
 
             esac
