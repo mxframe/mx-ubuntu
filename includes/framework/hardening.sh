@@ -49,9 +49,9 @@ quickSecure() {
     # Call the necessary functions
     # ================================================
     qsHardeningCron
-    qsHardeningOwnerships
+    #qsHardeningOwnerships
     qsHardeningClamAV
-    qsHardeningDisaStigOwnerships
+    #qsHardeningDisaStigOwnerships
     qsHardeningSsh
 
     echo 'hier'

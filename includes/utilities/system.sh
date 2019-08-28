@@ -81,11 +81,7 @@ sourceBashFilesRecursive() {
 # fileOrDirectoryExists ${path}
 # ================================================
 fileOrDirectoryExists() {
-    if [[ -f $1 ]] || [[ -d $1 ]]
-    then
-        return 0
-    fi
-    return 1
+    [[ -f $1 ]] || [[ -d $1 ]]
 }
 
 # ================================================
