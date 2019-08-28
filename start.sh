@@ -41,12 +41,15 @@ needsSudoPermission
 ###moveMxUbuntu
 
 # ================================================
-# Show the dialogs
+# Start hardening
 # ================================================
-quickSecure
+hardening
 
 
-exit
+
+
+
+exitScript
 # ================================================
 # Clear the screen & show the banner
 # ================================================
