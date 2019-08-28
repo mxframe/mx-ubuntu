@@ -106,29 +106,31 @@ quickSecure() {
 
     # Changemod for the cron directories
     dumpInfoLine 'Changing permissions of the cron directories'
-    [[ -d /etc/cron.monthly ]] && sudo chmod -f 0700 /etc/cron.monthly
-    [[ -d /etc/cron.weekly ]] && sudo chmod -f 0700 /etc/cron.weekly
-    [[ -d /etc/cron.daily ]] && sudo chmod -f 0700 /etc/cron.daily
-    [[ -d /etc/cron.hourly ]] && sudo chmod -f 0700 /etc/cron.hourly
-    [[ -d /var/spool/cron ]] && sudo chmod -f 0700 /var/spool/cron
-    [[ -d /var/spool/at ]] && sudo chmod -f 0700 /var/spool/at
+    [[ -d /etc/cron.monthly ]] && sudo chmod -f 0700 /etc/cron.monthly >/dev/null 2>&1
+    [[ -d /etc/cron.weekly ]] && sudo chmod -f 0700 /etc/cron.weekly >/dev/null 2>&1
+    [[ -d /etc/cron.daily ]] && sudo chmod -f 0700 /etc/cron.daily >/dev/null 2>&1
+    [[ -d /etc/cron.hourly ]] && sudo chmod -f 0700 /etc/cron.hourly >/dev/null 2>&1
+    [[ -d /var/spool/cron ]] && sudo chmod -f 0700 /var/spool/cron >/dev/null 2>&1
+    [[ -d /var/spool/at ]] && sudo chmod -f 0700 /var/spool/at >/dev/null 2>&1
     dumpInfoLine "... ${BGre}done${RCol}"
 
     # Changemod for the cron files
     dumpInfoLine 'Changing permissions of the cron files'
-#    [[ -d /etc/cron.monthly ]] && [[ "$(sudo ls -A /etc/cron.monthly)" ]] && sudo chmod -f 0700 /etc/cron.monthly/*
-#    [[ -d /etc/cron.weekly ]] && [[ "$(sudo ls -A /etc/cron.weekly)" ]] && sudo chmod -f 0700 /etc/cron.weekly/*
-#    [[ -d /etc/cron.daily ]] && [[ "$(sudo ls -A /etc/cron.daily)" ]] && sudo chmod -f 0700 /etc/cron.daily/*
-#    [[ -d /etc/cron.hourly ]] && [[ "$(sudo ls -A /etc/cron.hourly)" ]] && sudo chmod -f 0700 /etc/cron.hourly/*
-#    [[ -d /var/spool/cron ]] && [[ "$(sudo ls -A /var/spool/cron/)" ]] && sudo chmod -f 0600 /var/spool/cron/*
-#    [[ -d /var/spool/at ]] && [[ "$(sudo ls -A /var/spool/at/)" ]] && sudo chmod -f 0600 /var/spool/at/*
-#    [[ -d /etc/cron.d ]] && [[ "$(sudo ls -A /etc/cron.d)" ]] && sudo chmod -f 0700 /etc/cron.d/*
-    [[ -f /etc/cron.allow ]] && sudo chmod -f 0400 /etc/cron.allow
-    [[ -f /etc/cron.deny ]] && sudo chmod -f 0400 /etc/cron.deny
-    [[ -f /etc/crontab ]] && sudo chmod -f 0400 /etc/crontab
-    [[ -f /etc/cron.allow ]] && sudo chmod -f 0400 /etc/at.allow
-    [[ -f /etc/cron.deny ]] && sudo chmod -f 0400 /etc/at.deny
-    [[ -f /etc/anacrontab ]] && sudo chmod -f 0400 /etc/anacrontab
+    # Files i a directory
+    [[ -d /etc/cron.monthly ]] && [[ "$(sudo ls -A /etc/cron.monthly)" ]] && sudo chmod -f 0700 /etc/cron.monthly/* >/dev/null 2>&1
+    [[ -d /etc/cron.weekly ]] && [[ "$(sudo ls -A /etc/cron.weekly)" ]] && sudo chmod -f 0700 /etc/cron.weekly/* >/dev/null 2>&1
+    [[ -d /etc/cron.daily ]] && [[ "$(sudo ls -A /etc/cron.daily)" ]] && sudo chmod -f 0700 /etc/cron.daily/* >/dev/null 2>&1
+    [[ -d /etc/cron.hourly ]] && [[ "$(sudo ls -A /etc/cron.hourly)" ]] && sudo chmod -f 0700 /etc/cron.hourly/* >/dev/null 2>&1
+    [[ -d /var/spool/cron ]] && [[ "$(sudo ls -A /var/spool/cron/)" ]] && sudo chmod -f 0600 /var/spool/cron/* >/dev/null 2>&1
+    [[ -d /var/spool/at ]] && [[ "$(sudo ls -A /var/spool/at/)" ]] && sudo chmod -f 0600 /var/spool/at/* >/dev/null 2>&1
+    [[ -d /etc/cron.d ]] && [[ "$(sudo ls -A /etc/cron.d)" ]] && sudo chmod -f 0700 /etc/cron.d/* >/dev/null 2>&1
+    # Specific files
+    [[ -f /etc/cron.allow ]] && sudo chmod -f 0400 /etc/cron.allow >/dev/null 2>&1
+    [[ -f /etc/cron.deny ]] && sudo chmod -f 0400 /etc/cron.deny >/dev/null 2>&1
+    [[ -f /etc/crontab ]] && sudo chmod -f 0400 /etc/crontab >/dev/null 2>&1
+    [[ -f /etc/cron.allow ]] && sudo chmod -f 0400 /etc/at.allow >/dev/null 2>&1
+    [[ -f /etc/cron.deny ]] && sudo chmod -f 0400 /etc/at.deny >/dev/null 2>&1
+    [[ -f /etc/anacrontab ]] && sudo chmod -f 0400 /etc/anacrontab >/dev/null 2>&1
     dumpInfoLine "... ${BGre}done${RCol}"
 
 
