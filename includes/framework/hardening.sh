@@ -18,18 +18,35 @@ hardening() {
 #    fi
 
     # ================================================
+    # Print the info header
+    # ================================================
+    dumpInfoHeader 'Start Hardening'
+
+    # ================================================
+    # Update and upgrade the server
+    # ================================================
+    dumpInfoLine 'Updating the server'
+    sudo apt-get -q -qq update -y 2>/dev/null
+    dumpInfoLine 'Upgrading the server'
+    sudo apt-get -q -qq upgrade -y 2>/dev/null
+
+    # ================================================
     # Turn off enforcing & selinux (needed)
     # ================================================
+    dumpInfoLine 'Turn off enforcing'
     turnOffEnforcing
+    dumpInfoLine 'Turn off selinux'
     turnOffSelinux
 
     # ================================================
     # Call the hardening scripts
     # ================================================
-    quickSecure
+    hardeningWithTelemetry
+    hardeningWithQuickSecure
 
     # ================================================
     # Turn on selinux (needed)
     # ================================================
+    dumpInfoHeader 'Turn on selinux'
     turnOnSelinux
 }

@@ -12,7 +12,7 @@
 # https://github.com/marshyski/quick-secure/
 # https://github.com/marshyski/quick-secure/blob/master/quick-secure
 # ================================================
-quickSecure() {
+hardeningWithQuickSecure() {
     # ================================================
     # Print the info header
     # ================================================
@@ -445,16 +445,16 @@ qsHardeningRelatedPackages() {
     # Remove security related packages
     if [[ `which apt-get 2>/dev/null` != '' ]]
     then
-        sudo apt-get -qq autoremove -y vsftpd 2>/dev/null
-        sudo apt-get -qq autoremove -y nmap 2>/dev/null
-        sudo apt-get -qq autoremove -y telnetd 2>/dev/null
-        sudo apt-get -qq autoremove -y rdate 2>/dev/null
-        sudo apt-get -qq autoremove -y tcpdump 2>/dev/null
-        sudo apt-get -qq autoremove -y vnc4server 2>/dev/null
-        sudo apt-get -qq autoremove -y vino 2>/dev/null
-        sudo apt-get -qq autoremove -y wireshark 2>/dev/null
-        sudo apt-get -qq autoremove -y bind9-host 2>/dev/null
-        sudo apt-get -qq autoremove -y libbind9-90 2>/dev/null
+        sudo apt-get -q -qq autoremove -y vsftpd 2>/dev/null
+        sudo apt-get -q -qq autoremove -y nmap 2>/dev/null
+        sudo apt-get -q -qq autoremove -y telnetd 2>/dev/null
+        sudo apt-get -q -qq autoremove -y rdate 2>/dev/null
+        sudo apt-get -q -qq autoremove -y tcpdump 2>/dev/null
+        sudo apt-get -q -qq autoremove -y vnc4server 2>/dev/null
+        sudo apt-get -q -qq autoremove -y vino 2>/dev/null
+        sudo apt-get -q -qq autoremove -y wireshark 2>/dev/null
+        sudo apt-get -q -qq autoremove -y bind9-host 2>/dev/null
+        sudo apt-get -q -qq autoremove -y libbind9-90 2>/dev/null
     fi
 
     # Dump the done line
