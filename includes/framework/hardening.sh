@@ -202,7 +202,7 @@ hardeningOwnerships() {
     [[ $(fileOrDirectoryExists /usr/sbin/usernetctl) ]] && sudo chmod -f 0700 /usr/sbin/usernetctl >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /usr/bin/rlogin) ]] && sudo chmod -f 0700 /usr/bin/rlogin >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /usr/bin/rcp) ]] && sudo chmod -f 0700 /usr/bin/rcp >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/pam.d/system-auth*) ]] && sudo chmod -f 0640 /etc/pam.d/system-auth* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/pam.d) ]] && sudo chmod -f 0640 /etc/pam.d/system-auth* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/login.defs) ]] && sudo chmod -f 0640 /etc/login.defs >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/security) ]] && sudo chmod -f 0750 /etc/security >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /sbin/ausearch) ]] && sudo chmod -f 0750 /sbin/ausearch >/dev/null 2>&1
@@ -239,7 +239,7 @@ hardeningOwnerships() {
     [[ $(fileOrDirectoryExists /etc/security/limits) ]] && sudo chmod -f 0600 /etc/security/limits >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/services) ]] && sudo chmod -f 0444 /etc/services >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/shells) ]] && sudo chmod -f 0444 /etc/shells >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/skel/.*) ]] && sudo chmod -f 0644 /etc/skel/.* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/skel) ]] && sudo chmod -f 0644 /etc/skel/.* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/skel/.bashrc) ]] && sudo chmod -f 0600 /etc/skel/.bashrc >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/skel/.bash_profile) ]] && sudo chmod -f 0600 /etc/skel/.bash_profile >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/skel/.bash_logout) ]] && sudo chmod -f 0600 /etc/skel/.bash_logout >/dev/null 2>&1
@@ -247,16 +247,16 @@ hardeningOwnerships() {
     [[ $(fileOrDirectoryExists /etc/sudoers) ]] && sudo chown -f root:root /etc/sudoers >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/sysctl.conf) ]] && sudo chmod -f 0600 /etc/sysctl.conf >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/sysctl.conf) ]] && sudo chown -f root:root /etc/sysctl.conf >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/sysctl.d/*) ]] && sudo chown -f root:root /etc/sysctl.d/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/sysctl.d) ]] && sudo chown -f root:root /etc/sysctl.d/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/sysctl.d) ]] && sudo chmod -f 0700 /etc/sysctl.d >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/sysctl.d/*) ]] && sudo chmod -f 0600 /etc/sysctl.d/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/sysctl.d) ]] && sudo chmod -f 0600 /etc/sysctl.d/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/syslog.conf) ]] && sudo chmod -f 0600 /etc/syslog.conf >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /var/yp/binding) ]] && sudo chmod -f 0600 /var/yp/binding >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /var/log/*) ]] && sudo chmod -Rf 0640 /var/log/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /var/log) ]] && sudo chmod -Rf 0640 /var/log/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /var/log) ]] && sudo chmod -f 0755 /var/log >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /var/log/syslog) ]] && sudo chmod -f 0750 /var/log/syslog >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /var/log/lastlog*) ]] && sudo chmod -f 0600 /var/log/lastlog* >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /var/log/cron*) ]] && sudo chmod -f 0600 /var/log/cron* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /var/log) ]] && sudo chmod -f 0600 /var/log/lastlog* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /var/log) ]] && sudo chmod -f 0600 /var/log/cron* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /var/log/btmp) ]] && sudo chmod -f 0600 /var/log/btmp >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /var/log/wtmp) ]] && sudo chmod -f 0660 /var/log/wtmp >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/profile) ]] && sudo chmod -f 0444 /etc/profile >/dev/null 2>&1
@@ -268,12 +268,12 @@ hardeningOwnerships() {
     [[ $(fileOrDirectoryExists /mnt) ]] && sudo chown -f root:users /mnt >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /media) ]] && sudo chown -f root:users /media >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/.login) ]] && sudo chmod -f 0644 /etc/.login >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/profile.d/*) ]] && sudo chmod -f 0644 /etc/profile.d/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/profile.d) ]] && sudo chmod -f 0644 /etc/profile.d/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/security/environ) ]] && sudo chown -f root /etc/security/environ >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/xinetd.d) ]] && sudo chown -f root /etc/xinetd.d >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/xinetd.d/*) ]] && sudo chown -f root /etc/xinetd.d/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/xinetd.d) ]] && sudo chown -f root /etc/xinetd.d/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/xinetd.d) ]] && sudo chmod -f 0750 /etc/xinetd.d >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/xinetd.d/*) ]] && sudo chmod -f 0640 /etc/xinetd.d/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/xinetd.d) ]] && sudo chmod -f 0640 /etc/xinetd.d/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/selinux/config) ]] && sudo chmod -f 0640 /etc/selinux/config >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /usr/bin/chfn) ]] && sudo chmod -f 0750 /usr/bin/chfn >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /usr/bin/chsh) ]] && sudo chmod -f 0750 /usr/bin/chsh >/dev/null 2>&1
@@ -283,11 +283,11 @@ hardeningOwnerships() {
     [[ $(fileOrDirectoryExists /usr/bin/ldd) ]] && sudo chmod -f 0700 /usr/bin/ldd >/dev/null 2>&1 # 0400 for some systems
     [[ $(fileOrDirectoryExists /bin/traceroute) ]] && sudo chmod -f 0700 /bin/traceroute >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /bin/traceroute) ]] && sudo chown -f root:root /bin/traceroute >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /usr/bin/traceroute6*) ]] && sudo chmod -f 0700 /usr/bin/traceroute6* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /usr/bin/) ]] && sudo chmod -f 0700 /usr/bin/traceroute6* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /usr/bin/traceroute6) ]] && sudo chown -f root:root /usr/bin/traceroute6 >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /bin/tcptraceroute) ]] && sudo chmod -f 0700 /bin/tcptraceroute >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /sbin/iptunnel) ]] && sudo chmod -f 0700 /sbin/iptunnel >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /usr/bin/tracpath*) ]] && sudo chmod -f 0700 /usr/bin/tracpath* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /usr/bin/) ]] && sudo chmod -f 0700 /usr/bin/tracpath* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /dev/audio) ]] && sudo chmod -f 0644 /dev/audio >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /dev/audio) ]] && sudo chown -f root:root /dev/audio >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/environment) ]] && sudo chmod -f 0644 /etc/environment >/dev/null 2>&1
@@ -295,15 +295,15 @@ hardeningOwnerships() {
     [[ $(fileOrDirectoryExists /etc/modprobe.conf) ]] && sudo chmod -f 0600 /etc/modprobe.conf >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/modprobe.conf) ]] && sudo chown -f root:root /etc/modprobe.conf >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/modprobe.d) ]] && sudo chown -f root:root /etc/modprobe.d >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/modprobe.d/*) ]] && sudo chown -f root:root /etc/modprobe.d/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/modprobe.d) ]] && sudo chown -f root:root /etc/modprobe.d/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/modprobe.d) ]] && sudo chmod -f 0700 /etc/modprobe.d >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/modprobe.d/*) ]] && sudo chmod -f 0600 /etc/modprobe.d/* >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /selinux/*) ]] && sudo chmod -f o-w /selinux/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/modprobe.d) ]] && sudo chmod -f 0600 /etc/modprobe.d/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /selinux) ]] && sudo chmod -f o-w /selinux/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc) ]] && sudo chmod -f 0755 /etc >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /usr/share/man/man1/*) ]] && sudo chmod -f 0644 /usr/share/man/man1/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /usr/share/man/man1) ]] && sudo chmod -f 0644 /usr/share/man/man1/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /usr/share/man/man5) ]] && sudo chmod -Rf 0644 /usr/share/man/man5 >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /usr/share/man/man1) ]] && sudo chmod -Rf 0644 /usr/share/man/man1 >/dev/null 2>&1
-    [[ $(fileOrDirectoryExists /etc/yum.repos.d/*) ]] && sudo chmod -f 0600 /etc/yum.repos.d/* >/dev/null 2>&1
+    [[ $(fileOrDirectoryExists /etc/yum.repos.d) ]] && sudo chmod -f 0600 /etc/yum.repos.d/* >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/fstab) ]] && sudo chmod -f 0640 /etc/fstab >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /var/cache/man) ]] && sudo chmod -f 0755 /var/cache/man >/dev/null 2>&1
     [[ $(fileOrDirectoryExists /etc/init.d/atd) ]] && sudo chmod -f 0755 /etc/init.d/atd >/dev/null 2>&1
