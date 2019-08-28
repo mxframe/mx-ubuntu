@@ -73,3 +73,13 @@ sourceBashFilesRecursive() {
         sourceBashFilesRecursive ${dir}
     done
 }
+
+# ================================================
+# Check if a file or directory exists
+#
+# @usage
+# fileOrDirectoryExists ${path}
+# ================================================
+fileOrDirectoryExists() {
+    [[ -f $1 ]] || [[ -d $1 ]]
+}
