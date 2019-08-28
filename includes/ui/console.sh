@@ -19,11 +19,17 @@ writeStdErrAnnotated() {
 }
 
 pressKeyToContinue() {
+    # Optional parameter to show if debug is disabled
+    showWhenDebugDisabled=${1:-false}
+
     # Check if continue should be skipped
-    if ! getOption 'continue'
+    if [[ ${showWhenDebugDisabled} = true || $(echoOption 'debug') = true ]]
     then
-        echo ''
-        printf "${BYel}Press anny key to continue...${RCol}"
-        read -n1 -r -p "" key
+        if ! getOption 'continue'
+        then
+            echo ''
+            printf "${BYel}Press anny key to continue...${RCol}"
+            read -n1 -r -p "" key
+        fi
     fi
 }

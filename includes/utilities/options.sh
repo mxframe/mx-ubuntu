@@ -7,6 +7,7 @@
 # ================================================
 
 # Define the options
+declare optionsString
 declare -g -A options
 declare -g -A availableOptions
 
@@ -15,6 +16,9 @@ availableOptions['-h | --help']+="Show the help"
 
 # Read all options
 readOptions() {
+    # Define the options string
+    optionsString=''
+
     # Saner programming env: these switches turn some bugs into errors
     set -o errexit -o pipefail -o noclobber -o nounset
 
@@ -115,6 +119,13 @@ readOptions() {
     # Parse the options
     while true
     do
+        # Remember the option
+        if [[ $1 != '--' && $1 != '--sudopw' ]]
+        then
+            optionsString+=" $1"
+        fi
+
+        # Switch by case
         case $1 in
             -h|--help)
                 # Show the help
@@ -234,4 +245,14 @@ echoOption() {
     # Option not found
     echo false
     return
+}
+
+# ================================================
+# Get the options string
+#
+# @usage
+# getOptionsString
+# ================================================
+getOptionsString() {
+    echo ${optionsString}
 }

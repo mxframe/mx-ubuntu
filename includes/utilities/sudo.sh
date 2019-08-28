@@ -50,6 +50,9 @@ needsSudoPermission() {
             fi
         fi
     fi
+
+    # Dump the status
+    dd "User '${USER}' has root permissions"
 }
 
 # ================================================

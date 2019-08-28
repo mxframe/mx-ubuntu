@@ -34,9 +34,6 @@ readOptions $*
 # ================================================
 needsSudoPermission
 
-echo 'durch'
-exitScript
-
 # ================================================
 # Check folder and move to /home/all
 # ================================================

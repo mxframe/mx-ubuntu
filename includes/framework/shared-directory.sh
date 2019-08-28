@@ -69,7 +69,7 @@ moveMxUbuntu() {
             if [[ ${isDevelopment} = false || ${cwd} != '/bash-projects/mxframe/mx-ubuntu' ]]
             then
                 # Move the directory (is not development)
-                dumpInfoLine "Moving directory ${pathMxUbuntu} [${BCya}development${RCol}]"
+                dumpInfoLine "Moving directory ${pathMxUbuntu} [${BCya}production${RCol}]"
                 #(sudo \mv ${cwd} ${pathMxUbuntu}) || throw ${cantMoveDirectory}
                 (echo ${sudoPw} | sudo rsync -a \
                     --remove-source-files \
@@ -77,7 +77,7 @@ moveMxUbuntu() {
                     ${cwd} ${pathAllBin}) || throw ${cantCopyDirectory}
             else
                 # Copy the directory (is development)
-                dumpInfoLine "Copying directory ${pathMxUbuntu} [${BGre}development${RCol}]"
+                dumpInfoLine "Copying directory ${pathMxUbuntu} [${BBlu}development${RCol}]"
                 #(sudo \cp -rp ${cwd} ${pathMxUbuntu}) || throw ${cantCopyDirectory}
                 (sudo rsync -a \
                     --chown=$(whoami):all \
@@ -86,13 +86,13 @@ moveMxUbuntu() {
 
             # Call the moved script & exit
             dumpInfoLine "Restarting the script"
+            pressKeyToContinue
             cd ${pathMxUbuntu}
-            exitScript
             if stringIsEmptyOrNull ${sudoPw}
             then
-                ./setup.sh || throw ${cantRestartScript}
+                ./setup.sh $(getOptionsString) || throw ${cantRestartScript}
             else
-                ./setup.sh --sudopw ${sudoPw} || throw ${cantRestartScript}
+                ./setup.sh $(getOptionsString) --sudopw ${sudoPw} || throw ${cantRestartScript}
             fi
             exitScript
         )
