@@ -586,9 +586,9 @@ qsHardeningSshRootLogin() {
     then
         if sudo grep -q ${rootLogin?} ${sshConfig?} 2>/dev/null
         then
-            sudo sed -i 's/.*PermitRootLogin.*/\tPermitRootLogin no/g' ${sshConfig?} 2>/dev/null
+            sudo sed -i 's/.*PermitRootLogin.*/\tPermitRootLogin no/g' ${sshConfig?} >/dev/null 2>&1
         else
-            echo -e '\tPermitRootLogin no' | sudo tee -a ${sshConfig?} 2>/dev/null
+            echo -e '\tPermitRootLogin no' | sudo tee -a ${sshConfig?} >/dev/null 2>&1
         fi
     fi
 

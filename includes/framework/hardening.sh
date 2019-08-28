@@ -25,10 +25,10 @@ hardening() {
     # ================================================
     # Update and upgrade the server
     # ================================================
-    dumpInfoLine 'Updating the server'
-    sudo apt-get -q -qq update -y 2>/dev/null
-    dumpInfoLine 'Upgrading the server'
-    sudo apt-get -q -qq upgrade -y 2>/dev/null
+#    dumpInfoLine 'Updating the server'
+#    sudo apt-get -q -qq update -y 2>/dev/null
+#    dumpInfoLine 'Upgrading the server'
+#    sudo apt-get -q -qq upgrade -y 2>/dev/null
 
     # ================================================
     # Turn off enforcing & selinux (needed)
@@ -41,8 +41,9 @@ hardening() {
     # ================================================
     # Call the hardening scripts
     # ================================================
-    hardeningWithTelemetry
-    hardeningWithQuickSecure
+#    hardeningWithTelemetry
+#    hardeningWithQuickSecure
+    hardeningApache
 
     # ================================================
     # Turn on selinux (needed)
