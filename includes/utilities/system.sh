@@ -157,3 +157,24 @@ getAllUsersAndHome() {
         __users["${userHome##*/}"]="${userHome}"
     done
 }
+
+# ================================================
+# Update & upgrade the server
+#
+# @usage
+# updateAndUpgrade
+#
+# @info
+# Dumps info lines
+# ================================================
+declare -g updatedAndUpgraded=false
+updateAndUpgrade() {
+    if [[ ${updatedAndUpgraded} != true ]]
+    then
+        updatedAndUpgraded=true
+        dumpInfoLine 'Updating the server'
+        sudo apt-get -q -qq update -y 2>/dev/null
+        dumpInfoLine 'Upgrading the server'
+        sudo apt-get -q -qq upgrade -y 2>/dev/null
+    fi
+}

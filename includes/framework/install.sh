@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # ================================================
-# A security/hardening script
+# A installation/setup script
 # ================================================
-
-hardening() {
+install() {
 #    # Verify the user wants to harden system
 #    if ! getOption 'force'
 #    then
@@ -21,32 +20,14 @@ hardening() {
     # ================================================
     # Print the info header
     # ================================================
-    dumpInfoHeader 'Start Hardening'
+    dumpInfoHeader 'Start Installation'
 
     # ================================================
     # Update and upgrade the server
     # ================================================
     updateAndUpgrade
-    return
 
     # ================================================
-    # Turn off enforcing & selinux (needed)
+    # Call the installation functions
     # ================================================
-    dumpInfoLine 'Turn off enforcing'
-    turnOffEnforcing
-    dumpInfoLine 'Turn off selinux'
-    turnOffSelinux
-
-    # ================================================
-    # Call the hardening scripts
-    # ================================================
-    hardeningWithTelemetry
-    hardeningWithQuickSecure
-    hardeningApache
-
-    # ================================================
-    # Turn on selinux (needed)
-    # ================================================
-    dumpInfoHeader 'Turn on selinux'
-    turnOnSelinux
 }
