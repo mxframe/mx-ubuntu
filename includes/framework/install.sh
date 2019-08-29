@@ -90,6 +90,13 @@ tmpInstallEverything() {
     sudo a2enmod actions fastcgi alias proxy_fcgi
     sudo service apache2 restart
 
+    # Change owner
+    sudo chown -R www-data:www-data /var/www/html
+    sudo chmod -R 775 /var/www/html
+    # https://askubuntu.com/questions/51951/set-default-group-for-user-when-they-create-new-files
+    sudo chgrp www-data /var/www/html
+    sudo chmod g+s /var/www/html
+
     # Install the apache php mods
     sudo apt-get -y install libapache2-mod-php7.{1,3}
 
@@ -97,23 +104,61 @@ tmpInstallEverything() {
     sudo update-alternatives --set php /usr/bin/php7.3
 
     # Use php7.3 with apache2
-    sudo a2dismod php7.*
+    sudo a2dismod php7.1
     sudo a2enmod php7.3
-    sudo service apache2 restart
 
     # Restart apache2
     sudo service apache2 restart
 
     # Install git
     sudo apt-get install -y git-core
-    git config --global color.ui true
-    sudo mkdir ${pathPackages}/.git
+    [[ ! -d ${pathPackages}/.git ]] && sudo mkdir ${pathPackages}/.git
     sudo sh -c "echo '.*swp' > ${pathPackages}/.git/.gitignore_global"
-    sudo rm -rf ${pathPackages}/.git/.gitignore_global
+    # ... git-credentials
+    sudo rm -rf ${pathPackages}/.git/.git-credentials
     sudo touch ${pathPackages}/.git/.git-credentials
     echo "${gitCredentials}" | sudo tee -a ${pathPackages}/.git/.git-credentials
-    git config --global core.excludesfile ${pathPackages}/.git/.gitignore_global
-    git config --global credential.helper "store --file ${pathPackages}/.git/.git-credentials"
-    git config --system core.excludesfile ${pathPackages}/.git/.gitignore_global
-    git config --system credential.helper "store --file ${pathPackages}/.git/.git-credentials"
+    # ... global
+    sudo git config --global color.ui true
+    sudo git config --global core.excludesfile ${pathPackages}/.git/.gitignore_global
+    sudo git config --global credential.helper "store --file ${pathPackages}/.git/.git-credentials"
+    # ... system
+    sudo git config --system color.ui true
+    sudo git config --system core.excludesfile ${pathPackages}/.git/.gitignore_global
+    sudo git config --system credential.helper "store --file ${pathPackages}/.git/.git-credentials"
+
+    # Install composer to /usr/local/bin/composer
+    cd ~
+    curl -sS https://getcomposer.org/installer -o composer-setup.php
+    sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+    # Speed up composer
+    composer global require hirak/prestissimo
+
+    # Install node.js & npm
+    # https://hackersandslackers.com/fixing-your-npm-installation/
+    sudo apt-get -y remove node nodejs npm
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    sudo apt-get -y install nodejs
+
+    # Update npm to the latest version
+    #sudo chown -R vagrant:vagrant node_modules/
+    npm config set prefix "${pathPackages}/npm"
+    npm install -g npm@latest
+
+    # Install pretty errors
+    npm install-g  pretty-error
+
+    # Install nuxt
+    npm install -g create-nuxt-app
+
+    # Install vue CLI
+    npm install -g @vue/cli
+
+    # Install serve
+    npm install -g serve
+
+    # Activate npm/node server, proxy, etc.
+    sudo a2enmod proxy proxy_http proxy_wstunnel
+    sudo service apache2 restart
 }

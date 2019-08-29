@@ -29,6 +29,13 @@ hardeningApache() {
     apDisableEtag
     apDisableTrace
     apEnableActualIpLogging
+
+    # Change owner & permission
+    sudo chown -R www-data:www-data /var/www/html
+    sudo chmod -R 775 /var/www/html
+    # https://askubuntu.com/questions/51951/set-default-group-for-user-when-they-create-new-files
+    sudo chgrp www-data /var/www/html
+    sudo chmod g+s /var/www/html
 }
 
 # ================================================

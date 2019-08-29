@@ -49,6 +49,11 @@ ensurePackagesDirectory() {
         # Change the owners
         dumpInfoLine "Change the owners of path '${pathPackages}' to '$(whoami):${groupPackages}'"
         sudo chown -R $(whoami):${groupPackages} ${pathPackages} >/dev/null 2>&1 || throw 101
+
+        # Change creation of new stuff
+        dumpInfoLine "Change the permanent group to '${groupPackages}'"
+        sudo chgrp ${groupPackages} ${pathPackages} || throw 102
+        sudo chmod g+s ${pathPackages} || throw 103
     )
     catch || {
         case ${exCode} in
@@ -58,6 +63,14 @@ ensurePackagesDirectory() {
 
             101)
                 dumpInfoLine "${BRed}Error${RCol}: Can't change the owners of path '${pathPackages}'"
+            ;;
+
+            102)
+                dumpInfoLine "${BRed}Error${RCol}: Can't change the permanent group of path '${pathPackages}' [#1]"
+            ;;
+
+            103)
+                dumpInfoLine "${BRed}Error${RCol}: Can't change the permanent group of path '${pathPackages}' [#2]"
             ;;
 
             *)
