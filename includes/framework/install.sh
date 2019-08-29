@@ -91,7 +91,8 @@ tmpInstallEverything() {
     sudo service apache2 restart
 
     # Change owner
-    sudo chown -R www-data:www-data /var/www/html
+    sudo chown www-data:www-data /var/www/html
+    sudo chgrp -R www-data /var/www/html
     sudo chmod -R 775 /var/www/html
     # https://askubuntu.com/questions/51951/set-default-group-for-user-when-they-create-new-files
     sudo chgrp www-data /var/www/html
