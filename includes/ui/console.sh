@@ -28,8 +28,30 @@ pressKeyToContinue() {
         if ! getOption 'continue'
         then
             echo ''
-            printf "${BYel}Press anny key to continue...${RCol}"
+            printf "${BYel}Press any key to continue...${RCol}"
             read -n1 -r -p "" key
+            echo ''
+        fi
+    fi
+}
+
+pressSpaceToContinue() {
+    # Optional parameter to show if debug is disabled
+    showWhenDebugDisabled=${1:-false}
+
+    # Check if continue should be skipped
+    if [[ ${showWhenDebugDisabled} = true || $(echoOption 'debug') = true ]]
+    then
+        if ! getOption 'continue'
+        then
+            echo ''
+            printf "${BYel}Press SPACE to continue...${RCol}"
+            while true
+            do
+                read -n1 -rs
+                [[ $REPLY == ' ' ]] && break
+            done
+            echo ''
         fi
     fi
 }
