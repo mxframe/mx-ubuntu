@@ -38,6 +38,7 @@ needsSudoPermission
 # Install dialog
 # ================================================
 installDialog
+exit
 
 # ================================================
 # Setup the users

@@ -180,18 +180,3 @@ updateAndUpgrade() {
         dumpInfoLine "... ${BGre}done${RCol}"
     fi
 }
-
-# ================================================
-# Update & upgrade the server
-#
-# @usage
-# updateAndUpgrade
-#
-# @info
-# Dumps info lines
-# ================================================
-installDialog() {
-    dumpInfoLine 'Install dialog'
-    package_installed dialog || sudo apt-get -q -qq install dialog -y 2>/dev/null
-    dumpInfoLine "... ${BGre}done${RCol}"
-}

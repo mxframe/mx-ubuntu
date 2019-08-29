@@ -31,3 +31,30 @@ install() {
     # Call the installation functions
     # ================================================
 }
+
+# ================================================
+# Install dialog
+#
+# @usage
+# installDialog
+#
+# @info
+# Dumps info lines
+# ================================================
+installDialog() {
+    # Dump the intro line
+    dumpInfoHeader 'Install dialog'
+
+    # Check if the package is already installed
+    if packageInstalled dialog
+    then
+        # Dump the info line
+        dumpInfoLine "${BYel}already installed${RCol}"
+    else
+        # Perform the installation
+        sudo apt-get -q -qq install dialog -y 2>/dev/null
+
+        # Dump the done line
+        dumpInfoLine "${BGre}done${RCol}"
+    fi
+}
