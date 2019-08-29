@@ -33,6 +33,7 @@ readOptions $*
 # Clear the screen
 # ================================================
 clear
+show_banner
 
 # ================================================
 # Include the sudo dialog (if needed)
