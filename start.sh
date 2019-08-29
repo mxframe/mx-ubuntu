@@ -30,6 +30,11 @@ file_exists config.sh || cp -rp config.example.sh config.sh
 readOptions $*
 
 # ================================================
+# Clear the screen
+# ================================================
+clear
+
+# ================================================
 # Include the sudo dialog (if needed)
 # ================================================
 needsSudoPermission

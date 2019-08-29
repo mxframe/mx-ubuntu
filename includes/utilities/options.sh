@@ -185,7 +185,6 @@ readOptions() {
     if getOption 'debug'
     then
         # Print the debug message
-        clear
         echo -e "${BBlu}Info${RCol}: ${BGre}DEBUG IS ON${RCol}"
 
         echo ''
