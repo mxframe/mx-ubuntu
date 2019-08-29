@@ -22,3 +22,6 @@ defaultUsers['username']='public_key'
 
 # The default users and groups [comma separated]
 defaultUsersAndGroups['username']='packages,sudoers'
+
+# The git credentials
+gitCredentials=''

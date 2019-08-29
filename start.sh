@@ -38,8 +38,6 @@ clearScreen
 # Include the sudo dialog (if needed)
 # ================================================
 needsSudoPermission
-ensureDefaultUsers
-exitScript
 
 # ================================================
 # Install dialog
@@ -55,34 +53,13 @@ ensurePackagesDirectory
 # Start installation
 # ================================================
 install
-exitScript
 
 # ================================================
 # Start hardening
 # ================================================
-hardening
-
-
-
-
-
-
-exitScript
-# ================================================
-# Clear the screen & show the banner
-# ================================================
-clear
-show_banner
-
-# ================================================
-# Update and upgrade the server
-# ================================================
-apt-get update -y
-apt-get upgrade -y
+#hardening
 
 # ================================================
 # Install dialog
 # ================================================
-package_installed dialog || apt-get install dialog -y
-
-# apt-get install kdelibs-bin -y
+ensureDefaultUsers
