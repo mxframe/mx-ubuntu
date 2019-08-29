@@ -217,7 +217,7 @@ addUserWithPassword() {
 }
 
 # ================================================
-# Add a new user with a key
+# Add a new user with a key and a default password
 #
 # @usage
 # addUserWithKey "${username}" "${key}" ${noHeader}
@@ -266,11 +266,14 @@ addUserWithKey() {
         # Add the user
         sudo adduser ${username} --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password >/dev/null 2>&1 || throw 100
 
+        # Set the password
+        echo "${username}:${defaultUserPassword}" | sudo chpasswd || throw 101
+
         # Create the ssh directory
-        sudo mkdir /home/${username}/.ssh || throw 101
+        sudo mkdir /home/${username}/.ssh || throw 102
 
         # Add the key
-        echo "${key}" | sudo tee -a /home/${username}/.ssh/authorized_keys >/dev/null 2>&1 || throw 102
+        echo "${key}" | sudo tee -a /home/${username}/.ssh/authorized_keys >/dev/null 2>&1 || throw 103
 
         # Change the permissions and owner
         sudo chmod -R 700 /home/${username}/.ssh
@@ -291,10 +294,14 @@ addUserWithKey() {
             ;;
 
             101)
-                dumpInfoLine "${BRed}Error${RCol}: There was an error, when creating the ssh directory"
+                dumpInfoLine "${BRed}Error${RCol}: There was an error, when setting the password"
             ;;
 
             102)
+                dumpInfoLine "${BRed}Error${RCol}: There was an error, when creating the ssh directory"
+            ;;
+
+            103)
                 dumpInfoLine "${BRed}Error${RCol}: There was an error, when setting the key"
             ;;
 

@@ -14,6 +14,9 @@ availableOptions['-d | --debug']='If set, debugging will be enabled'
 availableOptions['-c | --continue']='If set, the continue pauses will be skipped'
 availableOptions['-f | --force']='If set, only required will be asked by this script'
 
+# The default user password
+defaultUserPassword='default'
+
 # The default users and public keys
 defaultUsers['username']='public_key'
 
