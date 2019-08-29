@@ -10,7 +10,7 @@ export PS4='+(${BASH_SOURCE##*/}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 # Define the directories
 cwd=$('pwd')
-pathAll='/home/all'
+pathAll='/home/all' # /usr/local/bin
 pathAllBin="${pathAll}/bin"
 pathMxUbuntu="${pathAllBin}/mx-ubuntu"
 

@@ -408,7 +408,7 @@ qsHardeningSsh() {
 
     # Get the users
     local -A users
-    getAllUsersAndHome users
+    getUsersWithHome users
 
     #Set all files in ``.ssh`` to ``600``
     local user

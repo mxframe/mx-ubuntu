@@ -131,34 +131,6 @@ turnOnSelinux() {
 }
 
 # ================================================
-# Get all users
-#
-# @usage
-# declare -A myArray
-# getAllUsers myArray
-#
-# https://unix.stackexchange.com/questions/462068/bash-return-an-associative-array-from-a-function-and-then-pass-that-associative
-# https://www.linuxjournal.com/content/return-values-bash-functions
-# https://unix.stackexchange.com/questions/199220/how-to-loop-over-users
-# ================================================
-getAllUsersAndHome() {
-    # Define the users
-    local -n __users="$1"
-
-    # Use awk to do the heavy lifting.
-    # For lines with UID>=1000 (field 3) grab the home directory (field 6)
-    local usrInfo=$(awk -F: '{if ($3 >= 1000) print $6}' < /etc/passwd)
-
-    # Use newline as delimiter for for-loop
-    IFS=$'\n'
-    local userHome
-    for userHome in ${usrInfo}
-    do
-        __users["${userHome##*/}"]="${userHome}"
-    done
-}
-
-# ================================================
 # Update & upgrade the server
 #
 # @usage

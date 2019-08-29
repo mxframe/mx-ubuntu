@@ -49,7 +49,7 @@ installDialog() {
     if packageInstalled dialog
     then
         # Dump the info line
-        dumpInfoLine "${BYel}already installed${RCol}"
+        dumpInfoLine "${BYel}Already installed${RCol}"
     else
         # Perform the installation
         sudo apt-get -q -qq install dialog -y 2>/dev/null

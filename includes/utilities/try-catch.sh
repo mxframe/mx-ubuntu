@@ -34,7 +34,7 @@
 #    # directly after closing the subshell you need to connect a group to the catch using ||
 #    catch || {
 #        # now you can handle
-#        case $ex_code in
+#        case ${exCode} in
 #            $AnException)
 #                echo "AnException was thrown"
 #            ;;
@@ -43,7 +43,7 @@
 #            ;;
 #            *)
 #                echo "An unexpected exception was thrown"
-#                throw $ex_code # you can rethrow the "exception" causing the script to exit if not caught
+#                throw ${exCode} # you can rethrow the "exception" causing the script to exit if not caught
 #            ;;
 #        esac
 #    }

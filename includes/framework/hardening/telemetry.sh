@@ -23,7 +23,7 @@ hardeningWithTelemetry() {
     telRemoveAws
     telRemoveAptUrl
     telInstallDnsEncryption
-    telFirewall
+    # telFirewall # needs more testing, before using it
     telInstallClamAV
     telInstallFail2Ban
     telRemovePackages
