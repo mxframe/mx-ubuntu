@@ -172,9 +172,26 @@ updateAndUpgrade() {
     if [[ ${updatedAndUpgraded} != true ]]
     then
         updatedAndUpgraded=true
+        dumpInfoLine 'Update and upgrade the server'
         dumpInfoLine 'Updating the server'
         sudo apt-get -q -qq update -y 2>/dev/null
         dumpInfoLine 'Upgrading the server'
         sudo apt-get -q -qq upgrade -y 2>/dev/null
+        dumpInfoLine "... ${BGre}done${RCol}"
     fi
+}
+
+# ================================================
+# Update & upgrade the server
+#
+# @usage
+# updateAndUpgrade
+#
+# @info
+# Dumps info lines
+# ================================================
+installDialog() {
+    dumpInfoLine 'Install dialog'
+    package_installed dialog || sudo apt-get -q -qq install dialog -y 2>/dev/null
+    dumpInfoLine "... ${BGre}done${RCol}"
 }
