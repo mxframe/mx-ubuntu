@@ -103,10 +103,10 @@ alias untarj='tar -xjf'
 # ================================================
 # All directory aliases
 # ================================================
-declare pathAll="${HOME}/all"
-function pathAll() {
-    return ${pathAll}
+declare pathPackages="${HOME}/all"
+function pathPackages() {
+    return ${pathPackages}
 }
 function cdAll() {
-    cd "${pathAll}"
+    cd "${pathPackages}"
 }

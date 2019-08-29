@@ -152,3 +152,20 @@ updateAndUpgrade() {
         dumpInfoLine "... ${BGre}done${RCol}"
     fi
 }
+
+# ================================================
+# Clear the screen and show header, etc.
+#
+# @usage
+# clearScreen
+# ================================================
+clearScreen() {
+    # Clear the screen
+    clear
+
+    # Show the banner
+    showBanner
+
+    # Print the options, when debug is enabled
+    printOptions
+}

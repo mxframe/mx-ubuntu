@@ -5,7 +5,7 @@
 # @banner http://patorjk.com/software/taag/
 # @style Big Money-ne
 # ================================================
-show_banner() {
+showBanner() {
     echo ''
     echo -e "${BGre}
                                                /##                                        /######

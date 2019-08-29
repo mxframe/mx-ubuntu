@@ -46,7 +46,7 @@ readOptions() {
 
         # Try to split into keys
         local -a tmpKeys=()
-        IFS="|" read -a tmpKeys <<<"$trimmed"
+        IFS='|' read -a tmpKeys <<<"$trimmed"
 
         # Loop through the keys
         local shortKeys=''
@@ -163,7 +163,7 @@ readOptions() {
 
                 # Split the option keys
                 local -a tmpKeys=()
-                IFS="|" read -a tmpKeys <<<"${keys[$1]}"
+                IFS='|' read -a tmpKeys <<<"${keys[$1]}"
 
                 # Loop through the keys
                 for subKey in "${tmpKeys[@]}"
@@ -180,11 +180,19 @@ readOptions() {
             ;;
         esac
     done
+}
 
-    # Print the options, when debug is enabled
+# ================================================
+# Print the options, when debug is enabled
+#
+# @usage
+# printOptions
+# ================================================
+printOptions() {
     if getOption 'debug'
     then
         # Print the debug message
+        echo ''
         echo -e "${BBlu}Info${RCol}: ${BGre}DEBUG IS ON${RCol}"
 
         echo ''

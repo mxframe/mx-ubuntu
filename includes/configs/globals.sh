@@ -10,9 +10,12 @@ export PS4='+(${BASH_SOURCE##*/}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 # Define the directories
 cwd=$('pwd')
-pathAll='/home/all' # /usr/local/bin
-pathAllBin="${pathAll}/bin"
-pathMxUbuntu="${pathAllBin}/mx-ubuntu"
+pathPackages='/usr/local/packages'
+pathMxUbuntu="${pathPackages}/mx-ubuntu"
+
+# Define the packages group and permissions
+groupPackages='packages'
+permissionPackages=770
 
 # Back title for whiptail
 globalLabelBox='MxUbuntu - ServerSetup'
