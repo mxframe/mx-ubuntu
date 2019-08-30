@@ -8,5 +8,5 @@
 ##############################################################################################################
 
 # Load the bashrc files
-. ./functions/utilities/system.sh
+. ./includes/utilities/system.sh
 sourceBashFilesRecursive ./bashrc
