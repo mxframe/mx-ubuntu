@@ -22,9 +22,9 @@ hardeningWithQuickSecure() {
     # Call the necessary functions
     # ================================================
     qsHardeningCron
-    qsHardeningClamAV
-    qsHardeningOwnerships
-    qsHardeningDisaStigOwnerships
+    #qsHardeningClamAV
+    #qsHardeningOwnerships
+    #qsHardeningDisaStigOwnerships
     qsHardeningSsh
     qsHardeningRelatedPackages
     qsHardeningUsers
