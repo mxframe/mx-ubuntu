@@ -273,7 +273,7 @@ addUserWithKey() {
         sudo mkdir /home/${username}/.ssh || throw 102
 
         # Add the key
-        echo "${key}" | sudo tee -a /home/${username}/.ssh/authorized_keys >/dev/null 2>&1 || throw 103
+        echo "${key} ${username}" | sudo tee -a /home/${username}/.ssh/authorized_keys >/dev/null 2>&1 || throw 103
 
         # Change the permissions and owner
         sudo chmod -R 700 /home/${username}/.ssh
@@ -378,7 +378,7 @@ addUserWithPasswordAndKey() {
         sudo mkdir /home/${username}/.ssh || throw 102
 
         # Add the key
-        echo "${key}" | sudo tee -a /home/${username}/.ssh/authorized_keys >/dev/null 2>&1 || throw 103
+        echo "${key} ${username}" | sudo tee -a /home/${username}/.ssh/authorized_keys >/dev/null 2>&1 || throw 103
 
         # Change the permissions and owner
         sudo chmod -R 700 /home/${username}/.ssh
