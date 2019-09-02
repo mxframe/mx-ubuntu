@@ -75,6 +75,9 @@ tmpInstallEverything() {
     sudo add-apt-repository -y ppa:ondrej/php
     sudo apt-get update -y
 
+    # Install mysql client
+    sudo apt-get -y install mysql-client
+
     # Install apache2
     sudo apt-get -y install php apache2 apache2-utils
     # Setup apache
