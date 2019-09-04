@@ -16,8 +16,8 @@ set -o errtrace
 # RETURN traps are normally not inherited in such cases.
 set -o functrace
 
-# Exit if any command exits with a non-zero exit status.
-set -o errexit
+## Exit if any command exits with a non-zero exit status.
+#set -o errexit
 
 # Exit if script uses undefined variables.
 set -o nounset

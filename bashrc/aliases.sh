@@ -1,9 +1,30 @@
 #!/bin/bash
 
 # ================================================
+# Deactivate some commands for sudo
+# ================================================
+sudo() {
+    local command=${1:-''}
+    local RCol='\e[0m';
+    local BRed='\e[1;31m';
+    case ${command} in
+        'git'|'composer'|'npm')
+            echo ''
+            echo -e "${BRed}Error${RCol}: The '${command}' command is not allowed with sudo !!!"
+            echo -e "Contact your Admin if you need help or for more information about this."
+            echo ''
+        ;;
+
+        *)
+            command sudo "$@"
+        ;;
+    esac
+}
+
+# ================================================
 # Function to display system information
 # ================================================
-function printSysInfo() {
+printSysInfo() {
     printf "CPU: "
     cat /proc/cpuinfo | grep "model name" | head -1 | awk '{ for (i = 4; i <= NF; i++) printf "%s ", $i }'
     printf "\n"
@@ -21,7 +42,7 @@ function printSysInfo() {
 # ================================================
 # Function to display shorter system uptime
 # ================================================
-function printSysUptime() {
+printSysUptime() {
     uptime | awk '{ print "Uptime:", $3, $4, $5 }' | sed 's/,//g'
     return;
 }
@@ -29,7 +50,7 @@ function printSysUptime() {
 # ================================================
 # Function to display the disk usage
 # ================================================
-function printDiskUsage() {
+printDiskUsage() {
     echo "Device         Total  Used  Free  Pct MntPoint"
     df -h | grep "/dev/xvda1"
 }
@@ -37,7 +58,7 @@ function printDiskUsage() {
 # ================================================
 # Function to display/list the installed packages
 # ================================================
-function printPackagesByName() {
+printPackagesByName() {
     apt-cache pkgnames | grep -i "$1" | sort
     return;
 }
@@ -101,12 +122,12 @@ alias untarz='tar -xzf'
 alias untarj='tar -xjf'
 
 # ================================================
-# All directory aliases
+# The packages directory aliases
 # ================================================
-declare pathPackages="${HOME}/all"
-function pathPackages() {
+declare pathPackages='/usr/local/packages'
+pathPackages() {
     return ${pathPackages}
 }
-function cdAll() {
+cdPackages() {
     cd "${pathPackages}"
 }

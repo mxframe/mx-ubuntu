@@ -20,6 +20,6 @@ showBanner() {
               | ##
               |__/
     ${RCol}"
-    echo -e "    ${BGre}Automated Setup & Hardening Script for Ubuntu Servers${RCol}"
+    echo -e "    ${BGre}DevOps scripts for Ubuntu Server${RCol}"
     echo -e "    ${BICya}Developed by Mathias Berg${RCol}"
 }

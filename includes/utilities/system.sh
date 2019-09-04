@@ -35,9 +35,13 @@ sourceBashFiles() {
 
     # Iterate trough the files
     shopt -s nullglob
-    for filename in ${directory}/*.sh
+    for file in ${directory}/*.sh
     do
-        . ${filename}
+        filename=${file##*/}
+        if [[ ${filename:0:1} != '.' || ${filename:0:2} = './' ]]
+        then
+            . ${file}
+        fi
     done
 }
 
@@ -60,17 +64,24 @@ sourceBashFilesRecursive() {
     # Iterate trough the files
     local filename
     shopt -s nullglob
-    for filename in ${directory}/*.sh
+    for file in ${directory}/*.sh
     do
-        . ${filename}
+        filename=${file##*/}
+        if [[ ${filename:0:1} != '.' || ${filename:0:2} = './' ]]
+        then
+            . ${file}
+        fi
     done
 
     # Iterate trough the directories
     local dir
-    shopt -s nullglob
-    for dir in `find ${directory} -mindepth 1 -type d`
+    for dir in `find ${directory} -mindepth 1 -maxdepth 1  -type d`
     do
-        sourceBashFilesRecursive ${dir}
+        dirname=${dir##*/}
+        if [[ ${dirname:0:1} != '.' ]] && [[ ${dirname:(-4)} != '.bak' ]]
+        then
+            sourceBashFilesRecursive ${dir}
+        fi
     done
 }
 

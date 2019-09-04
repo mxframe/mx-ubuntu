@@ -38,8 +38,8 @@ needsSudoPermission() {
             # Check if we have sudo access
             if stringIsEmptyOrNull ${sudoPw}
             then
-                # Show the sudo prompt
-                showSudoPrompt
+                # Show the sudo dialog
+                showSudoDialog
             fi
 
             # Check if we have sudo access

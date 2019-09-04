@@ -38,9 +38,11 @@
 #            $AnException)
 #                echo "AnException was thrown"
 #            ;;
+#
 #            $AnotherException)
 #                echo "AnotherException was thrown"
 #            ;;
+#
 #            *)
 #                echo "An unexpected exception was thrown"
 #                throw ${exCode} # you can rethrow the "exception" causing the script to exit if not caught

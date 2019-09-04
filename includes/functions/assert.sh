@@ -3,14 +3,14 @@
 # A collection of useful assertions. Each one checks a condition and if the condition is not satisfied, exits the
 # program. This is useful for defensive programming.
 
-# shellcheck source=./modules/bash-commons/src/log.sh
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/log.sh"
-# shellcheck source=./modules/bash-commons/src/array.sh
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/array.sh"
-# shellcheck source=./modules/bash-commons/src/string.sh
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/string.sh"
-# shellcheck source=./modules/bash-commons/src/os.sh
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/os.sh"
+## shellcheck source=./modules/bash-commons/src/log.sh
+#source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/log.sh"
+## shellcheck source=./modules/bash-commons/src/array.sh
+#source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/array.sh"
+## shellcheck source=./modules/bash-commons/src/string.sh
+#source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/string.sh"
+## shellcheck source=./modules/bash-commons/src/os.sh
+#source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/os.sh"
 
 # Check that the given binary is available on the PATH. If it's not, exit with an error.
 function assert_is_installed {

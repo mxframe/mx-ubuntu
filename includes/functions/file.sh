@@ -2,9 +2,9 @@
 
 # A collection of functions for working with files.
 
-# shellcheck source=./modules/bash-commons/src/os.sh
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/os.sh"
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/string.sh"
+## shellcheck source=./modules/bash-commons/src/os.sh
+#source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/os.sh"
+#source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/string.sh"
 
 # Returns true (0) if the given file exists and is a file and false (1) otherwise
 function file_exists {
@@ -95,4 +95,68 @@ function file_fill_template {
     value="$(string_strip_prefix "$param" "*=")"
     file_replace_text "$name" "$value" "$file"
   done
+}
+
+# https://stackoverflow.com/questions/23356779/how-can-i-store-the-find-command-results-as-an-array-in-bash
+findFiles() {
+    # Define the array
+    local ary=()
+
+    # Get the variables
+    local path=${1:-''}
+    local pattern=${2:-''}
+
+    # Check path and pattern
+    if [[ ${path} = '' ]] || [[ ${pattern} = '' ]]
+    then
+        return
+    fi
+
+    # Check if directory exists
+    if [[ -d ${path} ]]
+    then
+        # Get the files
+        while IFS=  read -r -d $'\0'; do
+            ary+=("$REPLY")
+        done < <(find ${path} -name "${pattern}" -print0)
+    fi
+
+    # Check the array
+    if [[ ${#ary[@]} = 0 ]]
+    then
+        return
+    fi
+
+    # Return the array
+    echo ${ary[*]}
+}
+
+findGitProjects() {
+    # Get the variables
+    local path=${1:-''}
+
+    # Define the git projects array
+    local -a emptyArray=()
+    local gitProjects=( $(findFiles ${path} '.git') )
+
+    # Check the git projects
+    if [[ ${#gitProjects[@]} = 0 ]]
+    then
+        return
+    fi
+
+    # Iterate through the trailing git projects
+    for key in "${!gitProjects[@]}"
+    do
+        # Remove the .git folder
+        if [[ ${gitProjects[${key}]:(-1)} = '/' ]]
+        then
+            gitProjects[${key}]=${gitProjects[${key}]:0:(-6)}
+        else
+            gitProjects[${key}]=${gitProjects[${key}]:0:(-5)}
+        fi
+    done
+
+    # Return the git projects
+    echo ${gitProjects[*]}
 }

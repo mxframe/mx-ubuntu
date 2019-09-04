@@ -95,3 +95,16 @@ arrayDump() {
 arrayCheck() {
     [[ "$(declare -p variable_name)" =~ "declare -a" ]]
 }
+
+# ================================================
+# Function to count array
+# @todombe not finished yet
+# arrayCount ${array[*]}
+# ================================================
+arrayCount() {
+    # Get the possible array
+    local -ar ary=("$@")
+
+    # Return the length
+    echo ${#ary[@]}
+}

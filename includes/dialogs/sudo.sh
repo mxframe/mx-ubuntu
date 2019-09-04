@@ -4,23 +4,23 @@
 # Request sudo password
 # ================================================
 sudoPw=null
-showSudoPrompt() {
+showSudoDialog() {
     # Define the labels
-    local labelPrompt='Enter your password for sudo:'
-    local labelInfo='Your password won´t be stored, but is needed for the installation process.'
+    local passwordBoxInfo='Enter your password for sudo:'
+    local dialogBackTitle='Your password won´t be stored, but is needed for the installation process.'
 
     # Check for dialog
     if packageInstalled dialog
     then
         # Ask for password with dialog
-        sudoPw=$(dialog --title "${globalLabelBox}" \
-                          --backtitle "${labelInfo}" \
-                          --passwordbox "${labelPrompt}" \
-                          8 40 3>&1 1>&2 2>&3 3>&-)
+        sudoPw=$(dialog --title "${globalDialogTitle}" \
+                        --backtitle "${dialogBackTitle}" \
+                        --passwordbox "${passwordBoxInfo}" \
+                        8 40 3>&1 1>&2 2>&3 3>&-)
     else
-        # Ask for password without whiptail
-        echo -e "${BGre}${labelInfo}${RCol}"
-        while IFS= read -p "${labelPrompt} " -r -s -n 1 char
+        # Ask for password without dialog
+        echo -e "${BGre}${dialogTitle}${RCol}"
+        while IFS= read -p "${passwordBoxInfo} " -r -s -n 1 char
         do
             if [[ $char == $'\0' ]]
             then

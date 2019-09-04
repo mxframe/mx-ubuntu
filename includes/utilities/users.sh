@@ -20,7 +20,7 @@ ensureDefaultUsers() {
     then
         dd 'Next Step, ensure that the users are existinig'
         pressKeyToContinue
-     fi
+    fi
 
     # Dump the header
     dumpInfoHeader 'Ensure that the default users are existing'

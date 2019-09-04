@@ -4,12 +4,12 @@
 # tags or IPs for EC2 Instances. Note that these wrappers handle all the data processing and logic, whereas all the
 # direct calls to the AWS CLI and EC2 metadata endpoints are delegated to aws.sh to make unit testing easier.
 
-# shellcheck source=./modules/bash-commons/src/log.sh
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/log.sh"
-# shellcheck source=./modules/bash-commons/src/aws.sh
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/aws.sh"
-# shellcheck source=./modules/bash-commons/src/assert.sh
-source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/assert.sh"
+## shellcheck source=./modules/bash-commons/src/log.sh
+#source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/log.sh"
+## shellcheck source=./modules/bash-commons/src/aws.sh
+#source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/aws.sh"
+## shellcheck source=./modules/bash-commons/src/assert.sh
+#source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/assert.sh"
 
 # Get the name of the ASG this EC2 Instance is in. This is done by looking up the instance's tags. This method will
 # wait up until the specified number of retries if the tags or instances are not yet available.
