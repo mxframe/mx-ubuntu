@@ -36,5 +36,5 @@ then
 fi
 
 # Change/Fix the permissions
-sudo chgroup -R www-data /webcluster-share
+sudo chgrg -R www-data /webcluster-share
 sudo chmod -R g+s /webcluster-share
