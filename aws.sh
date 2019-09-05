@@ -40,7 +40,7 @@ sudo chgrp -R www-data /webcluster-share
 sudo chmod -R g+s /webcluster-share
 
 # Create the html symlink
-if [[ -d /var/www/html ]] || [[ -L /var/www/html  ]]
+if [[ -d /var/www/html ]] || [[ -L /var/www/html ]]
 then
     sudo rm -rf /var/www/html
 fi
