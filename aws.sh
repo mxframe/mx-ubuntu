@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ ! mountpoint -q /webcluster-share ]]
+if [[ ! $(mountpoint -q /webcluster-share) ]]
 then
     # Check for package amazon-efs-utils
     if $(dpkg -s 'amazon-efs-utils' >/dev/null 2>&1)
