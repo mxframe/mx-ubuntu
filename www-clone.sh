@@ -1,8 +1,11 @@
 #!/bin/bash
 
 sudo rm -rf /var/www/html
-mkdir /var/www/html
+sudo mkdir /var/www/html
 cd /var/www/html
+sudo chgrp -R www-data /var/www/html
+sudo chmod -R g+s /var/www/html
+sudo chown -R $(whoami) /var/www/html
 
 git clone http://gitlab.tkw-partner.de/spectrum8/magenta-eins-valentine-backend.git
 git clone http://gitlab.tkw-partner.de/spectrum8/magenta-eins-valentine-frontend.git
