@@ -50,7 +50,7 @@ installDialog() {
     if packageInstalled dialog
     then
         # Dump the info line
-        dumpInfoLine "${BYel}Already installed${RCol}"
+        dumpInfoLine "${BYel}Dialog is already installed${RCol}"
     else
         # Perform the installation
         sudo apt-get -q -qq install dialog -y 2>/dev/null
@@ -98,8 +98,8 @@ tmpInstallEverything() {
     sudo chgrp -R www-data /var/www/html
     sudo chmod -R 775 /var/www/html
     # https://askubuntu.com/questions/51951/set-default-group-for-user-when-they-create-new-files
-    sudo chgrp www-data /var/www/html
-    sudo chmod g+s /var/www/html
+    sudo chgrp -R www-data /var/www/html
+    sudo chmod -R g+s /var/www/html
 
     # Install the apache php mods
     sudo apt-get -y install libapache2-mod-php7.{1,3}

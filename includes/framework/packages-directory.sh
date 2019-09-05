@@ -52,8 +52,8 @@ ensurePackagesDirectory() {
 
         # Change creation of new stuff
         dumpInfoLine "Change the permanent group to '${groupPackages}'"
-        sudo chgrp ${groupPackages} ${pathPackages} || throw 102
-        sudo chmod g+s ${pathPackages} || throw 103
+        sudo chgrp -R ${groupPackages} ${pathPackages} || throw 102
+        sudo chmod -R g+s ${pathPackages} || throw 103
     )
     catch || {
         case ${exCode} in

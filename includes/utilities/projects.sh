@@ -289,7 +289,7 @@ projectComposerUpdate() {
     if [[ -f "${path}/composer.lock" ]] && [[ ${composerLockFileTime} = $(stat -c '%Y' "${path}/composer.lock") ]]
     then
         dumpInfoLine "... composer install"
-        dumpInfoLine "... ... ${BGre}not needed${RCol}"
+        dumpInfoLine "... ... ${BYel}not needed${RCol}"
         return
     fi
 
@@ -334,7 +334,7 @@ projectNpmInstallAndGenerate() {
     if [[ -d "${path}/node_modules" ]] && [[ -f "${path}/package-lock.json" ]] && [[ ${packageLockJsonFileTime} = $(stat -c '%Y' "${path}/package-lock.json") ]]
     then
         dumpInfoLine "... npm install"
-        dumpInfoLine "... ... ${BGre}not needed${RCol}"
+        dumpInfoLine "... ... ${BYel}not needed${RCol}"
     else
         # Dump the info line
         dumpInfoLine "... npm install"
