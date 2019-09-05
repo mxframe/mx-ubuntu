@@ -122,6 +122,7 @@ tmpInstallEverything() {
     sudo rm -rf ${pathPackages}/.git/.git-credentials
     sudo touch ${pathPackages}/.git/.git-credentials
     echo "${gitCredentials}" | sudo tee -a ${pathPackages}/.git/.git-credentials
+    sudo chown -R $(whoami) ${pathPackages}/.git
     # ... global
     sudo git config --global color.ui true
     sudo git config --global core.excludesfile ${pathPackages}/.git/.gitignore_global
