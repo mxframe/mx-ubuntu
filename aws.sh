@@ -24,7 +24,7 @@ then
     fi
 
     # Make the directory
-    if [[ ! -d ./webcluster-share ]]
+    if [[ ! -d /webcluster-share ]]
     then
         sudo mkdir /webcluster-share
         sudo chown -R www-data:www-data /webcluster-share
@@ -36,5 +36,5 @@ then
 fi
 
 # Change/Fix the permissions
-sudo chgrg -R www-data /webcluster-share
+sudo chgrp -R www-data /webcluster-share
 sudo chmod -R g+s /webcluster-share
