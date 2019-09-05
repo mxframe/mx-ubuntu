@@ -38,3 +38,12 @@ fi
 # Change/Fix the permissions
 sudo chgrp -R www-data /webcluster-share
 sudo chmod -R g+s /webcluster-share
+
+# Create the html symlink
+if [[ -d /var/www/html ]] || [[ -L /var/www/html  ]]
+then
+    sudo rm -rf /var/www/html
+fi
+sudo ln -s /webcluster-share/www/html /var/www/html
+#sudo chgrp -R www-data /var/www/html
+#sudo chmod -R g+s /var/www/html
