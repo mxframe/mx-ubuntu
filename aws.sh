@@ -3,7 +3,7 @@
 if [[ ! $(mountpoint -q /webcluster-share) ]]
 then
     # Check for package amazon-efs-utils
-    if $(dpkg -s 'amazon-efs-utils' >/dev/null 2>&1)
+    if ! $(dpkg -s 'amazon-efs-utils' >/dev/null 2>&1)
     then
         # Check for package binutils
         sudo apt-get update
@@ -23,16 +23,16 @@ then
         sudo apt-get install ./build/amazon-efs-utils*deb -y
     fi
 
-	# Make the directory
-    if [[ ! -d ./efs-utils ]]
+    # Make the directory
+    if [[ ! -d ./webcluster-share ]]
     then
-	    sudo mkdir /webcluster-share
-    	sudo chown -R www-data:www-data /webcluster-share
-	fi
+        sudo mkdir /webcluster-share
+        sudo chown -R www-data:www-data /webcluster-share
+    fi
 
-	# Mount the directory
-	# sudo mount -t efs fs-2e90a877:/ /webcluster-share
-	sudo mount -t efs -o tls fs-2e90a877:/ /webcluster-share
+    # Mount the directory
+    # sudo mount -t efs fs-2e90a877:/ /webcluster-share
+    sudo mount -t efs -o tls fs-2e90a877:/ /webcluster-share
 fi
 
 # Change/Fix the permissions
