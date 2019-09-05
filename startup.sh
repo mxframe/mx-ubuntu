@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Startup
+# https://askubuntu.com/questions/814/how-to-run-scripts-on-start-up
+# @reboot /usr/local/packages/mx-ubuntu/startup.sh
+
+
 # Check if /etc/apache2/sites-available is symlinked
 if [[ ! -L /etc/apache2/sites-available ]]
 then
