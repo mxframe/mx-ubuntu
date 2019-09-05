@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo rm -rf /var/www/html
+mkdir /var/www/html
 cd /var/www/html
 
 git clone http://gitlab.tkw-partner.de/spectrum8/magenta-eins-valentine-backend.git
