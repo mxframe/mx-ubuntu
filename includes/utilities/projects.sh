@@ -321,7 +321,7 @@ projectNpmInstallAndGenerate() {
 
     # Check if a package file exists
     #if [[ ! -f "${path}/package.json" ]]
-    if [[ ! -f "${path}/package.lock" ]]
+    if [[ ! -f "${path}/package-lock.json" ]]
     then
         return
     fi
