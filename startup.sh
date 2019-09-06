@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Define the bash path [ NEEDED !!! ]
+pathBash="$(dirname "$0")"
+
+# Change to this directory
+cd "${pathBash}"
+
+# Update this repo
+./self-update.php
+
 # Startup
 # https://askubuntu.com/questions/814/how-to-run-scripts-on-start-up
 # @reboot /usr/local/packages/mx-ubuntu/startup.sh

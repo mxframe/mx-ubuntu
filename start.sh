@@ -13,16 +13,19 @@
 #
 ##############################################################################################################
 
+# Define the bash path [ NEEDED !!! ]
+pathBash="$(dirname "$0")"
+
 # ================================================
 # Include the main functionality
 # ================================================
-. includes.sh
+. "${pathBash}/includes.sh"
 
 # ================================================
 # Include the config
 # ================================================
-file_exists config.sh || cp -rp config.example.sh config.sh
-. config.sh
+file_exists "${pathBash}/config.sh" || cp -rp "${pathBash}/config.example.sh" "${pathBash}/config.sh"
+. "${pathBash}/config.sh"
 
 # ================================================
 # Read the options

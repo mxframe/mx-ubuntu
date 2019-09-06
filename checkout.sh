@@ -4,13 +4,16 @@
 # Checkout/update script for git projects
 # ================================================
 
+# Define the bash path [ NEEDED !!! ]
+pathBash="$(dirname "$0")"
+
 # ================================================
 # Do some initial stuff
 # ================================================
 # Clear the screen
 clear
 # Include the main functionality
-. ../includes.sh
+. "${pathBash}/includes.sh"
 
 # ================================================
 # Define the projects (automatically)

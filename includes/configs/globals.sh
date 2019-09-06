@@ -8,6 +8,10 @@
 # From: http://wiki.bash-hackers.org/scripting/debuggingtips
 export PS4='+(${BASH_SOURCE##*/}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
+# Define the bashPath
+#pathBash="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+pathBash="$(dirname "$0")"
+
 # Define the directories
 cwd=$('pwd')
 pathPackages='/usr/local/packages'

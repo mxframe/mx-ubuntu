@@ -7,6 +7,9 @@
 #
 ##############################################################################################################
 
+# Define the bash path [ NEEDED !!! ]
+pathBash="$(dirname "$0")"
+
 # Load the bashrc files
-. ./includes/utilities/system.sh
-sourceBashFilesRecursive ./bashrc
+. "${pathBash}/includes/utilities/system.sh"
+sourceBashFilesRecursive "${pathBash}/bashrc"

@@ -7,6 +7,9 @@
 #
 ##############################################################################################################
 
+# Define the bash path [ NEEDED !!! ]
+pathBash="$(dirname "$0")"
+
 # Load the include files
-. ./includes/utilities/system.sh
-sourceBashFilesRecursive ./includes
+. "${pathBash}/includes/utilities/system.sh"
+sourceBashFilesRecursive "${pathBash}/includes"
