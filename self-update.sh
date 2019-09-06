@@ -17,5 +17,4 @@ then
 fi
 
 # Change the permissions
-sudo chmod -R 660 . 2>/dev/null
-sudo chmod -R 770 *.sh 2>/dev/null
+sudo chmod -R 770 . 2>/dev/null
