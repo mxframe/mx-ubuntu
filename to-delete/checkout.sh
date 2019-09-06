@@ -10,7 +10,7 @@
 # Clear the screen
 clear
 # Include the main functionality
-. includes.sh
+. ../includes.sh
 
 # ================================================
 # Define the projects (automatically)

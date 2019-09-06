@@ -123,7 +123,6 @@ tmpInstallEverything() {
     sudo rm -rf ${pathPackages}/.git/.git-credentials
     sudo touch ${pathPackages}/.git/.git-credentials
     echo "${gitCredentials}" | sudo tee -a ${pathPackages}/.git/.git-credentials
-    sudo chown -R $(whoami) ${pathPackages}/.git
     # ... global
     sudo git config --global color.ui true
     sudo git config --global core.excludesfile ${pathPackages}/.git/.gitignore_global
@@ -132,6 +131,9 @@ tmpInstallEverything() {
     sudo git config --system color.ui true
     sudo git config --system core.excludesfile ${pathPackages}/.git/.gitignore_global
     sudo git config --system credential.helper "store --file ${pathPackages}/.git/.git-credentials"
+    # chown and mod
+    sudo chown -R $(whoami) ${pathPackages}/.git
+    sudo chmod 660 .git-credentials
 
     # Install composer to /usr/local/bin/composer
     cd ~
