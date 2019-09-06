@@ -17,8 +17,8 @@ then
 fi
 
 # Change the permissions
-find ${pathBash} -type d -exec chmod 770 {} \;
-find ${pathBash} -type f -exec chmod 660 {} \;
+find ${pathBash} -type d -exec chmod 770 {} \; 2>/dev/null
+find ${pathBash} -type f -exec chmod 660 {} \; 2>/dev/null
 chmod 770 self-update.sh 2>/dev/null
 chmod 770 bashrc.sh 2>/dev/null
 chmod 770 checkout.sh 2>/dev/null
