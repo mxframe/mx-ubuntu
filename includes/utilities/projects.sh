@@ -117,7 +117,7 @@ updateProjects() {
 
     # Fix the git permissions
     # They are broken after each pull
-    chmod 660 "${pathPackages}/.git-credentials" >/dev/null 2>&1
+    chmod 660 "${pathPackages}/.git/.git-credentials" >/dev/null 2>&1
     chown -R $(whoami):packages "${pathPackages}/.git" >/dev/null 2>&1
 }
 
@@ -272,6 +272,11 @@ projectGitPull() {
     # Make a git pull
     # git pull >/dev/null 2>&1
     git pull
+
+    # Fix the git permissions
+    # They are broken after each pull
+    chmod 660 "${pathPackages}/.git/.git-credentials" >/dev/null 2>&1
+    chown -R $(whoami):packages "${pathPackages}/.git" >/dev/null 2>&1
 
     # Dump the info line
     dumpInfoLine "... ... ${BGre}done${RCol}"
