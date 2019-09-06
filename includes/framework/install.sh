@@ -27,6 +27,13 @@ install() {
     # ================================================
     updateAndUpgrade
 
+    # Source the bash file
+    if [[ ! -L /etc/profile.d/mx-ubuntu.bashrc ]]
+    then
+        sudo rm -rf /etc/profile.d/mx-ubuntu.bashrc
+        sudo ln -s "${pathBash}/bashrc.sh" /etc/profile.d/mx-ubuntu.bashrc
+    fi
+
     # ================================================
     # Call the installation functions
     # ================================================

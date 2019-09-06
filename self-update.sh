@@ -24,3 +24,4 @@ chmod 770 bashrc.sh 2>/dev/null
 chmod 770 checkout.sh 2>/dev/null
 chmod 770 start.sh 2>/dev/null
 chmod 770 startup.sh 2>/dev/null
+chmod 770 source-bash.sh 2>/dev/null

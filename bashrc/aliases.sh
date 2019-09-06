@@ -71,7 +71,7 @@ alias printCpuInfo='cat /proc/cpuinfo'
 # ================================================
 # Function to make a git pull and source the .bashrc
 # ================================================
-alias pullAndSource='git pull && source ~/.bashrc'
+alias updateAndSource='bash /usr/local/packages/mx-frame/self-update.sh && source ~/.bashrc'
 
 # ================================================
 # Apache aliases
