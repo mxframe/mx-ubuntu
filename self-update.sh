@@ -17,4 +17,9 @@ then
 fi
 
 # Change the permissions
-sudo chmod -R 770 . 2>/dev/null
+chmod -R 660 ${pathBash} 2>/dev/null
+chmod -R g+s ${pathBash} 2>/dev/null
+chmod 770 self-update.sh 2>/dev/null
+chmod 770 bashrc.sh 2>/dev/null
+chmod 770 start.sh 2>/dev/null
+chmod 770 startup.sh 2>/dev/null
