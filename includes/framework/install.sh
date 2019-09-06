@@ -132,8 +132,8 @@ tmpInstallEverything() {
     sudo git config --system core.excludesfile ${pathPackages}/.git/.gitignore_global
     sudo git config --system credential.helper "store --file ${pathPackages}/.git/.git-credentials"
     # chown and mod
-    sudo chown -R $(whoami) ${pathPackages}/.git
-    sudo chmod 660 .git-credentials
+    sudo chmod 660 "${pathPackages}/.git-credentials" >/dev/null 2>&1
+    sudo chown -R $(whoami):packages "${pathPackages}/.git" >/dev/null 2>&1
 
     # Install composer to /usr/local/bin/composer
     cd ~
