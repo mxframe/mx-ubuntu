@@ -14,7 +14,7 @@
 ##############################################################################################################
 
 # Define the bash path [ NEEDED !!! ]
-pathBash="$(dirname "$0")"
+pathBash="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # ================================================
 # Include the main functionality

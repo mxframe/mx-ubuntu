@@ -9,8 +9,8 @@
 export PS4='+(${BASH_SOURCE##*/}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 # Define the bashPath
-#pathBash="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-pathBash="$(dirname "$0")"
+# pathBash="$(dirname "$0")"
+pathBash="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Define the directories
 cwd=$('pwd')
