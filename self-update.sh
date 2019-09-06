@@ -17,19 +17,9 @@ then
 fi
 
 # Change the permissions
-if [[ ${USER} == 'root' ]]
-then
-    sudo find ${pathBash} -type d -exec sudo chmod 770 {} \;
-    sudo find ${pathBash} -type f -exec sudo chmod 660 {} \;
-    sudo chmod 770 self-update.sh 2>/dev/null
-    sudo chmod 770 bashrc.sh 2>/dev/null
-    sudo chmod 770 start.sh 2>/dev/null
-    sudo chmod 770 startup.sh 2>/dev/null
-else
-    find ${pathBash} -type d -exec chmod 770 {} \;
-    find ${pathBash} -type f -exec chmod 660 {} \;
-    chmod 770 self-update.sh 2>/dev/null
-    chmod 770 bashrc.sh 2>/dev/null
-    chmod 770 start.sh 2>/dev/null
-    chmod 770 startup.sh 2>/dev/null
-fi
+find ${pathBash} -type d -exec chmod 770 {} \;
+find ${pathBash} -type f -exec chmod 660 {} \;
+chmod 770 self-update.sh 2>/dev/null
+chmod 770 bashrc.sh 2>/dev/null
+chmod 770 start.sh 2>/dev/null
+chmod 770 startup.sh 2>/dev/null
