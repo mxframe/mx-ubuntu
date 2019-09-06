@@ -10,10 +10,10 @@ cd "${pathBash}"
 if [[ ${pathBash} != '/bash-projects/mxframe/mx-ubuntu' ]]
 then
     # Reset the head
-    git reset --hard
+    git reset --hard 2>/dev/null
 
     # Pull the new version
-    git pull
+    git pull 2>/dev/null
 fi
 
 # Change the permissions
