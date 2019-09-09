@@ -93,33 +93,33 @@ updateProjects() {
     # Define the backup date
     local backupDate=$(date '+%Y-%m-%d_%H:%M:%S')
 
-    # Iterate through the projects to update
-    for project in "${!updateProjectsTotal[@]}"
-    do
-        # Dump the info line
-        dumpInfoHeader "Updating ${project}"
-
-        # Check the backend [needs to be first]
-        if [[ -v updateProjectsBackend[${project}] ]]
-        then
-            updateBackendProject "${project}" "${backupDate}"
-        fi
-
-        # Check the undefined [needs to be second]
-        if [[ -v updateProjectsUndefined[${project}] ]]
-        then
-            updateUndefinedProject "${project}" "${backupDate}"
-        fi
-
-        # Check the backend [needs to be third]
-        if [[ -v updateProjectsFrontend[${project}] ]]
-        then
-            updateFrontendProject "${project}" "${backupDate}"
-        fi
-    done
+#    # Iterate through the projects to update
+#    for project in "${!updateProjectsTotal[@]}"
+#    do
+#        # Dump the info line
+#        dumpInfoHeader "Updating ${project}"
+#
+#        # Check the backend [needs to be first]
+#        if [[ -v updateProjectsBackend[${project}] ]]
+#        then
+#            updateBackendProject "${project}" "${backupDate}"
+#        fi
+#
+#        # Check the undefined [needs to be second]
+#        if [[ -v updateProjectsUndefined[${project}] ]]
+#        then
+#            updateUndefinedProject "${project}" "${backupDate}"
+#        fi
+#
+#        # Check the backend [needs to be third]
+#        if [[ -v updateProjectsFrontend[${project}] ]]
+#        then
+#            updateFrontendProject "${project}" "${backupDate}"
+#        fi
+#    done
 
     # Iterate through the projects and rsync the folders
-    if ${isMasterServer}
+    if [[ ${isMasterServer} = true ]]
     then
         for project in "${!updateProjectsTotal[@]}"
         do
