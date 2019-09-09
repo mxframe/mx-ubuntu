@@ -132,7 +132,7 @@ projectBackup() {
     local path=${1:-}
 
     # Define backup date
-    local backupDate=${2:-$(date '+%Y-%m-%d_%H:%M:%S')}
+    local backupDate=${2:-$(date '+%Y-%m-%d_%H:%M')}
 
     # Dump the info line
     dumpInfoLine "... making a backup"
@@ -169,7 +169,11 @@ projectBackup() {
     # Backup the project
     try
     (
-        cp -rp "${path}" "${backupPath}/${backupDate}" >/dev/null 2>&1 || throw 100
+        #cp -rp "${path}" "${backupPath}/${backupDate}" >/dev/null 2>&1 || throw 100
+        if [[ ! -d "${backupPath}/${backupDate}" ]]
+        then
+            rsync -a "${path}" "${backupPath}/${backupDate}" >/dev/null 2>&1 || throw 100
+        fi
     )
     catch || {
         dumpInfoLine "... ... ${BRed}error${RCol} (unknown)"
