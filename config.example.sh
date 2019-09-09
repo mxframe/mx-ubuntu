@@ -7,6 +7,9 @@
 # Defines if it is the local environment (needed for not moving the script)
 isDevelopment=false
 
+# Defines if it is the master server
+isMasterServer=false
+
 # The available options
 availableOptions['--sudopw:']='Option to set the sudo password'
 availableOptions['-i | --init']='If set, only the config will be created, but no setup will be started'

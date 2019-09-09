@@ -27,12 +27,21 @@ install() {
     # ================================================
     updateAndUpgrade
 
-    # Source the bash file
-    if [[ ! -L /etc/profile.d/mx-ubuntu.bashrc ]]
+    # Create the backup directory
+    if [[ ! -d /var/www/backups ]]
     then
-        sudo rm -rf /etc/profile.d/mx-ubuntu.bashrc
-        sudo ln -s "${pathBash}/bashrc.sh" /etc/profile.d/mx-ubuntu.bashrc
+        mkdir -p /var/www/backups >/dev/null 2>&1
     fi
+    sudo chgrp -R www-data /var/www/backups
+    sudo chmod -R g+s /var/www/backups
+    sudo chown -R $(whoami) /var/www/backups
+
+#    # Source the bash file
+#    if [[ ! -L /etc/profile.d/mx-ubuntu.bashrc ]]
+#    then
+#        sudo rm -rf /etc/profile.d/mx-ubuntu.bashrc
+#        sudo ln -s "${pathBash}/bashrc.sh" /etc/profile.d/mx-ubuntu.bashrc
+#    fi
 
     # ================================================
     # Call the installation functions

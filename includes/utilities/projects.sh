@@ -90,6 +90,9 @@ updateProjects() {
         exitScript
     fi
 
+    # Define the backup date
+    local backupDate=$(date '+%Y-%m-%d_%H:%M:%S')
+
     # Iterate through the projects to update
     for project in "${!updateProjectsTotal[@]}"
     do
@@ -99,19 +102,19 @@ updateProjects() {
         # Check the backend [needs to be first]
         if [[ -v updateProjectsBackend[${project}] ]]
         then
-            updateBackendProject "${project}"
+            updateBackendProject "${project}" "${backupDate}"
         fi
 
         # Check the undefined [needs to be second]
         if [[ -v updateProjectsUndefined[${project}] ]]
         then
-            updateUndefinedProject "${project}"
+            updateUndefinedProject "${project}" "${backupDate}"
         fi
 
         # Check the backend [needs to be third]
         if [[ -v updateProjectsFrontend[${project}] ]]
         then
-            updateFrontendProject "${project}"
+            updateFrontendProject "${project}" "${backupDate}"
         fi
     done
 
@@ -119,6 +122,58 @@ updateProjects() {
     # They are broken after each pull
     chmod 660 "${pathPackages}/.git/.git-credentials" >/dev/null 2>&1
     chown -R $(whoami):packages "${pathPackages}/.git" >/dev/null 2>&1
+
+    # Rsync
+    #rsync -aze ssh /var/www/html/ $(whoami)@172.31.3.155:/var/www/html/ --delete
+}
+
+projectBackup() {
+    # Define the path
+    local path=${1:-}
+
+    # Define backup date
+    local backupDate=${2:-$(date '+%Y-%m-%d_%H:%M:%S')}
+
+    # Dump the info line
+    dumpInfoLine "... making a backup"
+
+#    # Split path and repo
+#    repo=${path##*/}
+#    path=${path%/*}
+
+    # Define the backup path
+    needle='/var/www/html/'
+    replacement="/var/www/backups/"
+    backupPath="${path/${needle}/${replacement}}"
+
+    # Check if the replacement path exists
+    if [[ ! -d ${replacement} ]]
+    then
+        return
+    fi
+
+    # Check if the backup path exists
+    if [[ ! -d ${backupPath} ]]
+    then
+        mkdir -p ${backupPath} >/dev/null 2>&1
+        if [[ ! -d ${backupPath} ]]
+        then
+            return
+        fi
+    fi
+
+    # Backup the project
+    try
+    (
+        cp -rp "${path}" "${backupPath}/${backupDate}" >/dev/null 2>&1 || throw 100
+    )
+    catch || {
+        dumpInfoLine "... ... ${BRed}error${RCol} (unknown)"
+        return
+    }
+
+    # Dump the info line
+    dumpInfoLine "... ... ${BGre}done${RCol}"
 }
 
 updateBackendProject () {
@@ -148,6 +203,9 @@ updateBackendProject () {
         dumpInfoLine "... ${BRed}error${RCol} (directory does not exist)"
         return
     fi
+
+    # Backup the folder
+    projectBackup "${projectsBackend[${projectName}]}"
 
     # Perform the git pull
     projectGitPull "${projectsBackend[${projectName}]}"
@@ -187,6 +245,9 @@ updateUndefinedProject () {
         return
     fi
 
+    # Backup the folder
+    projectBackup "${projectsUndefined[${projectName}]}"
+
     # Perform the git pull
     projectGitPull "${projectsUndefined[${projectName}]}"
 
@@ -224,6 +285,9 @@ updateFrontendProject () {
         dumpInfoLine "... ${BRed}error${RCol} (directory does not exist)"
         return
     fi
+
+    # Backup the folder
+    projectBackup "${projectsFrontend[${projectName}]}"
 
     # Perform the git pull
     projectGitPull "${projectsFrontend[${projectName}]}"
