@@ -18,7 +18,7 @@ clear
 # ================================================
 # Include the config
 # ================================================
-[[ ! -f "${pathBash}/config.sh" ]] && cp -rp "${pathBash}/config.example.sh" "${pathBash}/config.sh"
+#[[ ! -f "${pathBash}/config.sh" ]] && cp -rp "${pathBash}/config.example.sh" "${pathBash}/config.sh"
 . "${pathBash}/config.sh"
 
 # ================================================
