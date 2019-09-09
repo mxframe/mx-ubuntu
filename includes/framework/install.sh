@@ -30,7 +30,8 @@ install() {
     # Create the backup directory
     if [[ ! -d /var/www/backups ]]
     then
-        mkdir -p /var/www/backups >/dev/null 2>&1
+        sudo mkdir -p /var/www/backups >/dev/null 2>&1
+        sudo chmod -R 775 /var/www/backups
     fi
     sudo chgrp -R www-data /var/www/backups
     sudo chmod -R g+s /var/www/backups

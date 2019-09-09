@@ -75,7 +75,7 @@ showProjectsDialog() {
     for choice in ${choices}
     do
         # Increase the counter
-        (( updateProjectsCount++ ))
+        updateProjectsCount=$((updateProjectsCount+1))
 
         # Remember the choice
         updateProjectsTotal[${choice}]=true
@@ -140,7 +140,7 @@ showFrontendBackendUndefinedDialog() {
             for choice in ${choices}
             do
                 # Increase the counter
-                (( updateSpecificationsCount++ ))
+                updateSpecificationsCount=$((updateSpecificationsCount+1))
 
                 # Remember the choice
                 case ${choice} in

@@ -16,7 +16,7 @@ initProjects() {
     for project in "${gitProjects[@]}"
     do
         # Increase the counter
-        (( $projectsCount++ ))
+        projectsCount=$((projectsCount+1))
 
         # Split path and repo
         #path=${project%/*}
@@ -142,13 +142,14 @@ projectBackup() {
 #    path=${path%/*}
 
     # Define the backup path
-    needle='/var/www/html/'
-    replacement="/var/www/backups/"
-    backupPath="${path/${needle}/${replacement}}"
+    needle='/var/www/'
+    pathBackups="/var/www/backups/"
+    backupPath="${path/${needle}/${pathBackups}}"
 
     # Check if the replacement path exists
-    if [[ ! -d ${replacement} ]]
+    if [[ ! -d ${pathBackups} ]]
     then
+        dumpInfoLine "... ... ${BRed}error${RCol} (${pathBackups} does not exist)"
         return
     fi
 
@@ -158,9 +159,12 @@ projectBackup() {
         mkdir -p ${backupPath} >/dev/null 2>&1
         if [[ ! -d ${backupPath} ]]
         then
+            dumpInfoLine "... ... ${BRed}error${RCol} (${backupPath} does not exist)"
             return
         fi
     fi
+
+    # @todombe delete older backups
 
     # Backup the project
     try

@@ -13,7 +13,7 @@ export PS4='+(${BASH_SOURCE##*/}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 #pathBash="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Define the directories
-cwd=$('pwd')
+cwd="$('pwd')"
 pathPackages='/usr/local/packages'
 pathMxUbuntu="${pathPackages}/mx-ubuntu"
 pathProjects="/var/www"
