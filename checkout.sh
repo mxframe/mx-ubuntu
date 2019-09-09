@@ -8,6 +8,12 @@
 pathBash="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # ================================================
+# Include the config
+# ================================================
+file_exists "${pathBash}/config.sh" || cp -rp "${pathBash}/config.example.sh" "${pathBash}/config.sh"
+. "${pathBash}/config.sh"
+
+# ================================================
 # Do some initial stuff
 # ================================================
 # Clear the screen
