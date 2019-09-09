@@ -93,30 +93,30 @@ updateProjects() {
     # Define the backup date
     local backupDate=$(date '+%Y-%m-%d_%H:%M:%S')
 
-#    # Iterate through the projects to update
-#    for project in "${!updateProjectsTotal[@]}"
-#    do
-#        # Dump the info line
-#        dumpInfoHeader "Updating ${project}"
-#
-#        # Check the backend [needs to be first]
-#        if [[ -v updateProjectsBackend[${project}] ]]
-#        then
-#            updateBackendProject "${project}" "${backupDate}"
-#        fi
-#
-#        # Check the undefined [needs to be second]
-#        if [[ -v updateProjectsUndefined[${project}] ]]
-#        then
-#            updateUndefinedProject "${project}" "${backupDate}"
-#        fi
-#
-#        # Check the backend [needs to be third]
-#        if [[ -v updateProjectsFrontend[${project}] ]]
-#        then
-#            updateFrontendProject "${project}" "${backupDate}"
-#        fi
-#    done
+    # Iterate through the projects to update
+    for project in "${!updateProjectsTotal[@]}"
+    do
+        # Dump the info line
+        dumpInfoHeader "Updating ${project}"
+
+        # Check the backend [needs to be first]
+        if [[ -v updateProjectsBackend[${project}] ]]
+        then
+            updateBackendProject "${project}" "${backupDate}"
+        fi
+
+        # Check the undefined [needs to be second]
+        if [[ -v updateProjectsUndefined[${project}] ]]
+        then
+            updateUndefinedProject "${project}" "${backupDate}"
+        fi
+
+        # Check the backend [needs to be third]
+        if [[ -v updateProjectsFrontend[${project}] ]]
+        then
+            updateFrontendProject "${project}" "${backupDate}"
+        fi
+    done
 
     # Iterate through the projects and rsync the folders
     if [[ ${isMasterServer} = true ]]
@@ -367,7 +367,7 @@ projectGitPull() {
 
     # Reset the repo
     # git reset --hard >/dev/null 2>&1
-    git reset --hard
+    #git reset --hard
 
     # Make a git pull
     # git pull >/dev/null 2>&1
