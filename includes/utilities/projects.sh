@@ -129,19 +129,19 @@ updateProjects() {
             # Check the backend [needs to be first]
             if [[ -v updateProjectsBackend[${project}] ]]
             then
-                rsync -aze ssh "${updateProjectsBackend[${project}]}" $(whoami)@172.31.3.155:"${updateProjectsBackend[${project}]}" --delete
+                rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@172.31.3.155:"${projectsBackend[${project}]}" --delete
             fi
 
             # Check the undefined [needs to be second]
             if [[ -v updateProjectsUndefined[${project}] ]]
             then
-                rsync -aze ssh "${updateProjectsUndefined[${project}]}" $(whoami)@172.31.3.155:"${updateProjectsUndefined[${project}]}" --delete
+                rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@172.31.3.155:"${projectsUndefined[${project}]}" --delete
             fi
 
             # Check the backend [needs to be third]
             if [[ -v updateProjectsFrontend[${project}] ]]
             then
-                rsync -aze ssh "${updateProjectsFrontend[${project}]}" $(whoami)@172.31.3.155:"${updateProjectsFrontend[${project}]}" --delete
+                rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@172.31.3.155:"${projectsFrontend[${project}]}" --delete
             fi
         done
     fi
