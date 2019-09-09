@@ -119,29 +119,32 @@ updateProjects() {
     done
 
     # Iterate through the projects and rsync the folders
-    for project in "${!updateProjectsTotal[@]}"
-    do
-        # Dump the info line
-        dumpInfoHeader "Rsyncing the servers ${project}"
+    if ${isMasterServer}
+    then
+        for project in "${!updateProjectsTotal[@]}"
+        do
+            # Dump the info line
+            dumpInfoHeader "Rsyncing the servers ${project}"
 
-        # Check the backend [needs to be first]
-        if [[ -v updateProjectsBackend[${project}] ]]
-        then
-            rsync -aze ssh "${updateProjectsBackend[${project}]}" $(whoami)@172.31.3.155:"${updateProjectsBackend[${project}]}" --delete
-        fi
+            # Check the backend [needs to be first]
+            if [[ -v updateProjectsBackend[${project}] ]]
+            then
+                rsync -aze ssh "${updateProjectsBackend[${project}]}" $(whoami)@172.31.3.155:"${updateProjectsBackend[${project}]}" --delete
+            fi
 
-        # Check the undefined [needs to be second]
-        if [[ -v updateProjectsUndefined[${project}] ]]
-        then
-            rsync -aze ssh "${updateUndefinedProject[${project}]}" $(whoami)@172.31.3.155:"${updateUndefinedProject[${project}]}" --delete
-        fi
+            # Check the undefined [needs to be second]
+            if [[ -v updateProjectsUndefined[${project}] ]]
+            then
+                rsync -aze ssh "${updateUndefinedProject[${project}]}" $(whoami)@172.31.3.155:"${updateUndefinedProject[${project}]}" --delete
+            fi
 
-        # Check the backend [needs to be third]
-        if [[ -v updateProjectsFrontend[${project}] ]]
-        then
-            rsync -aze ssh "${updateFrontendProject[${project}]}" $(whoami)@172.31.3.155:"${updateFrontendProject[${project}]}" --delete
-        fi
-    done
+            # Check the backend [needs to be third]
+            if [[ -v updateProjectsFrontend[${project}] ]]
+            then
+                rsync -aze ssh "${updateFrontendProject[${project}]}" $(whoami)@172.31.3.155:"${updateFrontendProject[${project}]}" --delete
+            fi
+        done
+    fi
 
     # Fix the git permissions
     # They are broken after each pull
