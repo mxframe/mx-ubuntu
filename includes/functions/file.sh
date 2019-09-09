@@ -118,7 +118,7 @@ findFiles() {
         # Get the files
         while IFS=  read -r -d $'\0'; do
             ary+=("$REPLY")
-        done < <(find ${path} -name "${pattern}" -print0)
+        done < <(find ${path} -not -path "/var/www/backups/*" -name "${pattern}" -print0)
     fi
 
     # Check the array
