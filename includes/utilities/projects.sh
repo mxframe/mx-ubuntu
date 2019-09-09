@@ -129,21 +129,21 @@ updateProjects() {
             # Check the backend [needs to be first]
             if [[ -v updateProjectsBackend[${project}] ]]
             then
-                echo ${projectsBackend[${project}]}
+                #echo ${projectsBackend[${project}]}
                 rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@172.31.3.155:"/var/www/html" --delete
             fi
 
             # Check the undefined [needs to be second]
             if [[ -v updateProjectsUndefined[${project}] ]]
             then
-                echo ${projectsUndefined[${project}]}
+                #echo ${projectsUndefined[${project}]}
                 rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@172.31.3.155:"/var/www/html" --delete
             fi
 
             # Check the backend [needs to be third]
             if [[ -v updateProjectsFrontend[${project}] ]]
             then
-                echo ${projectsFrontend[${project}]}
+                #echo ${projectsFrontend[${project}]}
                 rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@172.31.3.155:"/var/www/html" --delete
             fi
         done
