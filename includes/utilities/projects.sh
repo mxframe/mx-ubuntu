@@ -367,7 +367,7 @@ projectGitPull() {
 
     # Reset the repo
     # git reset --hard >/dev/null 2>&1
-    #git reset --hard
+    git reset --hard
 
     # Make a git pull
     # git pull >/dev/null 2>&1

@@ -10,7 +10,7 @@ cd "${pathBash}"
 if [[ ${pathBash} != '/bash-projects/mxframe/mx-ubuntu' ]]
 then
     # Reset the head
-    #git reset --hard 2>/dev/null
+    git reset --hard 2>/dev/null
 
     # Pull the new version
     git pull 2>/dev/null
