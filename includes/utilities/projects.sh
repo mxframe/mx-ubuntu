@@ -455,7 +455,8 @@ projectNpmInstallAndGenerate() {
         dumpInfoLine "... npm install"
 
         # Install
-        #npm install >/dev/null 2>&1
+        #npm install >/dev/null 2>&
+        npm audit fix
         npm install
 
         # Dump the info line
