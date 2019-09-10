@@ -124,6 +124,7 @@ updateProjects() {
         for project in "${!updateProjectsTotal[@]}"
         do
             # Dump the info line
+            # @todombe rsync und permissions verbessern
             dumpInfoHeader "Rsyncing the servers ${project}"
 
             # Check the backend [needs to be first]
@@ -414,7 +415,8 @@ projectComposerUpdate() {
 
         # Install
         #composer install >/dev/null 2>&1
-        composer install
+        #composer install
+        composer update
 #    else
 #        # Dump the info line
 #        dumpInfoLine "... composer update"
