@@ -117,12 +117,6 @@ updateProjects() {
         then
             updateUndefinedProject "${project}" "${backupDate}"
         fi
-
-        # Check the backend [needs to be third]
-        if [[ -v updateProjectsFrontend[${project}] ]]
-        then
-            updateFrontendProject "${project}" "${backupDate}"
-        fi
     done
 
     # Iterate through the projects to update
@@ -131,7 +125,7 @@ updateProjects() {
         # Dump the info line
         dumpInfoHeader "Updating ${project}"
 
-        # Check the backend [needs to be third]
+        # Check the frontend [needs to be third]
         if [[ -v updateProjectsFrontend[${project}] ]]
         then
             updateFrontendProject "${project}" "${backupDate}"
