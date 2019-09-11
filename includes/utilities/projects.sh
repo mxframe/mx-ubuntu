@@ -83,6 +83,7 @@ updateProjects() {
         exitScript
     fi
 
+    # @todombe better iteration
     # Check the project specifications
     if [[ ${updateSpecificationsCount} = 0 ]]
     then
@@ -414,12 +415,12 @@ projectComposerUpdate() {
     cd ${path}
 
     # Check the file time
-    if [[ -f "${path}/composer.lock" ]] && [[ ${composerLockFileTime} = $(stat -c '%Y' "${path}/composer.lock") ]]
-    then
-        dumpInfoLine "... composer install"
-        dumpInfoLine "... ... ${BYel}not needed${RCol}"
-        return
-    fi
+#    if [[ -f "${path}/composer.lock" ]] && [[ ${composerLockFileTime} = $(stat -c '%Y' "${path}/composer.lock") ]]
+#    then
+#        dumpInfoLine "... composer install"
+#        dumpInfoLine "... ... ${BYel}not needed${RCol}"
+#        return
+#    fi
 
     # Check for composer.lock
 #    if [[ -f "${path}/composer.lock" ]]
