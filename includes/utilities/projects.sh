@@ -104,12 +104,32 @@ updateProjects() {
         then
             updateBackendProject "${project}" "${backupDate}"
         fi
+    done
+
+    # Iterate through the projects to update
+    for project in "${!updateProjectsTotal[@]}"
+    do
+        # Dump the info line
+        dumpInfoHeader "Updating ${project}"
 
         # Check the undefined [needs to be second]
         if [[ -v updateProjectsUndefined[${project}] ]]
         then
             updateUndefinedProject "${project}" "${backupDate}"
         fi
+
+        # Check the backend [needs to be third]
+        if [[ -v updateProjectsFrontend[${project}] ]]
+        then
+            updateFrontendProject "${project}" "${backupDate}"
+        fi
+    done
+
+    # Iterate through the projects to update
+    for project in "${!updateProjectsTotal[@]}"
+    do
+        # Dump the info line
+        dumpInfoHeader "Updating ${project}"
 
         # Check the backend [needs to be third]
         if [[ -v updateProjectsFrontend[${project}] ]]
