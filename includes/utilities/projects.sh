@@ -441,6 +441,8 @@ projectComposerUpdate() {
 #        composer update
 #    fi
 
+php artisan caceh:clear >/dev/null 2>&1
+
     # Dump the info line
     dumpInfoLine "... ... ${BGre}done${RCol}"
 }
