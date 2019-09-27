@@ -135,6 +135,9 @@ findGitProjects() {
     # Get the variables
     local path=${1:-''}
 
+    # Dump the info line
+    dumpInfoLine "${BBlu}Scanning for git projects in ${path}${RCol}"
+
     # Define the git projects array
     local -a emptyArray=()
     local gitProjects=( $(findFiles ${path} '.git') )
@@ -142,12 +145,16 @@ findGitProjects() {
     # Check the git projects
     if [[ ${#gitProjects[@]} = 0 ]]
     then
+        dumpInfoLine "... ${BRed}no projects found${RCol}"
         return
     fi
 
     # Iterate through the trailing git projects
     for key in "${!gitProjects[@]}"
     do
+        # Dump the info line
+        dumpInfoLine "... preparing ${gitProjects[${key}]}"
+
         # Remove the .git folder
         if [[ ${gitProjects[${key}]:(-1)} = '/' ]]
         then

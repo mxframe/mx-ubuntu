@@ -87,6 +87,10 @@ tmpInstallEverything() {
     # Install default packages
     sudo apt-get -y install zip gzip unzip htop vim curl dos2unix multitail expect
 
+    # Install ondrej/apache2 for http2
+    # https://gist.github.com/GAS85/990b46a3a9c2a16c0ece4e48ebce7300
+    # sudo add-apt-repository ppa:ondrej/apache2
+
     # Install some more sources for php
     sudo apt-get -y install software-properties-common
     sudo add-apt-repository -y ppa:ondrej/php
@@ -103,7 +107,7 @@ tmpInstallEverything() {
     sudo service apache2 restart
 
     # Install php
-    sudo apt-get -y install php7.{1,3}-{bcmath,bz2,cgi,cli,common,curl,dev,dba,enchant,fpm,gd,gmp,imap,interbase,intl,json,ldap,mbstring,mysql,odbc,pgsql,phpdbg,pspell,readline,recode,snmp,soap,sqlite3,sybase,tidy,xml,xmlrpc,zip,opcache,xsl,xdebug}
+    #sudo apt-get -y install php7.{1,3}-{bcmath,bz2,cgi,cli,common,curl,dev,dba,enchant,fpm,gd,gmp,imap,interbase,intl,json,ldap,mbstring,mysql,odbc,pgsql,phpdbg,pspell,readline,recode,snmp,soap,sqlite3,sybase,tidy,xml,xmlrpc,zip,opcache,xsl,xdebug}
 
     # Enable fcgi
     sudo apt-get -y install libapache2-mod-fastcgi php-pear

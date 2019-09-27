@@ -9,12 +9,19 @@ declare -g -A projectsUndefined
 declare -g -A projectsTotal
 declare -g projectsCount=0
 initProjects() {
+    # Dump the info line
+    dumpInfoHeader 'Initialising the projects'
+
     # Search for the git projects
     local gitProjects=( $(findGitProjects ${pathProjects}) )
 
     # Iterate through the git projects
+    dumpInfoLine 'Scanning for project types'
     for project in "${gitProjects[@]}"
     do
+        # Dump the info line
+        dumpInfoLine "... in ${project}"
+
         # Increase the counter
         projectsCount=$((projectsCount+1))
 
@@ -61,11 +68,21 @@ initProjects() {
         # Set repo in total projects array
         projectsTotal[${repoKey}]=true
     done
+
+#    echo ''
+#    echo -e "${BYel}Projects are${RCol}:"
+#    for x in "${!projectsTotal[@]}"
+#    do
+#        printf " ${BGre}>${RCol} [${BWhi}%s${RCol}]=%s\n" "$x" "${projectsTotal[$x]}"
+#    done
+#    exitScript
 }
 
 # ================================================
 # Update the projects
 # ================================================
+declare -g rolloutServerIP
+declare -g -A nodeServerIps
 declare -g -A updateProjectsFrontend
 declare -g -A updateProjectsBackend
 declare -g -A updateProjectsUndefined
@@ -83,7 +100,6 @@ updateProjects() {
         exitScript
     fi
 
-    # @todombe better iteration
     # Check the project specifications
     if [[ ${updateSpecificationsCount} = 0 ]]
     then
@@ -97,7 +113,7 @@ updateProjects() {
     # Iterate through the projects to update
     for project in "${!updateProjectsTotal[@]}"
     do
-        # Dump the info line
+        # Dump the info header
         dumpInfoHeader "Updating ${project}"
 
         # Check the backend [needs to be first]
@@ -110,9 +126,6 @@ updateProjects() {
     # Iterate through the projects to update
     for project in "${!updateProjectsTotal[@]}"
     do
-        # Dump the info line
-        dumpInfoHeader "Updating ${project}"
-
         # Check the undefined [needs to be second]
         if [[ -v updateProjectsUndefined[${project}] ]]
         then
@@ -123,9 +136,6 @@ updateProjects() {
     # Iterate through the projects to update
     for project in "${!updateProjectsTotal[@]}"
     do
-        # Dump the info line
-        dumpInfoHeader "Updating ${project}"
-
         # Check the frontend [needs to be third]
         if [[ -v updateProjectsFrontend[${project}] ]]
         then
@@ -140,28 +150,39 @@ updateProjects() {
         do
             # Dump the info line
             # @todombe rsync und permissions verbessern
-            dumpInfoHeader "Rsyncing the servers ${project}"
+            dumpInfoHeader "Rsyncing the servers for ${project}"
 
-            # Check the backend [needs to be first]
-            if [[ -v updateProjectsBackend[${project}] ]]
-            then
-                #echo ${projectsBackend[${project}]}
-                rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@172.31.3.155:"/var/www/html" --delete >/dev/null 2>&1
-            fi
+            for node in "${!nodeServerIps[@]}"
+            do
+                #echo ${node} ${nodeServerIps[${node}]}
+                if (nc -w 5 -z "${nodeServerIps[${node}]}" 22)
+                then
+                    dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BGre}online${RCol}"
 
-            # Check the undefined [needs to be second]
-            if [[ -v updateProjectsUndefined[${project}] ]]
-            then
-                #echo ${projectsUndefined[${project}]}
-                rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@172.31.3.155:"/var/www/html" --delete >/dev/null 2>&1
-            fi
+                    # Check the backend [needs to be first]
+                    if [[ -v updateProjectsBackend[${project}] ]]
+                    then
+                        #echo ${projectsBackend[${project}]}
+                        rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1
+                    fi
 
-            # Check the backend [needs to be third]
-            if [[ -v updateProjectsFrontend[${project}] ]]
-            then
-                #echo ${projectsFrontend[${project}]}
-                rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@172.31.3.155:"/var/www/html" --delete >/dev/null 2>&1
-            fi
+                    # Check the undefined [needs to be second]
+                    if [[ -v updateProjectsUndefined[${project}] ]]
+                    then
+                        #echo ${projectsUndefined[${project}]}
+                        rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1
+                    fi
+
+                    # Check the backend [needs to be third]
+                    if [[ -v updateProjectsFrontend[${project}] ]]
+                    then
+                        #echo ${projectsFrontend[${project}]}
+                        rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1
+                    fi
+                else
+                    dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BRed}offline${RCol}"
+                fi
+            done
         done
     fi
 
@@ -193,7 +214,13 @@ projectBackup() {
     pathBackups="/var/www/backups/"
     backupPath="${path/${needle}/${pathBackups}}"
 
-    # Check if the replacement path exists
+    # Check if the backup path exists
+    if [[ ! -d ${pathBackups} ]]
+    then
+        mkdir ${pathBackups} >/dev/null 2>&1
+    fi
+
+    # Check if the backup path exists
     if [[ ! -d ${pathBackups} ]]
     then
         dumpInfoLine "... ... ${BRed}error${RCol} (${pathBackups} does not exist)"
@@ -211,8 +238,6 @@ projectBackup() {
         fi
     fi
 
-    # @todombe delete older backups
-
     # Backup the project
     try
     (
@@ -226,6 +251,15 @@ projectBackup() {
         dumpInfoLine "... ... ${BRed}error${RCol} (unknown)"
         return
     }
+
+    # Dump the info line
+    dumpInfoLine "... ... ${BGre}done${RCol}"
+
+    # Dump the info line
+    dumpInfoLine "... removing older backups"
+
+    # Remove the oldest folders (expect 5)
+    cd ${backupPath} && rm -rf `ls -t | tail -n +6` >/dev/null 2>&1
 
     # Dump the info line
     dumpInfoLine "... ... ${BGre}done${RCol}"
@@ -258,6 +292,7 @@ updateBackendProject () {
         dumpInfoLine "... ${BRed}error${RCol} (directory does not exist)"
         return
     fi
+return
 
     # Backup the folder
     projectBackup "${projectsBackend[${projectName}]}"
@@ -299,6 +334,7 @@ updateUndefinedProject () {
         dumpInfoLine "... ${BRed}error${RCol} (directory does not exist)"
         return
     fi
+return
 
     # Backup the folder
     projectBackup "${projectsUndefined[${projectName}]}"
@@ -340,6 +376,7 @@ updateFrontendProject () {
         dumpInfoLine "... ${BRed}error${RCol} (directory does not exist)"
         return
     fi
+return
 
     # Backup the folder
     projectBackup "${projectsFrontend[${projectName}]}"
@@ -385,6 +422,7 @@ projectGitPull() {
     dumpInfoLine "... git pull"
 
     # Reset the repo
+    # https://stackoverflow.com/questions/24983762/git-ignore-local-file-changes/24983863
     # git reset --hard >/dev/null 2>&1
     git reset --hard
 
@@ -425,23 +463,24 @@ projectComposerUpdate() {
     # Check for composer.lock
 #    if [[ -f "${path}/composer.lock" ]]
 #    then
-        # Dump the info line
-        dumpInfoLine "... composer install"
-
-        # Install
-        #composer install >/dev/null 2>&1
-        #composer install
-        composer update
-#    else
 #        # Dump the info line
-#        dumpInfoLine "... composer update"
+#        dumpInfoLine "... composer install"
 #
-#        # Update
-#        #composer update >/dev/null 2>&1
-#        composer update
+#        # Install
+#        #composer install >/dev/null 2>&1
+#        composer install
+#    else
+        # Always update, because of local repos/paths
+        # Dump the info line
+        dumpInfoLine "... composer update"
+
+        # Update
+        #composer update >/dev/null 2>&1
+        composer update
 #    fi
 
-php artisan caceh:clear >/dev/null 2>&1
+    # Clear the cache
+    php artisan cache:clear >/dev/null 2>&1
 
     # Dump the info line
     dumpInfoLine "... ... ${BGre}done${RCol}"

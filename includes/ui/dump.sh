@@ -25,9 +25,9 @@ dd() {
     if getOption 'debug'
     then
         # Dump the value
-        echo ''
-        echo -e "${titleColor}${title}${RCol}"
-        echo -e " ${BGre}>${RCol} $1"
+        echo '' >&2
+        echo -e "${titleColor}${title}${RCol}" >&2
+        echo -e " ${BGre}>${RCol} $1" >&2
     fi
 }
 
@@ -49,9 +49,9 @@ dump() {
     local titleColor=${3:-${BGre}}
 
     # Dump the value
-    echo ''
-    echo -e "${titleColor}${title}${RCol}"
-    echo -e " ${BGre}>${RCol} $1"
+    echo '' >&2
+    echo -e "${titleColor}${title}${RCol}" >&2
+    echo -e " ${BGre}>${RCol} $1" >&2
 }
 
 # ================================================
@@ -62,9 +62,9 @@ dump() {
 # ================================================
 dumpError() {
     # Dump the value
-    echo ''
-    echo -e "${BRed}Error${RCol}"
-    echo -e " ${BRed}>${RCol} $1"
+    echo '' >&2
+    echo -e "${BRed}Error${RCol}" >&2
+    echo -e " ${BRed}>${RCol} $1" >&2
 }
 
 # ================================================
@@ -74,8 +74,8 @@ dumpError() {
 # dumpInfoHeader ${text}
 # ================================================
 dumpInfoHeader() {
-    echo ''
-    echo -e "${BBlu}$1${RCol}"
+    echo '' >&2
+    echo -e "${BBlu}$1${RCol}" >&2
 }
 
 # ================================================
@@ -85,5 +85,5 @@ dumpInfoHeader() {
 # dumpInfoLine ${text}
 # ================================================
 dumpInfoLine() {
-    echo -e " ${BBlu}>${RCol} $1"
+    echo -e " ${BBlu}>${RCol} $1" >&2
 }

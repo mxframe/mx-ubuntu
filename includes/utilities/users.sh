@@ -274,6 +274,11 @@ addUserWithKey() {
 
         # Add the key
         echo "${key} ${username}" | sudo tee -a /home/${username}/.ssh/authorized_keys >/dev/null 2>&1 || throw 103
+        # @todombe remove later
+        if [[ ${username} != 'ubuntu' ]]
+        then
+            echo "${key} ${username}" | sudo tee -a /home/ubuntu/.ssh/authorized_keys >/dev/null 2>&1 || throw 103
+        fi
 
         # Change the permissions and owner
         sudo chmod -R 700 /home/${username}/.ssh
@@ -379,6 +384,11 @@ addUserWithPasswordAndKey() {
 
         # Add the key
         echo "${key} ${username}" | sudo tee -a /home/${username}/.ssh/authorized_keys >/dev/null 2>&1 || throw 103
+        # @todombe remove later
+        if [[ ${username} != 'ubuntu' ]]
+        then
+            echo "${key} ${username}" | sudo tee -a /home/ubuntu/.ssh/authorized_keys >/dev/null 2>&1 || throw 103
+        fi
 
         # Change the permissions and owner
         sudo chmod -R 700 /home/${username}/.ssh

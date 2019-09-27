@@ -26,5 +26,11 @@ defaultUsers['username']='public_key'
 # The default users and groups [comma separated]
 defaultUsersAndGroups['username']='packages,sudoers'
 
+# The rollout server ip
+rolloutServerIP=''
+
+# The node server ip's
+#nodeServerIps['1']=''
+
 # The git credentials
 gitCredentials=''
