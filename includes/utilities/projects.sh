@@ -143,59 +143,97 @@ updateProjects() {
         fi
     done
 
+    # Checking for the active nodes
+    local -g -A activeNodes
+    for node in "${!nodeServerIps[@]}"
+    do
+        if (nc -w 5 -z "${nodeServerIps[${node}]}" 22)
+        then
+            dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BGre}online${RCol}"
+            activeNodes["${node}"]="${nodeServerIps[${node}]}"
+        else
+            dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BRed}offline${RCol}"
+        fi
+    done
+
+    # Check for a default index.htm
+    if [[ -f /var/www/html/index.html ]]
+    then
+        # Dump the info line
+        dumpInfoHeader "Rsyncing index.html"
+
+        for node in "${!activeNodes[@]}"
+        do
+            if (rsync -aze ssh "/var/www/html/index.html" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" >/dev/null 2>&1)
+            then
+                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: file ${BGre}synced${RCol}"
+            else
+                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: file ${BRed}not synced${RCol}"
+            fi
+        done
+    fi
+
+    # Check for a default folder
+    if [[ -d /var/www/html/default ]]
+    then
+        # Dump the info line
+        dumpInfoHeader "Rsyncing /var/www/html/default"
+
+        for node in "${!activeNodes[@]}"
+        do
+            if (rsync -aze ssh "/var/www/html/default" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+            then
+                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: folder ${BGre}synced${RCol}"
+            else
+                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: folder ${BRed}not synced${RCol}"
+            fi
+        done
+    fi
+
     # Iterate through the projects and rsync the folders
     if [[ ${isMasterServer} = true ]]
     then
         for project in "${!updateProjectsTotal[@]}"
         do
             # Dump the info line
-            # @todombe rsync und permissions verbessern
             dumpInfoHeader "Rsyncing the servers for ${project}"
 
-            for node in "${!nodeServerIps[@]}"
+            for node in "${!activeNodes[@]}"
             do
-                #echo ${node} ${nodeServerIps[${node}]}
-                if (nc -w 5 -z "${nodeServerIps[${node}]}" 22)
+                # Check the backend [needs to be first]
+                if [[ -v updateProjectsBackend[${project}] ]]
                 then
-                    dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BGre}online${RCol}"
-
-                    # Check the backend [needs to be first]
-                    if [[ -v updateProjectsBackend[${project}] ]]
+                    #echo ${projectsBackend[${project}]}
+                    if (rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
-                        #echo ${projectsBackend[${project}]}
-                        if (rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
-                        then
-                            dumpInfoLine "... backend ${BGre}synced${RCol}"
-                        else
-                            dumpInfoLine "... backend ${BRed}not synced${RCol}"
-                        fi
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BGre}synced${RCol}"
+                    else
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BRed}not synced${RCol}"
                     fi
+                fi
 
-                    # Check the undefined [needs to be second]
-                    if [[ -v updateProjectsUndefined[${project}] ]]
+                # Check the undefined [needs to be second]
+                if [[ -v updateProjectsUndefined[${project}] ]]
+                then
+                    #echo ${projectsUndefined[${project}]}
+                    if (rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
-                        #echo ${projectsUndefined[${project}]}
-                        if (rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
-                        then
-                            dumpInfoLine "... backend ${BGre}synced${RCol}"
-                        else
-                            dumpInfoLine "... backend ${BRed}not synced${RCol}"
-                        fi
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BGre}synced${RCol}"
+                    else
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BRed}not synced${RCol}"
                     fi
+                fi
 
-                    # Check the backend [needs to be third]
-                    if [[ -v updateProjectsFrontend[${project}] ]]
+                # Check the backend [needs to be third]
+                if [[ -v updateProjectsFrontend[${project}] ]]
+                then
+                    #echo ${projectsFrontend[${project}]}
+                    if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
-                        #echo ${projectsFrontend[${project}]}
-                        if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
-                        then
-                            dumpInfoLine "... backend ${BGre}synced${RCol}"
-                        else
-                            dumpInfoLine "... backend ${BRed}not synced${RCol}"
-                        fi
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BGre}synced${RCol}"
+                    else
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BRed}not synced${RCol}"
                     fi
-                else
-                    dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BRed}offline${RCol}"
                 fi
             done
         done
