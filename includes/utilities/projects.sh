@@ -143,6 +143,9 @@ updateProjects() {
         fi
     done
 
+    # Dump the info line
+    dumpInfoHeader "Checking the nodes"
+
     # Checking for the active nodes
     local -g -A activeNodes
     for node in "${!nodeServerIps[@]}"
@@ -160,7 +163,7 @@ updateProjects() {
     if [[ -f /var/www/html/index.html ]]
     then
         # Dump the info line
-        dumpInfoHeader "Rsyncing index.html"
+        dumpInfoHeader "Rsyncing /var/www/html/index.html"
 
         for node in "${!activeNodes[@]}"
         do
