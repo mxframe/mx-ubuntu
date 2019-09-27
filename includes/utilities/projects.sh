@@ -221,9 +221,9 @@ updateProjects() {
                     #echo ${projectsUndefined[${project}]}
                     if (rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BGre}synced${RCol}"
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: undefined ${BGre}synced${RCol}"
                     else
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BRed}not synced${RCol}"
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: undefined ${BRed}not synced${RCol}"
                     fi
                 fi
 
@@ -233,9 +233,9 @@ updateProjects() {
                     #echo ${projectsFrontend[${project}]}
                     if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BGre}synced${RCol}"
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BGre}synced${RCol}"
                     else
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BRed}not synced${RCol}"
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BRed}not synced${RCol}"
                     fi
                 fi
             done
