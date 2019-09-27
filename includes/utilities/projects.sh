@@ -348,7 +348,6 @@ updateBackendProject () {
         dumpInfoLine "... ${BRed}error${RCol} (directory does not exist)"
         return
     fi
-return
 
     # Backup the folder
     projectBackup "${projectsBackend[${projectName}]}"
@@ -390,7 +389,6 @@ updateUndefinedProject () {
         dumpInfoLine "... ${BRed}error${RCol} (directory does not exist)"
         return
     fi
-return
 
     # Backup the folder
     projectBackup "${projectsUndefined[${projectName}]}"
@@ -432,7 +430,6 @@ updateFrontendProject () {
         dumpInfoLine "... ${BRed}error${RCol} (directory does not exist)"
         return
     fi
-return
 
     # Backup the folder
     projectBackup "${projectsFrontend[${projectName}]}"
