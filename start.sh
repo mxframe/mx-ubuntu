@@ -16,6 +16,9 @@
 # Define the bash path [ NEEDED !!! ]
 pathBash="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# Change to this directory
+cd "${pathBash}"
+
 # ================================================
 # Include the main functionality
 # ================================================
