@@ -154,34 +154,49 @@ updateProjects() {
 
             for node in "${!nodeServerIps[@]}"
             do
-                #echo ${node} ${nodeServerIps[${node}]}
-                if (nc -w 5 -z "${nodeServerIps[${node}]}" 22)
-                then
+#                #echo ${node} ${nodeServerIps[${node}]}
+#                if (nc -w 5 -z "${nodeServerIps[${node}]}" 22)
+#                then
                     dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BGre}online${RCol}"
 
                     # Check the backend [needs to be first]
                     if [[ -v updateProjectsBackend[${project}] ]]
                     then
                         #echo ${projectsBackend[${project}]}
-                        rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1
+                        if (rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+                        then
+                            dumpInfoLine "... backend ${BGre}snyed${RCol}"
+                        else
+                            dumpInfoLine "... backend ${BRed}not snyed${RCol}"
+                        fi
                     fi
 
                     # Check the undefined [needs to be second]
                     if [[ -v updateProjectsUndefined[${project}] ]]
                     then
                         #echo ${projectsUndefined[${project}]}
-                        rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1
+                        if (rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+                        then
+                            dumpInfoLine "... backend ${BGre}snyed${RCol}"
+                        else
+                            dumpInfoLine "... backend ${BRed}not snyed${RCol}"
+                        fi
                     fi
 
                     # Check the backend [needs to be third]
                     if [[ -v updateProjectsFrontend[${project}] ]]
                     then
                         #echo ${projectsFrontend[${project}]}
-                        rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1
+                        if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+                        then
+                            dumpInfoLine "... backend ${BGre}snyed${RCol}"
+                        else
+                            dumpInfoLine "... backend ${BRed}not snyed${RCol}"
+                        fi
                     fi
-                else
-                    dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BRed}offline${RCol}"
-                fi
+#                else
+#                    dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BRed}offline${RCol}"
+#                fi
             done
         done
     fi
