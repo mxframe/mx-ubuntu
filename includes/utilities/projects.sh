@@ -154,9 +154,9 @@ updateProjects() {
 
             for node in "${!nodeServerIps[@]}"
             do
-#                #echo ${node} ${nodeServerIps[${node}]}
-#                if (nc -w 5 -z "${nodeServerIps[${node}]}" 22)
-#                then
+                #echo ${node} ${nodeServerIps[${node}]}
+                if (nc -w 5 -z "${nodeServerIps[${node}]}" 22)
+                then
                     dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BGre}online${RCol}"
 
                     # Check the backend [needs to be first]
@@ -194,9 +194,9 @@ updateProjects() {
                             dumpInfoLine "... backend ${BRed}not snyed${RCol}"
                         fi
                     fi
-#                else
-#                    dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BRed}offline${RCol}"
-#                fi
+                else
+                    dumpInfoLine "Node ${node} [${nodeServerIps[${node}]}] is ${BRed}offline${RCol}"
+                fi
             done
         done
     fi
