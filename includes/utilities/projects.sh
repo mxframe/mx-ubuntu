@@ -165,9 +165,9 @@ updateProjects() {
                         #echo ${projectsBackend[${project}]}
                         if (rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                         then
-                            dumpInfoLine "... backend ${BGre}snyed${RCol}"
+                            dumpInfoLine "... backend ${BGre}synced${RCol}"
                         else
-                            dumpInfoLine "... backend ${BRed}not snyed${RCol}"
+                            dumpInfoLine "... backend ${BRed}not synced${RCol}"
                         fi
                     fi
 
@@ -177,9 +177,9 @@ updateProjects() {
                         #echo ${projectsUndefined[${project}]}
                         if (rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                         then
-                            dumpInfoLine "... backend ${BGre}snyed${RCol}"
+                            dumpInfoLine "... backend ${BGre}synced${RCol}"
                         else
-                            dumpInfoLine "... backend ${BRed}not snyed${RCol}"
+                            dumpInfoLine "... backend ${BRed}not synced${RCol}"
                         fi
                     fi
 
@@ -189,9 +189,9 @@ updateProjects() {
                         #echo ${projectsFrontend[${project}]}
                         if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                         then
-                            dumpInfoLine "... backend ${BGre}snyed${RCol}"
+                            dumpInfoLine "... backend ${BGre}synced${RCol}"
                         else
-                            dumpInfoLine "... backend ${BRed}not snyed${RCol}"
+                            dumpInfoLine "... backend ${BRed}not synced${RCol}"
                         fi
                     fi
                 else
