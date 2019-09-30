@@ -102,7 +102,7 @@ tmpInstallEverything() {
     # Install apache2
     sudo apt-get -y install php apache2 apache2-utils
     # Setup apache
-    sudo a2enmod rewrite ssl headers vhost_alias
+    sudo a2enmod rewrite ssl headers vhost_alias expires
     sudo timedatectl set-timezone Europe/Berlin
     sudo service apache2 restart
 

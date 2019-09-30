@@ -360,6 +360,9 @@ updateBackendProject () {
 
     # Make the npm update
     projectNpmInstallAndGenerate "${projectsBackend[${projectName}]}"
+
+    # Clear the cache
+    projectClearCache "${projectsBackend[${projectName}]}"
 }
 
 updateUndefinedProject () {
@@ -401,6 +404,9 @@ updateUndefinedProject () {
 
     # Make the npm update
     projectNpmInstallAndGenerate "${projectsUndefined[${projectName}]}"
+
+    # Clear the cache
+    projectClearCache "${projectsUndefined[${projectName}]}"
 }
 
 updateFrontendProject () {
@@ -442,6 +448,9 @@ updateFrontendProject () {
 
     # Make the npm update
     projectNpmInstallAndGenerate "${projectsFrontend[${projectName}]}"
+
+    # Clear the cache
+    projectClearCache "${projectsFrontend[${projectName}]}"
 }
 
 projectGitPull() {
@@ -601,6 +610,29 @@ projectNpmInstallAndGenerate() {
     # Generate
     #npm run generate >/dev/null 2>&1
     npm run generate
+
+    # Dump the info line
+    dumpInfoLine "... ... ${BGre}done${RCol}"
+}
+
+projectClearCache() {
+    # Define the path
+    local path=${1:-}
+
+    # Check if a composer file exists
+    if [[ ! -f "${path}/artisan" ]]
+    then
+        return
+    fi
+
+    # Change the directory
+    cd ${path}
+
+    # Dump the info line
+    dumpInfoLine "... clearing cache"
+
+    # Clear the cache
+    php artisan cache:clear >/dev/null 2>&1
 
     # Dump the info line
     dumpInfoLine "... ... ${BGre}done${RCol}"
