@@ -362,7 +362,9 @@ updateBackendProject () {
     projectNpmInstallAndGenerate "${projectsBackend[${projectName}]}"
 
     # Clear the cache
-    projectClearCache "${projectsBackend[${projectName}]}"
+    [[ -v projectsFrontend[${projectName}] ]] && projectClearCache "${projectsFrontend[${projectName}]}"
+    [[ -v projectsUndefined[${projectName}] ]] && projectClearCache "${projectsUndefined[${projectName}]}"
+    [[ -v projectsBackend[${projectName}] ]] && projectClearCache "${projectsBackend[${projectName}]}"
 }
 
 updateUndefinedProject () {
@@ -406,7 +408,9 @@ updateUndefinedProject () {
     projectNpmInstallAndGenerate "${projectsUndefined[${projectName}]}"
 
     # Clear the cache
-    projectClearCache "${projectsUndefined[${projectName}]}"
+    [[ -v projectsFrontend[${projectName}] ]] && projectClearCache "${projectsFrontend[${projectName}]}"
+    [[ -v projectsUndefined[${projectName}] ]] && projectClearCache "${projectsUndefined[${projectName}]}"
+    [[ -v projectsBackend[${projectName}] ]] && projectClearCache "${projectsBackend[${projectName}]}"
 }
 
 updateFrontendProject () {
@@ -450,7 +454,9 @@ updateFrontendProject () {
     projectNpmInstallAndGenerate "${projectsFrontend[${projectName}]}"
 
     # Clear the cache
-    projectClearCache "${projectsFrontend[${projectName}]}"
+    [[ -v projectsFrontend[${projectName}] ]] && projectClearCache "${projectsFrontend[${projectName}]}"
+    [[ -v projectsUndefined[${projectName}] ]] && projectClearCache "${projectsUndefined[${projectName}]}"
+    [[ -v projectsBackend[${projectName}] ]] && projectClearCache "${projectsBackend[${projectName}]}"
 }
 
 projectGitPull() {
