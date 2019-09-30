@@ -501,7 +501,10 @@ clearBackendCache () {
         dumpInfoLine "... ${BRed}error${RCol} (no cache directory)"
     else
         # Clear the cache
-        rm -R ${path}/storage/framework/cache/data/* >/dev/null 2>&1
+        if hasSudo
+        then
+            sudo rm -R ${path}/storage/framework/cache/data/* >/dev/null 2>&1
+        fi
     fi
 
     # Dump the info line
