@@ -147,7 +147,7 @@ updateProjects() {
     for project in "${!updateProjectsTotal[@]}"
     do
         # Check the frontend [needs to be third]
-        if [[ -v updateProjectsFrontend[${project}] ]]
+        if [[ -v updateProjectsBackend[${project}] ]]
         then
             clearBackendCache "${project}"
         fi
@@ -476,7 +476,8 @@ clearBackendCache () {
     }
 
     # Check if the directory exists
-    if [[ ! -d ${projectsBackend[${projectName}]} ]]
+    local path="${projectsBackend[${projectName}]}"
+    if [[ ! -d ${path} ]]
     then
         dumpInfoLine "... ${BRed}error${RCol} (directory does not exist)"
         return
