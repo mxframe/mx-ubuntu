@@ -241,7 +241,7 @@ updateProjects() {
                 if [[ -v updateProjectsBackend[${project}] ]]
                 then
                     #echo ${projectsBackend[${project}]}
-                    if (rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+                    if (sudo rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BGre}synced${RCol}"
                     else
@@ -263,7 +263,7 @@ updateProjects() {
                 if [[ -v updateProjectsUndefined[${project}] ]]
                 then
                     #echo ${projectsUndefined[${project}]}
-                    if (rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+                    if (sudo rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: undefined ${BGre}synced${RCol}"
                     else
@@ -285,7 +285,7 @@ updateProjects() {
                 if [[ -v updateProjectsFrontend[${project}] ]]
                 then
                     #echo ${projectsFrontend[${project}]}
-                    if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+                    if (sudo rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BGre}synced${RCol}"
                     else
