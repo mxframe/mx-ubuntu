@@ -241,6 +241,7 @@ updateProjects() {
                 if [[ -v updateProjectsBackend[${project}] ]]
                 then
                     #echo ${projectsBackend[${project}]}
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsBackend[${project}]}" >/dev/null 2>&1
 #                    if (rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     if (rsync -rlpgoD -ze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
@@ -265,6 +266,7 @@ updateProjects() {
                 if [[ -v updateProjectsUndefined[${project}] ]]
                 then
                     #echo ${projectsUndefined[${project}]}
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1
 #                    if (rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     if (rsync -rlpgoD -ze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
@@ -289,6 +291,7 @@ updateProjects() {
                 if [[ -v updateProjectsFrontend[${project}] ]]
                 then
                     #echo ${projectsFrontend[${project}]}
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsFrontend[${project}]}" >/dev/null 2>&1
 #                    if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     if (rsync -rlpgoD -ze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
