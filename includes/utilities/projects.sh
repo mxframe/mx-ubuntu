@@ -257,7 +257,7 @@ updateProjects() {
 #                    else
 #                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
 #                    fi
-                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${updateProjectsBackend[${project}]}" >/dev/null 2>&1
                 fi
 
                 # Check the undefined [needs to be second]
