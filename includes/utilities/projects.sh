@@ -184,6 +184,18 @@ updateProjects() {
                 dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: file ${BRed}not synced${RCol}"
             fi
         done
+
+        # Dump the info line & change the owner
+        dumpInfoHeader "Chown /var/www/html/index.html"
+        for node in "${!activeNodes[@]}"
+        do
+            if (ssh -t $(whoami)@${nodeServerIps[${node}]} 'sudo chown -R www-data:www-data /var/www/html/index.html' >/dev/null 2>&1)
+            then
+                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+            else
+                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
+            fi
+        done
     fi
 
     # Check for a default folder
@@ -199,6 +211,18 @@ updateProjects() {
                 dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: folder ${BGre}synced${RCol}"
             else
                 dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: folder ${BRed}not synced${RCol}"
+            fi
+        done
+
+        # Dump the info line & change the owner
+        dumpInfoHeader "Chown /var/www/html/default"
+        for node in "${!activeNodes[@]}"
+        do
+            if (ssh -t $(whoami)@${nodeServerIps[${node}]} 'sudo chown -R www-data:www-data /var/www/html/default' >/dev/null 2>&1)
+            then
+                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+            else
+                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
             fi
         done
     fi
@@ -223,6 +247,15 @@ updateProjects() {
                     else
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BRed}not synced${RCol}"
                     fi
+
+                    # Dump the info line & change the owner
+                    dumpInfoHeader "Chown ${projectsBackend[${project}]}"
+                    if (ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsBackend[${project}]}" >/dev/null 2>&1)
+                    then
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+                    else
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
+                    fi
                 fi
 
                 # Check the undefined [needs to be second]
@@ -235,6 +268,15 @@ updateProjects() {
                     else
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: undefined ${BRed}not synced${RCol}"
                     fi
+
+                    # Dump the info line & change the owner
+                    dumpInfoHeader "Chown ${projectsUndefined[${project}]}"
+                    if (ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1)
+                    then
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+                    else
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
+                    fi
                 fi
 
                 # Check the backend [needs to be third]
@@ -246,6 +288,15 @@ updateProjects() {
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BGre}synced${RCol}"
                     else
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BRed}not synced${RCol}"
+                    fi
+
+                    # Dump the info line & change the owner
+                    dumpInfoHeader "Chown ${projectsFrontend[${project}]}"
+                    if (ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsFrontend[${project}]}" >/dev/null 2>&1)
+                    then
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+                    else
+                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
                     fi
                 fi
             done
