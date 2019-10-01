@@ -241,7 +241,8 @@ updateProjects() {
                 if [[ -v updateProjectsBackend[${project}] ]]
                 then
                     #echo ${projectsBackend[${project}]}
-                    if (sudo rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+#                    if (rsync -aze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+                    if (rsync -rlpgoD -ze ssh "${projectsBackend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BGre}synced${RCol}"
                     else
@@ -256,14 +257,15 @@ updateProjects() {
 #                    else
 #                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
 #                    fi
-                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsBackend[${project}]}" >/dev/null 2>&1
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1
                 fi
 
                 # Check the undefined [needs to be second]
                 if [[ -v updateProjectsUndefined[${project}] ]]
                 then
                     #echo ${projectsUndefined[${project}]}
-                    if (sudo rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+#                    if (rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+                    if (rsync -rlpgoD -ze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: undefined ${BGre}synced${RCol}"
                     else
@@ -285,7 +287,8 @@ updateProjects() {
                 if [[ -v updateProjectsFrontend[${project}] ]]
                 then
                     #echo ${projectsFrontend[${project}]}
-                    if (sudo rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+#                    if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+                    if (rsync -rlpgoD -ze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     then
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BGre}synced${RCol}"
                     else
