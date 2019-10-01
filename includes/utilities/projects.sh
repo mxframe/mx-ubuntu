@@ -169,63 +169,63 @@ updateProjects() {
         fi
     done
 
-    # Check for a default index.htm
-    if [[ -f /var/www/html/index.html ]]
-    then
-        # Dump the info line
-        dumpInfoHeader "Rsyncing /var/www/html/index.html"
-
-        for node in "${!activeNodes[@]}"
-        do
-            if (rsync -aze ssh "/var/www/html/index.html" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" >/dev/null 2>&1)
-            then
-                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: file ${BGre}synced${RCol}"
-            else
-                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: file ${BRed}not synced${RCol}"
-            fi
-        done
-
-        # Dump the info line & change the owner
-        dumpInfoHeader "Chown /var/www/html/index.html"
-        for node in "${!activeNodes[@]}"
-        do
-            if (ssh -t $(whoami)@${nodeServerIps[${node}]} 'sudo chown -R www-data:www-data /var/www/html/index.html' >/dev/null 2>&1)
-            then
-                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
-            else
-                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
-            fi
-        done
-    fi
-
-    # Check for a default folder
-    if [[ -d /var/www/html/default ]]
-    then
-        # Dump the info line
-        dumpInfoHeader "Rsyncing /var/www/html/default"
-
-        for node in "${!activeNodes[@]}"
-        do
-            if (rsync -aze ssh "/var/www/html/default" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
-            then
-                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: folder ${BGre}synced${RCol}"
-            else
-                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: folder ${BRed}not synced${RCol}"
-            fi
-        done
-
-        # Dump the info line & change the owner
-        dumpInfoHeader "Chown /var/www/html/default"
-        for node in "${!activeNodes[@]}"
-        do
-            if (ssh -t $(whoami)@${nodeServerIps[${node}]} 'sudo chown -R www-data:www-data /var/www/html/default' >/dev/null 2>&1)
-            then
-                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
-            else
-                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
-            fi
-        done
-    fi
+#    # Check for a default index.htm
+#    if [[ -f /var/www/html/index.html ]]
+#    then
+#        # Dump the info line
+#        dumpInfoHeader "Rsyncing /var/www/html/index.html"
+#
+#        for node in "${!activeNodes[@]}"
+#        do
+#            if (rsync -aze ssh "/var/www/html/index.html" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" >/dev/null 2>&1)
+#            then
+#                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: file ${BGre}synced${RCol}"
+#            else
+#                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: file ${BRed}not synced${RCol}"
+#            fi
+#        done
+#
+#        # Dump the info line & change the owner
+#        dumpInfoHeader "Chown /var/www/html/index.html"
+#        for node in "${!activeNodes[@]}"
+#        do
+#            if (ssh -t $(whoami)@${nodeServerIps[${node}]} 'sudo chown -R www-data:www-data /var/www/html/index.html' >/dev/null 2>&1)
+#            then
+#                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+#            else
+#                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
+#            fi
+#        done
+#    fi
+#
+#    # Check for a default folder
+#    if [[ -d /var/www/html/default ]]
+#    then
+#        # Dump the info line
+#        dumpInfoHeader "Rsyncing /var/www/html/default"
+#
+#        for node in "${!activeNodes[@]}"
+#        do
+#            if (rsync -aze ssh "/var/www/html/default" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
+#            then
+#                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: folder ${BGre}synced${RCol}"
+#            else
+#                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: folder ${BRed}not synced${RCol}"
+#            fi
+#        done
+#
+#        # Dump the info line & change the owner
+#        dumpInfoHeader "Chown /var/www/html/default"
+#        for node in "${!activeNodes[@]}"
+#        do
+#            if (ssh -t $(whoami)@${nodeServerIps[${node}]} 'sudo chown -R www-data:www-data /var/www/html/default' >/dev/null 2>&1)
+#            then
+#                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+#            else
+#                dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
+#            fi
+#        done
+#    fi
 
     # Iterate through the projects and rsync the folders
     if [[ ${isMasterServer} = true ]]
