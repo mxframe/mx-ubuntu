@@ -248,14 +248,15 @@ updateProjects() {
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: backend ${BRed}not synced${RCol}"
                     fi
 
-                    # Dump the info line & change the owner
-                    dumpInfoHeader "Chown ${projectsBackend[${project}]}"
-                    if (ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsBackend[${project}]}" >/dev/null 2>&1)
-                    then
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
-                    else
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
-                    fi
+#                    # Dump the info line & change the owner
+#                    dumpInfoHeader "Chown ${projectsBackend[${project}]}"
+#                    if (ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsBackend[${project}]}" >/dev/null 2>&1)
+#                    then
+#                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+#                    else
+#                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
+#                    fi
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsBackend[${project}]}" >/dev/null 2>&1
                 fi
 
                 # Check the undefined [needs to be second]
@@ -269,14 +270,15 @@ updateProjects() {
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: undefined ${BRed}not synced${RCol}"
                     fi
 
-                    # Dump the info line & change the owner
-                    dumpInfoHeader "Chown ${projectsUndefined[${project}]}"
-                    if (ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1)
-                    then
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
-                    else
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
-                    fi
+#                    # Dump the info line & change the owner
+#                    dumpInfoHeader "Chown ${projectsUndefined[${project}]}"
+#                    if (ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1)
+#                    then
+#                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+#                    else
+#                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
+#                    fi
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1
                 fi
 
                 # Check the backend [needs to be third]
@@ -290,14 +292,15 @@ updateProjects() {
                         dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BRed}not synced${RCol}"
                     fi
 
-                    # Dump the info line & change the owner
-                    dumpInfoHeader "Chown ${projectsFrontend[${project}]}"
-                    if (ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsFrontend[${project}]}" >/dev/null 2>&1)
-                    then
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
-                    else
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
-                    fi
+#                    # Dump the info line & change the owner
+#                    dumpInfoHeader "Chown ${projectsFrontend[${project}]}"
+#                    if (ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsFrontend[${project}]}" >/dev/null 2>&1)
+#                    then
+#                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+#                    else
+#                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
+#                    fi
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsFrontend[${project}]}" >/dev/null 2>&1
                 fi
             done
         done
