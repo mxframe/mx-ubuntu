@@ -238,6 +238,7 @@ updateProjects() {
             for node in "${!activeNodes[@]}"
             do
                 # Check the backend [needs to be first]
+                # @todombe exclude sessions & cache or complete storage
                 if [[ -v updateProjectsBackend[${project}] ]]
                 then
                     #echo ${projectsBackend[${project}]}
