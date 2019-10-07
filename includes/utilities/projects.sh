@@ -107,11 +107,16 @@ updateProjects() {
         exitScript
     fi
 
-    # Get the AWS IP
+    # Check the IPs
+    dumpInfoHeader "Checking the IPs"
     dnsIp=$(dig +short spectrum8-rollout-balancer-941038166.eu-central-1.elb.amazonaws.com | sort -n | nawk '{print $1; exit}')
+    dumpInfoLine "DNS-IP: ${dnsIp}"
     hostsIP=$(ping -c 1 "${rolloutTestUrl}" -w 3 | gawk -F'[()]' '/PING/{print $2}')
-    echo "DNS-IP: ${dnsIp}"
-    echo "Hosts-IP: ${hostsIP}"
+    dumpInfoLine "Hosts-IP: ${hostsIP}"
+    if [[ dnsIp != hostsIP ]]
+    then
+        dumpInfoLine "Trying to fix /etc/hosts entires"
+    fi
     exitScript
 
     # Define the backup date
