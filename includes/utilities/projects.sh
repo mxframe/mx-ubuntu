@@ -107,6 +107,11 @@ updateProjects() {
         exitScript
     fi
 
+    # Get the AWS IP
+    dnsIp=$(dig +short spectrum8-rollout-balancer-941038166.eu-central-1.elb.amazonaws.com | sort -n | nawk '{print $1; exit}')
+    echo "DNS-IP: ${dnsIp}"
+    exitScript
+
     # Define the backup date
     local backupDate=$(date '+%Y-%m-%d_%H:%M:%S')
 
