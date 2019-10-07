@@ -113,12 +113,17 @@ updateProjects() {
     dumpInfoLine "DNS-IP: ${dnsIp}"
     hostsIP=$(ping -c 1 "${rolloutTestUrl}" -w 3 | gawk -F'[()]' '/PING/{print $2}')
     dumpInfoLine "Hosts-IP: ${hostsIP}"
-    if [[ dnsIp != hostsIP ]]
+    if [[ ${dnsIp} != ${hostsIP} ]]
     then
         dumpInfoLine "Trying to fix /etc/hosts entries"
         sudo sed -i "s/${hostsIP}/${dnsIp}/g" /etc/hosts
         hostsIP=$(ping -c 1 "${rolloutTestUrl}" -w 3 | gawk -F'[()]' '/PING/{print $2}')
         dumpInfoLine "New Hosts-IP: ${hostsIP}"
+        if [[ ${dnsIp} != ${hostsIP} ]]
+        then
+            dumpInfoLine "... ${BRed}error${RCol}: can't fix the IP"
+            exitScript
+        fi
     fi
     exitScript
 
