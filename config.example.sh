@@ -28,6 +28,8 @@ defaultUsersAndGroups['username']='packages,sudoers'
 
 # The rollout server ip
 rolloutServerIP=''
+rolloutServerDnsName=''
+rolloutTestUrl=''
 
 # The node server ip's
 #nodeServerIps['1']=''

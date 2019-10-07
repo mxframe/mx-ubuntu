@@ -109,7 +109,9 @@ updateProjects() {
 
     # Get the AWS IP
     dnsIp=$(dig +short spectrum8-rollout-balancer-941038166.eu-central-1.elb.amazonaws.com | sort -n | nawk '{print $1; exit}')
+    hostsIP=$(ping "${rolloutTestUrl}" -c1 | head -1 | grep -Eo '[0-9.]{4,}')
     echo "DNS-IP: ${dnsIp}"
+    echo "Hosts-IP: ${hostsIP}"
     exitScript
 
     # Define the backup date
