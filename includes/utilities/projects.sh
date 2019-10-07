@@ -125,7 +125,6 @@ updateProjects() {
             exitScript
         fi
     fi
-    exitScript
 
     # Define the backup date
     local backupDate=$(date '+%Y-%m-%d_%H:%M:%S')
