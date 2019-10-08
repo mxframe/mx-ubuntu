@@ -109,8 +109,8 @@ updateProjects() {
 
     # Check the IPs
     dumpInfoHeader "Checking the IPs"
-    #dnsIp=$(dig +short spectrum8-rollout-balancer-941038166.eu-central-1.elb.amazonaws.com | sort -n | nawk '{print $1; exit}')
-    dnsIp=${tmpIP}
+    dnsIp=$(dig +short spectrum8-rollout-balancer-941038166.eu-central-1.elb.amazonaws.com | sort -n | nawk '{print $1; exit}')
+    #dnsIp=${tmpIP}
     dumpInfoLine "DNS-IP: ${dnsIp}"
     hostsIP=$(ping -c 1 "${rolloutTestUrl}" -w 3 | gawk -F'[()]' '/PING/{print $2}')
     dumpInfoLine "Hosts-IP: ${hostsIP}"
