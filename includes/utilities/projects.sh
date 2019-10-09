@@ -107,6 +107,11 @@ updateProjects() {
         exitScript
     fi
 
+    # Dump the disk space
+    freediskspace=$(($(df -P "/var/www/html" | awk 'NR == 1 {next} {print $4}')/1000000))
+    dumpInfoHeader "${BGre}Free Disk-Space for /var/www/html:${RCol} ${freediskspace} GB"
+    dumpInfoLine "$(date)"
+
     # Check the IPs
     dumpInfoHeader "Checking the IPs"
     dnsIp=$(dig +short spectrum8-rollout-balancer-941038166.eu-central-1.elb.amazonaws.com | sort -n | nawk '{print $1; exit}')
