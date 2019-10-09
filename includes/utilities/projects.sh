@@ -194,6 +194,16 @@ updateProjects() {
         fi
     done
 
+    # Asc for sync
+    dumpInfoHeader "Should the folders be synced with the nodes?"
+    printf " ${BBlu}>${RCol} ${BYel}Rsync?${RCol} [J/n]"
+    read -p ": " answer
+    if [ "${answer,,}" = "n" ]
+	then
+	    exitScript
+	fi
+
+
 #    # Check for a default index.htm
 #    if [[ -f /var/www/html/index.html ]]
 #    then
