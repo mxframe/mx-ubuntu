@@ -198,7 +198,7 @@ updateProjects() {
     dumpInfoHeader "Should the folders be synced with the nodes?"
     printf " ${BBlu}>${RCol} ${BYel}Rsync?${RCol} [j/${BRed}N${RCol}]"
     read -p ": " answer
-    if [ "${answer,,}" = "n" ]
+    if [ "${answer,,}" != "j" ]
 	then
 	    exitScript
 	fi
