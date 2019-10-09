@@ -196,7 +196,7 @@ updateProjects() {
 
     # Asc for sync
     dumpInfoHeader "Should the folders be synced with the nodes?"
-    printf " ${BBlu}>${RCol} ${BYel}Rsync?${RCol} [${BYel}J${RCol} /n]"
+    printf " ${BBlu}>${RCol} ${BYel}Rsync?${RCol} [j/${BRed}N${RCol}]"
     read -p ": " answer
     if [ "${answer,,}" = "n" ]
 	then
