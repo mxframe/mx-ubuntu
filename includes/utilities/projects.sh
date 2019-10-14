@@ -733,8 +733,8 @@ projectNpmInstallAndGenerate() {
 
         # Install
         #npm install >/dev/null 2>&
-        npm audit fix
-        npm install
+        cd ${path} && npm audit fix
+        cd ${path} && npm install
 
         # Dump the info line
         dumpInfoLine "... ... ${BGre}done${RCol}"
