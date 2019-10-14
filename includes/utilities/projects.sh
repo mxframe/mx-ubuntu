@@ -329,8 +329,6 @@ updateProjects() {
                 # Check the backend [needs to be third]
                 if [[ -v updateProjectsFrontend[${project}] ]]
                 then
-                    echo ${projectsFrontend[${project}]}
-                    exitScript
                     #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsFrontend[${project}]}" >/dev/null 2>&1
                     ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsFrontend[${project}]}"
 #                    if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
