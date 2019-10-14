@@ -331,15 +331,15 @@ updateProjects() {
                 then
                     #echo ${projectsFrontend[${project}]}
                     #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsFrontend[${project}]}" >/dev/null 2>&1
-                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsFrontend[${project}]}"
+                    #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsFrontend[${project}]}"
 #                    if (rsync -aze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     #if (rsync -rlpgoD -ze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
-                    if (rsync -rlpgoD -ze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete)
-                    then
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BGre}synced${RCol}"
-                    else
-                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BRed}not synced${RCol}"
-                    fi
+                    #if (rsync -rlpgoD -ze ssh "${projectsFrontend[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete)
+                    #then
+                    #    dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BGre}synced${RCol}"
+                    #else
+                    #    dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: frontend ${BRed}not synced${RCol}"
+                    #fi
 
 #                    # Dump the info line & change the owner
 #                    dumpInfoHeader "Chown ${projectsFrontend[${project}]}"
@@ -351,7 +351,8 @@ updateProjects() {
 #                    fi
                     dumpInfoLine "... ... chown -R www-data:www-data ${projectsFrontend[${project}]}"
                     #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsFrontend[${project}]}" >/dev/null 2>&1
-                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsFrontend[${project}]}"
+                    #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsFrontend[${project}]}"
+                    echo "sudo chown -R www-data:www-data ${projectsFrontend[${project}]}"
                 fi
             done
         done
