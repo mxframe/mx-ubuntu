@@ -1,1 +1,1 @@
-# server-setup
+# server-setup-script
