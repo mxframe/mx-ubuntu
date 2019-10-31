@@ -296,6 +296,11 @@ updateProjects() {
 #                    fi
                     dumpInfoLine "... ... chown -R www-data:www-data ${projectsBackend[${project}]}"
                     ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsBackend[${project}]}" >/dev/null 2>&1
+
+                    # Clear the opcache
+                    dumpInfoLine "... ... clearing opcache for ${projectsBackend[${project}]}"
+                    #ssh -t $(whoami)@${nodeServerIps[${node}]} "[[ -f ${projectsBackend[${project}]}/artisan ]] && cd ${projectsBackend[${project}]} && php artisan opcache:clear && php artisan opcache:compile --force" >/dev/null 2>&1
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "[[ -f ${projectsBackend[${project}]}/artisan ]] && cd ${projectsBackend[${project}]} && php artisan opcache:clear" >/dev/null 2>&1
                 fi
 
                 # Check the undefined [needs to be second]
@@ -324,6 +329,11 @@ updateProjects() {
                     dumpInfoLine "... ... chown -R www-data:www-data ${projectsUndefined[${project}]}"
                     #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1
                     ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}"
+
+                    # Clear the opcache
+                    dumpInfoLine "... ... clearing opcache for ${projectsUndefined[${project}]}"
+                    #ssh -t $(whoami)@${nodeServerIps[${node}]} "[[ -f ${projectsUndefined[${project}]}/artisan ]] && cd ${projectsUndefined[${project}]} && php artisan opcache:clear && php artisan opcache:compile --force" >/dev/null 2>&1
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "[[ -f ${projectsUndefined[${project}]}/artisan ]] && cd ${projectsUndefined[${project}]} && php artisan opcache:clear" >/dev/null 2>&1
                 fi
 
                 # Check the backend [needs to be third]
@@ -469,6 +479,9 @@ updateBackendProject () {
     # Make the composer update
     projectComposerUpdate "${projectsBackend[${projectName}]}"
 
+    # Run the artisan optimizations
+    projectRunArtisan "${projectsBackend[${projectName}]}"
+
     # Make the npm update
     projectNpmInstallAndGenerate "${projectsBackend[${projectName}]}"
 }
@@ -510,6 +523,9 @@ updateUndefinedProject () {
     # Make the composer update
     projectComposerUpdate "${projectsUndefined[${projectName}]}"
 
+    # Run the artisan optimizations
+    projectRunArtisan "${projectsBackend[${projectName}]}"
+
     # Make the npm update
     projectNpmInstallAndGenerate "${projectsUndefined[${projectName}]}"
 }
@@ -550,6 +566,9 @@ updateFrontendProject () {
 
     # Make the composer update
     projectComposerUpdate "${projectsFrontend[${projectName}]}"
+
+    # Run the artisan optimizations
+    projectRunArtisan "${projectsBackend[${projectName}]}"
 
     # Make the npm update
     projectNpmInstallAndGenerate "${projectsFrontend[${projectName}]}"
@@ -688,20 +707,62 @@ projectComposerUpdate() {
 #        dumpInfoLine "... composer install"
 #
 #        # Install
-#        #composer install >/dev/null 2>&1
-#        composer install
+#        #composer install --optimize-autoloader --no-dev --no-interaction >/dev/null 2>&1
+#        composer install --optimize-autoloader --no-dev --no-interaction
 #    else
         # Always update, because of local repos/paths
         # Dump the info line
         dumpInfoLine "... composer update"
 
         # Update
-        #composer update >/dev/null 2>&1
-        composer update
+        #composer update --optimize-autoloader --no-dev --no-interaction >/dev/null 2>&1
+        composer update --optimize-autoloader --no-dev --no-interaction
 #    fi
+
+    ## Clear the cache
+    #php artisan cache:clear >/dev/null 2>&1
+
+    # Dump the info line
+    dumpInfoLine "... ... ${BGre}done${RCol}"
+}
+
+projectRunArtisan() {
+    # Define the path
+    local path=${1:-}
+
+    # Check if a artisan file exists
+    if [[ ! -f "${path}/artisan" ]]
+    then
+        return
+    fi
+
+    # Change the directory
+    cd ${path}
+
+    # Dump the info line
+    dumpInfoLine "... run artisan optimizations"
+
+    # Clear the old boostrap/cache/compiled.php
+    #php artisan clear-compiled
+
+    # Recreate boostrap/cache/compiled.php
+    #php artisan optimize
+
+    # Optimizing Configuration Loading
+    # @link https://laravel.com/docs/5.7/deployment#optimizing-configuration-loading
+    #php artisan config:cache
+
+    # Optimizing Route Loading
+    # @link https://laravel.com/docs/5.7/deployment#optimizing-route-loading
+    #php artisan route:cache
 
     # Clear the cache
     php artisan cache:clear >/dev/null 2>&1
+
+    # Clear & generate the opcache
+    php artisan opcache:clear >/dev/null 2>&1
+    #php artisan opcache:compile --force >/dev/null 2>&1
+    #php artisan opcache:status
 
     # Dump the info line
     dumpInfoLine "... ... ${BGre}done${RCol}"
