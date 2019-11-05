@@ -524,7 +524,7 @@ updateUndefinedProject () {
     projectComposerUpdate "${projectsUndefined[${projectName}]}"
 
     # Run the artisan optimizations
-    projectRunArtisan "${projectsBackend[${projectName}]}"
+    projectRunArtisan "${projectsUndefined[${projectName}]}"
 
     # Make the npm update
     projectNpmInstallAndGenerate "${projectsUndefined[${projectName}]}"
@@ -568,7 +568,7 @@ updateFrontendProject () {
     projectComposerUpdate "${projectsFrontend[${projectName}]}"
 
     # Run the artisan optimizations
-    projectRunArtisan "${projectsBackend[${projectName}]}"
+    #projectRunArtisan "${projectsFrontend[${projectName}]}"
 
     # Make the npm update
     projectNpmInstallAndGenerate "${projectsFrontend[${projectName}]}"
