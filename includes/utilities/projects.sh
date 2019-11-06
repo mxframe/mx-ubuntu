@@ -307,8 +307,8 @@ updateProjects() {
                 if [[ -v updateProjectsUndefined[${project}] ]]
                 then
                     #echo ${projectsUndefined[${project}]}
-                    #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1
-                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsUndefined[${project}]}"
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1
+                    #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R $(whoami):www-data ${projectsUndefined[${project}]}"
 #                    if (rsync -aze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     #if (rsync -rlpgoD -ze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete >/dev/null 2>&1)
                     if (rsync -rlpgoD -ze ssh "${projectsUndefined[${project}]}" $(whoami)@${nodeServerIps[${node}]}:"/var/www/html" --delete)
@@ -327,8 +327,8 @@ updateProjects() {
 #                        dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
 #                    fi
                     dumpInfoLine "... ... chown -R www-data:www-data ${projectsUndefined[${project}]}"
-                    #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1
-                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}"
+                    ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}" >/dev/null 2>&1
+                    #ssh -t $(whoami)@${nodeServerIps[${node}]} "sudo chown -R www-data:www-data ${projectsUndefined[${project}]}"
 
                     # Clear the opcache
                     dumpInfoLine "... ... clearing opcache for ${projectsUndefined[${project}]}"
