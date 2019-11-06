@@ -824,12 +824,23 @@ projectNpmInstallAndGenerate() {
         return
     fi
 
-    # Dump the info line
-    dumpInfoLine "... npm run generate"
+    # Generate the scripts
+    if [[ ! -f "${path}/npm-run-dev" ]]
+    then
+        # Dump the info line
+        dumpInfoLine "... npm run dev"
 
-    # Generate
-    #npm run generate >/dev/null 2>&1
-    npm run generate
+        # Generate
+        #npm run dev >/dev/null 2>&1
+        npm run dev
+    else
+        # Dump the info line
+        dumpInfoLine "... npm run generate"
+
+        # Generate
+        #npm run generate >/dev/null 2>&1
+        npm run generate
+    fi
 
     # Dump the info line
     dumpInfoLine "... ... ${BGre}done${RCol}"
