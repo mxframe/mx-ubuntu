@@ -820,7 +820,7 @@ projectNpmInstallAndGenerate() {
 #            dumpInfoLine "... ... ${BRed}error${RCol} (unknown)"
 #        }
         dumpInfoLine "... ${BRed}error${RCol} (.env does not exist, please copy from .env.example and make settings)"
-        dumpInfoLine "... ... ${BRed}can not exexute 'npm run generate' without it${RCol}"
+        dumpInfoLine "... ... ${BRed}can not execute 'npm run generate' without it${RCol}"
         return
     fi
 
