@@ -825,14 +825,15 @@ projectNpmInstallAndGenerate() {
     fi
 
     # Generate the scripts
-    if [[ ! -f "${path}/npm-run-dev" ]]
+    #if [[ -f "${path}/npm-run-dev" ]]
+    if [[ -f "${path}/npm-run-prod" ]]
     then
         # Dump the info line
-        dumpInfoLine "... npm run dev"
+        dumpInfoLine "... npm run prod"
 
         # Generate
-        #npm run dev >/dev/null 2>&1
-        npm run dev
+        #npm run prod >/dev/null 2>&1
+        npm run prod
     else
         # Dump the info line
         dumpInfoLine "... npm run generate"
