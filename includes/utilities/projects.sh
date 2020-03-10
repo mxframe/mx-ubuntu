@@ -613,6 +613,9 @@ clearBackendCache () {
     else
         # Clear the cache
         php artisan cache:clear >/dev/null 2>&1
+        php artisan clear-compiled >/dev/null 2>&1
+        #php artisan cache:clear
+        #php artisan clear-compiled
     fi
 
     # Check if a cache data directory exists
@@ -663,6 +666,7 @@ projectGitPull() {
 
     # Reset the repo
     # https://stackoverflow.com/questions/24983762/git-ignore-local-file-changes/24983863
+    # git stash drop >/dev/null 2>&1
     # git reset --hard >/dev/null 2>&1
     git reset --hard
 
@@ -758,6 +762,9 @@ projectRunArtisan() {
 
     # Clear the cache
     php artisan cache:clear >/dev/null 2>&1
+
+    # Clear the cache
+    php artisan clear-compiled >/dev/null 2>&1
 
     # Clear & generate the opcache
     php artisan opcache:clear >/dev/null 2>&1
