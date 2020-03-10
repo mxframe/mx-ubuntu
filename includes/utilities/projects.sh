@@ -612,10 +612,10 @@ clearBackendCache () {
         dumpInfoLine "... ${BRed}error${RCol} (no artisan file)"
     else
         # Clear the cache
-        php artisan cache:clear >/dev/null 2>&1
         php artisan clear-compiled >/dev/null 2>&1
-        #php artisan cache:clear
+        php artisan cache:clear >/dev/null 2>&1
         #php artisan clear-compiled
+        #php artisan cache:clear
     fi
 
     # Check if a cache data directory exists
@@ -760,11 +760,11 @@ projectRunArtisan() {
     # @link https://laravel.com/docs/5.7/deployment#optimizing-route-loading
     #php artisan route:cache
 
-    # Clear the cache
-    php artisan cache:clear >/dev/null 2>&1
+    # Clear the compiled scripts
+    php artisan clear-compiled >/dev/null 2>&1
 
     # Clear the cache
-    php artisan clear-compiled >/dev/null 2>&1
+    php artisan cache:clear >/dev/null 2>&1
 
     # Clear & generate the opcache
     php artisan opcache:clear >/dev/null 2>&1
