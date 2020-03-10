@@ -94,6 +94,7 @@ do
     # Check if the project exists
     if [[ ! -d "${project}" || ! -f "${project}/artisan" ]]
     then
+        dumpErrorLine "The project '${project}' does not exist"
         continue
     fi
 
