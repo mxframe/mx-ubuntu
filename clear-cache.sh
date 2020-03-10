@@ -106,27 +106,31 @@ do
     fi
 
     # Clear the cache
-    php ${path}/artisan cache:clear # >/dev/null 2>&1
     php ${path}/artisan clear-compiled # >/dev/null 2>&1
+    php ${path}/artisan cache:clear # >/dev/null 2>&1
 
     # Clear the opcache
     #php artisan opcache:clear >/dev/null 2>&1
 
     #  Iterate through the nodes
+    dumpInfoHeader "Clearing compiled scripts on"
     for node in "${!activeNodes[@]}"
     do
-        # Clear the cache data
-        dumpInfoHeader "Clearing cache on"
-        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${path}/artisan cache:clear" >/dev/null 2>&1)
+        # Clear the compiled data
+        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${path}/artisan clear-compiled" >/dev/null 2>&1)
         then
             dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
         else
             dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
         fi
+    done
 
-        # Clear the compiled data
-        dumpInfoHeader "Clearing compiled scripts on"
-        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${path}/artisan clear-compiled" >/dev/null 2>&1)
+    #  Iterate through the nodes
+    dumpInfoHeader "Clearing cache on"
+    for node in "${!activeNodes[@]}"
+    do
+        # Clear the cache data
+        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${path}/artisan cache:clear" >/dev/null 2>&1)
         then
             dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
         else
