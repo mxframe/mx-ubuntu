@@ -39,4 +39,4 @@ gitCredentials=''
 
 # The clear cache projects
 declare -g -A clearCacheProjects
-#clearCacheProjects['1']='/var/www/html/...'
+#clearCacheProjects['/var/www/html/...']

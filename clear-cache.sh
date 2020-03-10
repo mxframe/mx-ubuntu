@@ -103,8 +103,8 @@ do
     dumpInfoLine "Clearing cache of '${project}'"
 
     # Clear the cache
-    php ${project}/artisan cache:clear >/dev/null 2>&1
-    php ${project}/artisan clear-compiled >/dev/null 2>&1
+    php ${project}/artisan cache:clear # >/dev/null 2>&1
+    php ${project}/artisan clear-compiled # >/dev/null 2>&1
 
     # Clear the opcache
     #php artisan opcache:clear >/dev/null 2>&1
