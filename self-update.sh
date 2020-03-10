@@ -22,6 +22,7 @@ find ${pathBash} -type f -exec chmod 660 {} \; 2>/dev/null
 chmod 770 self-update.sh 2>/dev/null
 chmod 770 bashrc.sh 2>/dev/null
 chmod 770 checkout.sh 2>/dev/null
+chmod 770 clear-cache.sh 2>/dev/null
 chmod 770 fix-www.sh 2>/dev/null
 chmod 770 start.sh 2>/dev/null
 chmod 770 startup.sh 2>/dev/null
