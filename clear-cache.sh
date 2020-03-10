@@ -89,22 +89,26 @@ done
 # ================================================
 # Loop through the users
 # ================================================
+declare path=''
 dumpInfoHeader "Clearing the projects cache"
-for project in "${!clearCacheProjects[@]}"
+for name in "${!clearCacheProjects[@]}"
 do
+    # Define the project path
+    path="${clearCacheProjects[${name}]}"
+
     # Check if the project exists
-    if [[ ! -d "${project}" || ! -f "${project}/artisan" ]]
+    if [[ ! -d "${path}" || ! -f "${path}/artisan" ]]
     then
-        dumpErrorLine "The project '${project}' does not exist"
+        dumpErrorLine "The project '${name}' does not exist"
         continue
     fi
 
     # Dump the info
-    dumpInfoLine "Clearing cache of '${project}'"
+    dumpInfoLine "Clearing cache of '${name}'"
 
     # Clear the cache
-    php ${project}/artisan cache:clear # >/dev/null 2>&1
-    php ${project}/artisan clear-compiled # >/dev/null 2>&1
+    php ${path}/artisan cache:clear # >/dev/null 2>&1
+    php ${path}/artisan clear-compiled # >/dev/null 2>&1
 
     # Clear the opcache
     #php artisan opcache:clear >/dev/null 2>&1
@@ -113,7 +117,7 @@ do
     for node in "${!activeNodes[@]}"
     do
         # Clear the cache data
-        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${project}/artisan cache:clear" >/dev/null 2>&1)
+        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${path}/artisan cache:clear" >/dev/null 2>&1)
         then
             dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
         else
@@ -121,7 +125,7 @@ do
         fi
 
         # Clear the compiled data
-        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${project}/artisan clear-compiled" >/dev/null 2>&1)
+        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${path}/artisan clear-compiled" >/dev/null 2>&1)
         then
             dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
         else
