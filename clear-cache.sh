@@ -112,18 +112,18 @@ do
     # Clear the opcache
     #php artisan opcache:clear >/dev/null 2>&1
 
-#    #  Iterate through the nodes
-#    dumpInfoHeader "Clearing compiled scripts on"
-#    for node in "${!activeNodes[@]}"
-#    do
-#        # Clear the compiled data
-#        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${path}/artisan clear-compiled" >/dev/null 2>&1)
-#        then
-#            dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
-#        else
-#            dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
-#        fi
-#    done
+    #  Iterate through the nodes
+    dumpInfoHeader "Clearing compiled scripts on"
+    for node in "${!activeNodes[@]}"
+    do
+        # Clear the compiled data
+        if (ssh -t $(whoami)@${nodeServerIps[${node}]} "php ${path}/artisan clear-compiled" >/dev/null 2>&1)
+        then
+            dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BGre}done${RCol}"
+        else
+            dumpInfoLine "... Node ${node} [${nodeServerIps[${node}]}]: ${BRed}error${RCol}"
+        fi
+    done
 
     #  Iterate through the nodes
     dumpInfoHeader "Clearing cache on"
