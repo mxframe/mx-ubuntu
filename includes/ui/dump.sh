@@ -87,3 +87,13 @@ dumpInfoHeader() {
 dumpInfoLine() {
     echo -e " ${BBlu}>${RCol} $1" >&2
 }
+
+# ================================================
+# Dump an error line
+#
+# @usage
+# dumpErrorLine ${text}
+# ================================================
+dumpErrorLine() {
+    echo -e " ${BRed}> Error:${RCol} $1" >&2
+}

@@ -89,6 +89,7 @@ done
 # ================================================
 # Loop through the users
 # ================================================
+dumpInfoHeader "Clearing the projects cache"
 for project in "${!clearCacheProjects[@]}"
 do
     # Check if the project exists
