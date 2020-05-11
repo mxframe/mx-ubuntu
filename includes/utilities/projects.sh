@@ -711,8 +711,8 @@ projectComposerUpdate() {
         dumpInfoLine "... composer install"
 
         # Install
-        #composer install --optimize-autoloader --no-dev --no-interaction >/dev/null 2>&1
-        composer install --optimize-autoloader --no-dev --no-interaction
+        #composer install --optimize-autoloader --no-dev --no-interaction --prefer-source >/dev/null 2>&1
+        composer install --optimize-autoloader --no-dev --no-interaction --prefer-source
     else
         # Always update, because of local repos/paths
         # Dump the info line
