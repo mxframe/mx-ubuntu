@@ -705,15 +705,15 @@ projectComposerUpdate() {
 #    fi
 
     # Check for composer.lock
-#    if [[ -f "${path}/composer.lock" ]]
-#    then
-#        # Dump the info line
-#        dumpInfoLine "... composer install"
-#
-#        # Install
-#        #composer install --optimize-autoloader --no-dev --no-interaction >/dev/null 2>&1
-#        composer install --optimize-autoloader --no-dev --no-interaction
-#    else
+    if [[ -f "${path}/composer.lock" ]]
+    then
+        # Dump the info line
+        dumpInfoLine "... composer install"
+
+        # Install
+        #composer install --optimize-autoloader --no-dev --no-interaction >/dev/null 2>&1
+        composer install --optimize-autoloader --no-dev --no-interaction
+    else
         # Always update, because of local repos/paths
         # Dump the info line
         dumpInfoLine "... composer update"
@@ -721,7 +721,7 @@ projectComposerUpdate() {
         # Update
         #composer update --optimize-autoloader --no-dev --no-interaction >/dev/null 2>&1
         composer update --optimize-autoloader --no-dev --no-interaction
-#    fi
+    fi
 
     ## Clear the cache
     #php artisan cache:clear >/dev/null 2>&1
